@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+.slick-arrow{
+  display:none !important;
+}
+
+.slick-next{
+  display:none !important ; 
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;

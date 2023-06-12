@@ -1,39 +1,62 @@
-import Link from "next/link"
+"use client"
 
-import { siteConfig } from "@/config/site"
-import { buttonVariants } from "@/components/ui/button"
+import Slider, { Settings } from "react-slick"
+
+import "slick-carousel/slick/slick.css"
+import "slick-carousel/slick/slick-theme.css"
+import Image from "next/image"
+
+import Guide from "@/components/slot/Guide"
+import NewSlotMachines from "@/components/slot/NewSlotMachines"
+import News from "@/components/slot/News"
+import Poster from "@/components/slot/Poster"
+import RedPoster from "@/components/slot/RedPoster"
+import ThemeSection from "@/components/slot/ThemeSection"
 
 export default function IndexPage() {
+  const settings: Settings = {
+    dots: true,
+    fade: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 7000,
+    cssEase: "linear",
+  }
   return (
-    <section className="container grid items-center gap-6 pb-8 pt-6 md:py-10">
-      <div className="flex max-w-[980px] flex-col items-start gap-2">
-        <h1 className="text-3xl font-extrabold leading-tight tracking-tighter md:text-4xl">
-          Beautifully designed components <br className="hidden sm:inline" />
-          built with Radix UI and Tailwind CSS.
-        </h1>
-        <p className="max-w-[700px] text-lg text-muted-foreground">
-          Accessible and customizable components that you can copy and paste
-          into your apps. Free. Open Source. And Next.js 13 Ready.
-        </p>
+    <section className="-mt-1 pb-24">
+      <div className="w-screen bg-white">
+        <Slider {...settings}>
+          <div className="h-[80vh] w-screen bg-red-500">
+            <Image
+              alt="slider__image"
+              src={"/images/image1.jpg"}
+              className="h-full w-full object-cover object-center"
+              width={1000}
+              height={500}
+            />
+          </div>
+          <div className="h-[80vh] w-screen bg-red-500">
+            <Image
+              alt="slider__image"
+              src={"/images/image2.jpg"}
+              className="h-full w-full object-cover object-center"
+              width={1000}
+              height={500}
+            />
+          </div>
+        </Slider>
       </div>
-      <div className="flex gap-4">
-        <Link
-          href={siteConfig.links.docs}
-          target="_blank"
-          rel="noreferrer"
-          className={buttonVariants()}
-        >
-          Documentation
-        </Link>
-        <Link
-          target="_blank"
-          rel="noreferrer"
-          href={siteConfig.links.github}
-          className={buttonVariants({ variant: "outline" })}
-        >
-          GitHub
-        </Link>
-      </div>
+      <section className="bg-white py-16">
+        <NewSlotMachines />
+      </section>
+      <News />
+      <Poster />
+      <ThemeSection />
+      <RedPoster />
+      <Guide />
     </section>
   )
 }
