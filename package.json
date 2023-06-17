@@ -31,6 +31,7 @@
     "sanity": "^3.12.0",
     "sharp": "^0.31.3",
     "slick-carousel": "^1.8.1",
+    "styled-components": "^6.0.0-rc.3",
     "tailwind-merge": "^1.12.0",
     "tailwindcss-animate": "^1.0.5"
   },
