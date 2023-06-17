@@ -3,16 +3,16 @@ type Props = {}
 const FooterPage = (props: Props) => {
   return (
     <footer className="body-font bg-gray-900 ">
-      <div className="container py-12 mx-auto flex flex-col flex-wrap px-5  md:flex-row md:flex-nowrap md:items-center lg:items-start">
+      <div className="container mx-auto flex flex-col flex-wrap px-5 py-12  md:flex-row md:flex-nowrap md:items-center lg:items-start">
         <div className="mx-auto w-64 shrink-0 text-center md:mx-0 md:text-left">
           <a className="title-font flex items-center justify-center font-medium text-white md:justify-start">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
               className="h-10 w-10 rounded-full bg-red-500 p-2 text-white"
               viewBox="0 0 24 24"
             >

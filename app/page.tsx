@@ -4,10 +4,9 @@ import Slider, { Settings } from "react-slick"
 
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
-import { useEffect, useState } from "react"
 import Image from "next/image"
-import { client } from "@/sanity/lib/client"
 
+import useNewsPosts from "@/components/hooks/useNewsPosts"
 import Guide from "@/components/slot/Guide"
 import NewSlotMachines from "@/components/slot/NewSlotMachines"
 import News from "@/components/slot/News"
@@ -36,23 +35,6 @@ export default function IndexPage() {
     cssEase: "linear",
   }
 
-  const [posts, setPosts] = useState<SlotMachine[]>([])
-
-  useEffect(() => {
-    const fetchPosts = async () => {
-      try {
-        const query = `
-          *[_type == "post"]    
-        `
-        const result = await client.fetch(query)
-        setPosts(result)
-      } catch (error) {
-        console.error("Error fetching posts:", error)
-      }
-    }
-
-    fetchPosts()
-  }, [])
   return (
     <section className="-mt-1 pb-24">
       <div className="w-screen bg-white">
@@ -80,7 +62,7 @@ export default function IndexPage() {
       <section className="bg-white py-16">
         <NewSlotMachines />
       </section>
-      <News posts={posts} />
+      <News />
       <Poster />
       <ThemeSection />
       <RedPoster />

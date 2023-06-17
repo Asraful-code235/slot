@@ -1,0 +1,52 @@
+import { client } from "@/sanity/lib/client"
+import { useQuery } from "@tanstack/react-query"
+import { groq } from "next-sanity"
+
+interface NewsPost {
+  title: string
+  slug: {
+    current: string
+  }
+  excerpt: string
+  publishedAt: any
+  author: {
+    name: string
+  }
+  mainImage: {
+    alt: string
+    asset: {
+      url: string
+    }
+  }
+}
+
+const useNewsPosts = (): NewsPost[] | undefined => {
+  const { data: NewsPosts } = useQuery<NewsPost[]>({
+    queryKey: ["/me/news"],
+    queryFn: async () => {
+      const query = groq`
+        *[_type == "post"] {
+          title,
+          slug,
+          mainImage {
+            alt,
+            asset->{
+              url
+            }
+          },
+          excerpt,
+          publishedAt,
+          author->{_ref, name},
+   
+        }
+      `
+      const response = await client.fetch<NewsPost[]>(query)
+      return response
+    },
+    keepPreviousData: true,
+  })
+
+  return NewsPosts
+}
+
+export default useNewsPosts
