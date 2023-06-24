@@ -1,4 +1,5 @@
 import * as React from "react"
+import Image from "next/image"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 
@@ -14,10 +15,9 @@ export function MainNav({ items }: MainNavProps) {
   const pathname = usePathname()
   console.log(pathname)
   return (
-    <div className="flex w-full justify-between gap-6 text-white md:gap-10">
+    <div className="flex w-full justify-between gap-6 text-white md:gap-6">
       <Link href="/" className="flex items-center space-x-2">
-        <Icons.logo className="h-6 w-6" />
-        <span className="inline-block font-bold">{siteConfig.name}</span>
+        <Image src={"/images/logo1.png"} alt="logo" width={200} height={100} />
       </Link>
       {items?.length ? (
         <nav className="flex gap-6 max-[875px]:hidden">

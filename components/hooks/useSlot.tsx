@@ -7,7 +7,10 @@ const useSlot = () => {
     queryKey: ["/me/slot"],
     queryFn: async () => {
       const query = groq`
-        *[_type == "slot"]  | order(publishedAt desc) 
+        *[_type == "slot"]  | order(publishedAt desc) {
+          ...,
+          "category": categories[0]->{_id,title},
+        } 
       `
       const response = await client.fetch(query)
       return response

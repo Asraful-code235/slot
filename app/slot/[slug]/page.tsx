@@ -95,7 +95,7 @@ const BlogAndNewsDetailsPage = () => {
                   {slotDetails?.category.title}
                 </p>
                 <Link
-                  href={`/guide/${slotDetails.guide.slug.current}`}
+                  href={`/guide/${slotDetails?.guide?.slug.current}`}
                   className="relative z-10 rounded-md bg-red-500 px-4 py-1.5 font-medium text-white hover:bg-red-600"
                 >
                   Guide

@@ -79,7 +79,7 @@ const GuidePage = (props: Props) => {
               </div>
             ))}
 
-            <div className="mt-16">
+            <div className="mt-16 space-y-2">
               {guide?.slice(1).map((guide, key) => (
                 <div
                   // @ts-ignore

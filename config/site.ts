@@ -9,10 +9,10 @@ export const siteConfig = {
       title: "SLOT",
       href: "/slot",
     },
-    {
-      title: "SPORT",
-      href: "/sport",
-    },
+    // {
+    //   title: "SPORT",
+    //   href: "/sport",
+    // },
     {
       title: "CASINO",
       href: "/casino",

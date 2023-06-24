@@ -35,7 +35,7 @@ const BlogAndNewsPage = (props: Props) => {
           </ol>
         </nav>
       </section>
-      <section className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-4">
+      <section className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-4 gap-4">
         <div className="col-span-1 md:col-span-3">
           {guide?.slice(0, 1).map((guide) => (
             // @ts-ignore
@@ -68,7 +68,7 @@ const BlogAndNewsPage = (props: Props) => {
             </div>
           ))}
 
-          <div className="mt-16">
+          <div className="mt-16 space-y-2">
             {guide?.slice(1).map((guide, key) => (
               <div
                 // @ts-ignore
