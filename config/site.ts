@@ -7,7 +7,7 @@ export const siteConfig = {
   mainNav: [
     {
       title: "SLOT",
-      href: "/",
+      href: "/slot",
     },
     {
       title: "SPORT",
@@ -24,6 +24,10 @@ export const siteConfig = {
     {
       title: "POKER",
       href: "/poker",
+    },
+    {
+      title: "GUIDE",
+      href: "/guide",
     },
     {
       title: "BLOG AND NEWS",

@@ -2,7 +2,7 @@ import { client } from "@/sanity/lib/client"
 import { useQuery } from "@tanstack/react-query"
 import { groq } from "next-sanity"
 
-interface NewsPost {
+interface GuidePosts {
   title: string
   slug: {
     current: string
@@ -20,12 +20,13 @@ interface NewsPost {
   }
 }
 
-const useNewsPosts = (): NewsPost[] | undefined => {
-  const { data: BlogPosts } = useQuery<NewsPost[]>({
-    queryKey: ["/me/news"],
+const useGuidePosts = (): GuidePosts[] | undefined => {
+  const { data: GuidePosts } = useQuery<GuidePosts[]>({
+    queryKey: ["/me/guide"],
     queryFn: async () => {
       const query = groq`
-        *[_type == "post"] {
+        *[_type == "guide"]| order(publishedAt desc)  {
+          ...,
           title,
           slug,
           mainImage {
@@ -40,13 +41,13 @@ const useNewsPosts = (): NewsPost[] | undefined => {
    
         }
       `
-      const response = await client.fetch<NewsPost[]>(query)
+      const response = await client.fetch<GuidePosts[]>(query)
       return response
     },
     keepPreviousData: true,
   })
 
-  return BlogPosts
+  return GuidePosts
 }
 
-export default useNewsPosts
+export default useGuidePosts

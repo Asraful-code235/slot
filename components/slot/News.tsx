@@ -43,14 +43,17 @@ const News = () => {
           {newsPosts?.map((post, key: number) => (
             // Rest of the code
             <Carousel.Item key={key} className="relative p-4 ">
-              <Link href={`/blog-and-news/${post.slug.current}`} className="">
+              <Link
+                href={`/blog-and-news/${post.slug.current}`}
+                className="hover:scale-[1.02] transition-all duration-300"
+              >
                 <Image
                   // @ts-ignore
                   src={urlForImage(post?.mainImage).url()}
                   alt={post.title}
                   width={640}
                   height={300}
-                  className="aspect-square w-full rounded-md object-cover object-center"
+                  className="aspect-square w-full rounded-md object-cover object-center hover:opacity-75 hover:transition-opacity hover:duration-300"
                 />
                 <div className="mt-4 flex items-center gap-x-4 text-xs">
                   <time dateTime={post.publishedAt} className="text-gray-500">

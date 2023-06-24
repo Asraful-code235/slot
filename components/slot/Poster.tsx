@@ -1,4 +1,5 @@
 import Image from "next/image"
+import Link from "next/link"
 
 type Props = {}
 
@@ -25,7 +26,7 @@ const Poster = (props: Props) => {
             ab illo inventore!
           </p>
           <button className="text-white bg-red-500 mt-4 px-4 py-2 rounded-full">
-            PROVA ORA
+            <Link href={"/slot"}>PROVA ORA</Link>
           </button>
         </div>
       </div>

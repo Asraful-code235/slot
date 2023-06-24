@@ -4,23 +4,15 @@ import Slider, { Settings } from "react-slick"
 
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
+import { Metadata } from "next"
 import Image from "next/image"
 
-import useNewsPosts from "@/components/hooks/useNewsPosts"
 import Guide from "@/components/slot/Guide"
 import NewSlotMachines from "@/components/slot/NewSlotMachines"
 import News from "@/components/slot/News"
 import Poster from "@/components/slot/Poster"
 import RedPoster from "@/components/slot/RedPoster"
 import ThemeSection from "@/components/slot/ThemeSection"
-
-type SlotMachine = {
-  mainImage: any
-  image: string
-  title: string
-  slug: string
-  desc: string
-}
 
 export default function IndexPage() {
   const settings: Settings = {

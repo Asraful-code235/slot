@@ -9,33 +9,28 @@ import BlockContent from "@sanity/block-content-to-react"
 // @ts-ignore
 import { Helmet } from "react-helmet"
 
-import {
-  useGetNewsPostsWithId,
-  useGetRelatedPostsByCategory,
-} from "@/components/hooks/useGetNewsPostsWithId"
+import { useGetGuideWithPostId } from "@/components/hooks/useGetGuidesPostWithId"
 import { formatDate } from "@/components/utils/utils"
 
 type Props = {}
 
-const BlogAndNewsDetailsPage = () => {
+const GuideDetailsPage = () => {
   const { slug } = useParams()
-  const newsDetails = useGetNewsPostsWithId(slug)
-  const category = newsDetails?.category?._id
+  const newsDetails = useGetGuideWithPostId(slug)
+
   // @ts-ignore
-  const relatedPosts = useGetRelatedPostsByCategory(slug, category)
 
   if (!newsDetails) {
     return null
   }
 
-  console.log(relatedPosts)
   return (
     <>
       <Helmet>
-        <title>Slot | {newsDetails?.title}</title>
+        <title>Guide | {newsDetails?.title}</title>
         <meta name="description" content={`${newsDetails?.title}`} />
       </Helmet>
-      <section className=" mx-auto max-w-7xl px-8 pb-24">
+      <section className=" mx-auto max-w-4xl px-8 pb-24">
         <nav className="my-8 font-bold text-black" aria-label="Breadcrumb">
           <ol className="inline-flex list-none truncate p-0 text-xs md:text-base ">
             <li className="flex items-center">
@@ -49,7 +44,7 @@ const BlogAndNewsDetailsPage = () => {
               </svg>
             </li>
             <li className="flex items-center">
-              <Link href="/blog-and-news">BLOG AND NEWS</Link>
+              <Link href="/guide">GUIDE</Link>
               <svg
                 className="mx-3 h-3 w-3 fill-current"
                 xmlns="http://www.w3.org/2000/svg"
@@ -65,7 +60,7 @@ const BlogAndNewsDetailsPage = () => {
             </li>
           </ol>
         </nav>
-        <article className="grid grid-cols-1 gap-4 md:grid-cols-4">
+        <article className="max-w-4xl mx-auto text-justify ">
           <section className="col-span-4 flex flex-col gap-4 md:col-span-3 ">
             <article className="space-y-4 text-justify tracking-tight text-gray-600">
               <h1 className="line-clamp-2 whitespace-pre-wrap text-2xl font-bold md:text-3xl">
@@ -93,7 +88,7 @@ const BlogAndNewsDetailsPage = () => {
                   )}
                 </time>
                 <p className="relative z-10 rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100">
-                  {newsDetails?.category.title}
+                  {newsDetails?.category?.title}
                 </p>
               </div>
             </article>
@@ -106,59 +101,10 @@ const BlogAndNewsDetailsPage = () => {
           </section>
 
           {/* related */}
-          <section className="col-span-4 w-full md:col-span-1">
-            <h2 className="my-4 text-lg font-semibold text-gray-600 md:mt-2 ">
-              Related Posts
-            </h2>
-            {relatedPosts && (
-              <section className="flex w-full flex-col gap-4 p-0">
-                {relatedPosts.map((relatedPost) => (
-                  <article
-                    key={relatedPost.slug.current}
-                    className=" flex flex-col gap-4  w-full"
-                  >
-                    <Image
-                      src={
-                        // @ts-ignore
-                        urlForImage(relatedPost?.mainImage?.asset).url() ||
-                        "/images/image2.jpg"
-                      }
-                      width={400}
-                      height={250}
-                      className=" w--[280px] h-[200px] rounded-md  object-cover object-center"
-                      alt={
-                        relatedPost?.mainImage.alt || "blog-and-news-details"
-                      }
-                    />
-
-                    <div className=" flex flex-col items-start gap-x-4 text-xs">
-                      <div className="flex items-center gap-x-4 text-xs">
-                        <time
-                          dateTime={relatedPost.publishedAt}
-                          className="text-gray-500"
-                        >
-                          {formatDate(relatedPost.publishedAt)}
-                        </time>
-                        <p className="relative z-10 rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100">
-                          {relatedPost?.category.title}
-                        </p>
-                      </div>
-                      <Link
-                        href={`/blog-and-news/${relatedPost.slug.current}`}
-                        className="line-clamp-2 font-semibold leading-4 text-gray-900 group-hover:text-gray-600"
-                      >
-                        {relatedPost.title}
-                      </Link>
-                    </div>
-                  </article>
-                ))}
-              </section>
-            )}
-          </section>
         </article>
       </section>
     </>
   )
 }
 
-export default BlogAndNewsDetailsPage
+export default GuideDetailsPage

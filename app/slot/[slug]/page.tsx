@@ -10,30 +10,29 @@ import BlockContent from "@sanity/block-content-to-react"
 import { Helmet } from "react-helmet"
 
 import {
-  useGetNewsPostsWithId,
-  useGetRelatedPostsByCategory,
-} from "@/components/hooks/useGetNewsPostsWithId"
+  useGetRelatedSlotByCategory,
+  useGetSlotDetailsWithSlug,
+} from "@/components/hooks/useGetSlotDetails"
 import { formatDate } from "@/components/utils/utils"
 
 type Props = {}
 
 const BlogAndNewsDetailsPage = () => {
   const { slug } = useParams()
-  const newsDetails = useGetNewsPostsWithId(slug)
-  const category = newsDetails?.category?._id
+  const slotDetails = useGetSlotDetailsWithSlug(slug)
+  const category = slotDetails?.category?._id
   // @ts-ignore
-  const relatedPosts = useGetRelatedPostsByCategory(slug, category)
+  const relatedPosts = useGetRelatedSlotByCategory(slug, category)
 
-  if (!newsDetails) {
+  if (!slotDetails) {
     return null
   }
 
-  console.log(relatedPosts)
   return (
     <>
       <Helmet>
-        <title>Slot | {newsDetails?.title}</title>
-        <meta name="description" content={`${newsDetails?.title}`} />
+        <title>Slot | {slotDetails?.title}</title>
+        <meta name="description" content={`${slotDetails?.title}`} />
       </Helmet>
       <section className=" mx-auto max-w-7xl px-8 pb-24">
         <nav className="my-8 font-bold text-black" aria-label="Breadcrumb">
@@ -49,7 +48,7 @@ const BlogAndNewsDetailsPage = () => {
               </svg>
             </li>
             <li className="flex items-center">
-              <Link href="/blog-and-news">BLOG AND NEWS</Link>
+              <Link href="/slot">SLOT</Link>
               <svg
                 className="mx-3 h-3 w-3 fill-current"
                 xmlns="http://www.w3.org/2000/svg"
@@ -60,7 +59,7 @@ const BlogAndNewsDetailsPage = () => {
             </li>
             <li className="line-clamp-1 whitespace-pre-wrap">
               <p className="text-gray-500" aria-current="page">
-                {newsDetails?.title}
+                {slotDetails?.title}
               </p>
             </li>
           </ol>
@@ -69,36 +68,42 @@ const BlogAndNewsDetailsPage = () => {
           <section className="col-span-4 flex flex-col gap-4 md:col-span-3 ">
             <article className="space-y-4 text-justify tracking-tight text-gray-600">
               <h1 className="line-clamp-2 whitespace-pre-wrap text-2xl font-bold md:text-3xl">
-                {newsDetails?.title}
+                {slotDetails?.title}
               </h1>
-              <Image
-                src={
-                  // @ts-ignore
-                  urlForImage(newsDetails?.mainImage?.asset).url() ||
-                  "/images/image2.jpg"
-                }
-                width={700}
-                height={600}
-                className="aspect-video w-full rounded-md object-cover object-center"
-                alt={newsDetails?.mainImage.alt || "blog-and-news-details"}
-              />
+
+              <div className="w-full aspect-auto col-span-3">
+                <iframe
+                  className="w-full aspect-video"
+                  src={
+                    slotDetails.href ||
+                    "https://static-live.hacksawgaming.com/1160/1.24.0/index.html?language=it&amp;channel=desktop&amp;gameid=1160&amp;mode=2&amp;token=&amp;lobbyurl=https%3A%2F%2Fwww.hacksawgaming.com&amp;currency=EUR&amp;partner=demo&amp;env=https://rgs-demo.hacksawgaming.com/api"
+                  }
+                ></iframe>
+              </div>
+
               <div className="mt-4 flex items-center gap-x-4 text-xs">
                 <time
-                  dateTime={newsDetails?.publishedAt}
+                  dateTime={slotDetails?.publishedAt}
                   className="text-gray-500"
                 >
                   {formatDate(
                     // @ts-ignore
-                    newsDetails?.publishedAt
+                    slotDetails?.publishedAt
                   )}
                 </time>
                 <p className="relative z-10 rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100">
-                  {newsDetails?.category.title}
+                  {slotDetails?.category.title}
                 </p>
+                <Link
+                  href={`/guide/${slotDetails.guide.slug.current}`}
+                  className="relative z-10 rounded-md bg-red-500 px-4 py-1.5 font-medium text-white hover:bg-red-600"
+                >
+                  Guide
+                </Link>
               </div>
             </article>
             <BlockContent
-              blocks={newsDetails?.body}
+              blocks={slotDetails?.body}
               imageOptions={{ w: 320, h: 240, fit: "max" }}
               projectId={process.env.NEXT_PUBLIC_SANITY_PROJECT_ID}
               dataset={process.env.NEXT_PUBLIC_SANITY_DATASET}
@@ -107,15 +112,15 @@ const BlogAndNewsDetailsPage = () => {
 
           {/* related */}
           <section className="col-span-4 w-full md:col-span-1">
-            <h2 className="my-4 text-lg font-semibold text-gray-600 md:mt-2 ">
+            <h2 className="my-4 text-2xl font-bold text-gray-600 md:mt-2 ">
               Related Posts
             </h2>
             {relatedPosts && (
-              <section className="flex w-full flex-col gap-4 p-0">
-                {relatedPosts.map((relatedPost) => (
+              <section className="flex w-full items-center justify-center col-span-4  flex-col gap-4 p-0">
+                {relatedPosts.map((relatedPost: any) => (
                   <article
                     key={relatedPost.slug.current}
-                    className=" flex flex-col gap-4  w-full"
+                    className=" flex flex-col gap-4 w-fit rounded-md"
                   >
                     <Image
                       src={
@@ -125,7 +130,7 @@ const BlogAndNewsDetailsPage = () => {
                       }
                       width={400}
                       height={250}
-                      className=" w--[280px] h-[200px] rounded-md  object-cover object-center"
+                      className=" aspect-video rounded-md object-cover object-center "
                       alt={
                         relatedPost?.mainImage.alt || "blog-and-news-details"
                       }

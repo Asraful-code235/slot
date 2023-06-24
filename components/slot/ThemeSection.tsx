@@ -4,6 +4,7 @@ import Slider from "react-slick"
 
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
+import Image from "next/image"
 
 type Props = {}
 
@@ -115,7 +116,9 @@ const ThemeSection = (props: Props) => {
         <Slider {...settings} responsive={settings.responsive}>
           {slotMachines.map((slotMachine) => (
             <div key={slotMachine.slug} className=" p-4">
-              <img
+              <Image
+                width={400}
+                height={400}
                 src={"/images/image1.jpg"}
                 alt={slotMachine.title}
                 className="aspect-square w-full rounded-md object-cover object-center"
