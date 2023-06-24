@@ -30,11 +30,11 @@ export const siteConfig = {
       href: "/guide",
     },
     {
-      title: "BLOG AND NEWS",
+      title: "BLOG E NOTIZIE",
       href: "/blog-and-news",
     },
     {
-      title: "ABOUT US",
+      title: "CHI SIAMO",
       href: "/about-us",
     },
   ],
