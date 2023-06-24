@@ -7,12 +7,13 @@ export async function GET(request: Request) {
   const urls = await response.json()
 
   // @ts-ignore
-  const res = urls.map((url) => {
-    return {
-      loc: `https://slot-ndkk.vercel.app/${url.slug.current}`,
-      lastmod: new Date().toISOString(),
-    }
-  })
+  const res =
+    urls.map((url: any) => {
+      return {
+        loc: `https://slot-ndkk.vercel.app/${url.slug.current}`,
+        lastmod: new Date().toISOString(),
+      }
+    }) ?? []
 
   console.log(urls)
 
