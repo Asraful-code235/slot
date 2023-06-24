@@ -10,12 +10,6 @@ import { cn } from "@/lib/utils"
 import FooterPage from "@/components/Footer-component"
 import { SiteHeader } from "@/components/site-header"
 
-export const metadata: Metadata = {
-  title: "CobraSito - Sito di Casino",
-  description:
-    "Benvenuti al sito di casino CobraSito, dove puoi trovare una vasta selezione di slot machine e tanto divertimento. Scopri le nostre nuove slot, le ultime notizie del settore e tanto altro.",
-}
-
 interface RootLayoutProps {
   children: React.ReactNode
 }
