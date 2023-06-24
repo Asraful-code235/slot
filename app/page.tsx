@@ -45,7 +45,7 @@ export default function IndexPage() {
                 alt="slider__image"
                 src={"/images/image1.jpg"}
                 className="h-full w-full object-cover object-center"
-                width={1000}
+                width={600}
                 height={500}
               />
             </div>

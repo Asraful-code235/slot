@@ -3,7 +3,7 @@ import { getServerSideSitemap } from "next-sitemap"
 
 export async function GET(request: Request) {
   // Method to source urls from cms
-  const response = await fetch("http://localhost:3000/api/slots")
+  const response = await fetch("https://slot-ndkk.vercel.app/api/slots")
   const urls = await response.json()
 
   // @ts-ignore
