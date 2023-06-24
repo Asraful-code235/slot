@@ -1,6 +1,6 @@
 import { client } from "@/sanity/lib/client"
 import { useQuery } from "@tanstack/react-query"
-import { groq } from "next-sanity"
+
 
 interface NewsPost {
   title: string
@@ -24,7 +24,7 @@ const useNewsPosts = (): NewsPost[] | undefined => {
   const { data: BlogPosts } = useQuery<NewsPost[]>({
     queryKey: ["/me/news"],
     queryFn: async () => {
-      const query = groq`
+      const query = `
         *[_type == "post"] {
           title,
           slug,

@@ -1,6 +1,5 @@
 import { client } from "@/sanity/lib/client"
 import { useQuery } from "@tanstack/react-query"
-import { groq } from "next-sanity"
 
 interface GuidePost {
   title: string
@@ -30,7 +29,7 @@ const useGetGuideWithPostId = (slug: string): GuidePost | undefined => {
   const { data: guidePost } = useQuery<GuidePost>({
     queryKey: ["/me/guide", slug],
     queryFn: async () => {
-      const query = groq`
+      const query = `
         *[_type == "guide" && slug.current == $slug] {
           title,
           slug,

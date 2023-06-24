@@ -1,12 +1,12 @@
 import { client } from "@/sanity/lib/client"
 import { useQuery } from "@tanstack/react-query"
-import { groq } from "next-sanity"
+
 
 const useGetSlotDetailsWithSlug = (slug: string) => {
   const { data: slotDetails } = useQuery({
     queryKey: ["/me/blog-and-news", slug],
     queryFn: async () => {
-      const query = groq`
+      const query = `
         *[_type == "slot" && slug.current == $slug] {
           title,
           slug,
@@ -39,7 +39,7 @@ const useGetRelatedSlotByCategory = (slug: string, category: string) => {
   const { data: relatedSlot } = useQuery({
     queryKey: ["/me/blog-and-news/category", slug, category],
     queryFn: async () => {
-      const query = groq`
+      const query = `
         *[_type == "slot" && references($category) && slug.current != $slug] {
           title,
           slug,

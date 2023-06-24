@@ -1,6 +1,5 @@
 import { client } from "@/sanity/lib/client"
 import { useQuery } from "@tanstack/react-query"
-import { groq } from "next-sanity"
 
 interface GuidePosts {
   title: string
@@ -24,7 +23,7 @@ const useGuidePosts = (): GuidePosts[] | undefined => {
   const { data: GuidePosts } = useQuery<GuidePosts[]>({
     queryKey: ["/me/guide"],
     queryFn: async () => {
-      const query = groq`
+      const query = `
         *[_type == "guide"]| order(publishedAt desc)  {
           ...,
           title,

@@ -1,6 +1,6 @@
 import { client } from "@/sanity/lib/client"
 import { useQuery } from "@tanstack/react-query"
-import { groq } from "next-sanity"
+
 
 interface NewsPost {
   title: string
@@ -30,7 +30,7 @@ const useGetNewsPostsWithId = (slug: string): NewsPost | undefined => {
   const { data: newsPost } = useQuery<NewsPost>({
     queryKey: ["/me/blog-and-news", slug],
     queryFn: async () => {
-      const query = groq`
+      const query = `
         *[_type == "post" && slug.current == $slug] {
           title,
           slug,
@@ -64,7 +64,7 @@ const useGetRelatedPostsByCategory = (
   const { data: relatedPosts } = useQuery<NewsPost[]>({
     queryKey: ["/me/blog-and-news/category", slug, category],
     queryFn: async () => {
-      const query = groq`
+      const query = `
         *[_type == "post" && references($category) && slug.current != $slug] {
           title,
           slug,

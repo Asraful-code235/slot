@@ -1,12 +1,11 @@
 import { client } from "@/sanity/lib/client"
 import { useQuery } from "@tanstack/react-query"
-import { groq } from "next-sanity"
 
 const useSlot = () => {
   const { data: slot } = useQuery({
     queryKey: ["/me/slot"],
     queryFn: async () => {
-      const query = groq`
+      const query = `
         *[_type == "slot"]  | order(publishedAt desc) {
           ...,
           "category": categories[0]->{_id,title},
