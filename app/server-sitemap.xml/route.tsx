@@ -1,25 +1,32 @@
 // app/server-sitemap.xml/route.ts
+import { client } from "@/sanity/lib/client"
+import { groq } from "next-sanity"
 import { getServerSideSitemap } from "next-sitemap"
 
 export async function GET(request: Request) {
   try {
+    const query = groq`
+    *[_type == "slot"] | order(publishedAt desc) {
+      ...,
+      "category": categories[0]->{_id, title}
+    } 
+  `
+    const response = await client.fetch(query)
     // Method to source urls from cms
-    const response = await fetch(`/api/slots`)
+    // const response = await fetch(`https://slot-ndkk.vercel.app/api/slots`)
 
     if (!response.ok) {
-      throw new Error("Failed to fetch data from the API")
+      console.log(response)
     }
 
-    const data = await response.json()
-
-    const res = data.map((url: any) => {
+    const res = response.map((url: any) => {
       return {
-        loc: `https://slot-ndkk.vercel.app/${url.slug.current}`,
+        loc: `https://slot-ndkk.vercel.app/slot/${url.slug.current}`,
         lastmod: new Date().toISOString(),
       }
     })
 
-    console.log(data)
+    console.log(response)
 
     return getServerSideSitemap([
       {
