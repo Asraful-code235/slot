@@ -62,9 +62,10 @@ const NewSlotMachines = (props: Props) => {
   return (
     <div className="mx-auto  flex max-w-7xl flex-col items-center justify-center gap-8">
       <div className="space-y-2 text-center text-gray-600">
-        <h1 className="text-2xl font-bold md:text-3xl">New Slot Machines</h1>
+        <h1 className="text-2xl font-bold md:text-3xl">Nuove Slot Machine</h1>
         <p className="text-lg font-medium">
-          Last update: March 08, 2023,Click on the game preview to play
+          Ultimo aggiornamento: 8 marzo 2023, Clicca sulla anteprima del gioco
+          per giocare
         </p>
       </div>
       <div className="w-full">

@@ -1,3 +1,5 @@
+import Image from "next/image"
+
 type Props = {}
 
 const FooterPage = (props: Props) => {
@@ -6,62 +8,58 @@ const FooterPage = (props: Props) => {
       <div className="container mx-auto flex flex-col flex-wrap px-5 py-12  md:flex-row md:flex-nowrap md:items-center lg:items-start">
         <div className="mx-auto w-64 shrink-0 text-center md:mx-0 md:text-left">
           <a className="title-font flex items-center justify-center font-medium text-white md:justify-start">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              className="h-10 w-10 rounded-full bg-red-500 p-2 text-white"
-              viewBox="0 0 24 24"
-            >
-              <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
-            </svg>
+            <Image
+              src={"/images/logo1.png"}
+              alt="logo"
+              width={200}
+              height={120}
+            />
+            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+
             <span className="ml-3 text-xl text-white">Cobra</span>
           </a>
         </div>
         <div className="-mb-10 mt-10 flex grow flex-wrap text-center md:mt-0 md:pl-20 md:text-left">
           <div className="w-full px-4 md:w-1/2 lg:w-1/4">
             <h2 className="title-font mb-3 text-sm font-medium tracking-widest text-white">
-              Who we are
+              Chi siamo
             </h2>
             <nav className="mb-10 list-none">
               <li>
-                <a className="text-white">Contact</a>
+                <a className="text-white">Contatto</a>
               </li>
               <li>
-                <a className="text-white">Privacy Policy</a>
+                <a className="text-white">Informativa sulla privacy</a>
               </li>
               <li>
-                <a className="text-white">Ethical code</a>
+                <a className="text-white">Codice etico</a>
               </li>
               <li>
-                <a className="text-white">Affiliation</a>
+                <a className="text-white">Affiliazione</a>
               </li>
               <li>
-                <a className="text-white">Assistance</a>
+                <a className="text-white">Assistenza</a>
               </li>
               <li>
-                <a className="text-white">Sports terms</a>
+                <a className="text-white">Termini sportivi</a>
               </li>
               <li>
-                <a className="text-white">terms and conditions</a>
+                <a className="text-white">Termini e condizioni</a>
               </li>
               <li>
-                <a className="text-white">Responsible gaming</a>
+                <a className="text-white">Giochi responsabili</a>
               </li>
               <li>
-                <a className="text-white">Cookie settings</a>
+                <a className="text-white">Impostazioni dei cookie</a>
               </li>
               <li>
-                <a className="text-white">site map</a>
+                <a className="text-white">Mappa del sito</a>
               </li>
             </nav>
           </div>
           <div className="w-full px-4 md:w-1/2 lg:w-1/4">
             <h2 className="title-font mb-3 text-sm font-medium tracking-widest text-white">
-              Casino,Slots and Online Games
+              Casino, Slot e Giochi Online
             </h2>
             <nav className="mb-10 list-none">
               <li>
@@ -71,13 +69,13 @@ const FooterPage = (props: Props) => {
                 <a className="text-white">Slot Machine</a>
               </li>
               <li>
-                <a className="text-white">Online games</a>
+                <a className="text-white">Giochi Online</a>
               </li>
               <li>
-                <a className="text-white">Online Card Games</a>
+                <a className="text-white">Giochi di Carte Online</a>
               </li>
               <li>
-                <a className="text-white">Casino live online</a>
+                <a className="text-white">Casino Live Online</a>
               </li>
               <li>
                 <a className="text-white">Roulette Online Live</a>
@@ -95,20 +93,20 @@ const FooterPage = (props: Props) => {
           </div>
           <div className="w-full px-4 md:w-1/2 lg:w-1/4">
             <h2 className="title-font mb-3 text-sm font-medium tracking-widest text-white">
-              Not to be missed
+              Da non perdere
             </h2>
             <nav className="mb-10 list-none">
               <li>
-                <a className="text-white">Casino Bonus</a>
+                <a className="text-white">Bonus Casinò</a>
               </li>
               <li>
-                <a className="text-white">Download Client Poker</a>
+                <a className="text-white">Scarica il Client Poker</a>
               </li>
               <li>
-                <a className="text-white">Exclusive Games</a>
+                <a className="text-white">Giochi Esclusivi</a>
               </li>
               <li>
-                <a className="text-white">Slot con jackpot</a>
+                <a className="text-white">Slot con Jackpot</a>
               </li>
             </nav>
           </div>

@@ -62,11 +62,10 @@ const ThemeSection = (props: Props) => {
   return (
     <section className="mx-auto max-w-7xl space-y-6 bg-white py-16 pb-24">
       <div className="space-y-2 text-center text-gray-600">
-        <h1 className="text-2xl font-bold md:text-3xl">
-          Slots divided by theme
-        </h1>
+        <h1 className="text-2xl font-bold md:text-3xl">Slot divise per tema</h1>
         <p className="text-base font-normal">
-          Last updated: March 08, 2023. Click on the game preview to play
+          Ultimo aggiornamento: 8 marzo 2023. Clicca sulla anteprima del gioco
+          per giocare
         </p>
       </div>
       <div className="mx-auto w-fit">

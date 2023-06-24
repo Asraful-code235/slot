@@ -56,8 +56,8 @@ const News = () => {
   return (
     <div className="flex w-screen flex-col items-center justify-center gap-8 overflow-hidden bg-slate-100 py-16">
       <div className="space-y-2 text-center text-gray-600">
-        <h1 className="text-2xl font-bold md:text-3xl">News</h1>
-        <p className="text-lg font-medium">Latest News and events</p>
+        <h1 className="text-2xl font-bold md:text-3xl">Notizie</h1>
+        <p className="text-lg font-medium">Ultime notizie ed eventi</p>
       </div>
       <div className="max-w-5xl text-gray-600 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
         {newsPosts?.map((post, key: number) => (

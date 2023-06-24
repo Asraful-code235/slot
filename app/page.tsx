@@ -47,6 +47,7 @@ export default function IndexPage() {
                 className="h-full w-full object-cover object-center"
                 width={600}
                 height={500}
+                priority
               />
             </div>
             <div className="h-[80vh] w-screen bg-red-500">
@@ -56,6 +57,7 @@ export default function IndexPage() {
                 className="h-full w-full object-cover object-center"
                 width={1000}
                 height={500}
+                priority
               />
             </div>
           </Slider>
