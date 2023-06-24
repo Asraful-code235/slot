@@ -7,6 +7,7 @@ module.exports = {
   robotsTxtOptions: {
     additionalSitemaps: [
       "https://slot-ndkk.vercel.app/server-sitemap.xml", // <==== Add here
+      "https://localhost:3000/server-sitemap.xml", // <==== Add here
     ],
   }, // <= exclude here
 
