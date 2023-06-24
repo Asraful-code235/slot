@@ -15,8 +15,10 @@ import { formatDate } from "@/components/utils/utils"
 type Props = {}
 
 const GuideDetailsPage = () => {
-  const { slug } = useParams()
-  const newsDetails = useGetGuideWithPostId(slug)
+  const router = useParams()
+
+  const slug = router?.slug
+  const newsDetails = useGetGuideWithPostId(slug as string)
 
   // @ts-ignore
 

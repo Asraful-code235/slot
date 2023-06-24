@@ -18,11 +18,13 @@ import { formatDate } from "@/components/utils/utils"
 type Props = {}
 
 const BlogAndNewsDetailsPage = () => {
-  const { slug } = useParams()
-  const newsDetails = useGetNewsPostsWithId(slug)
+  const router = useParams()
+
+  const slug = router?.slug
+  const newsDetails = useGetNewsPostsWithId(slug as string)
   const category = newsDetails?.category?._id
   // @ts-ignore
-  const relatedPosts = useGetRelatedPostsByCategory(slug, category)
+  const relatedPosts = useGetRelatedPostsByCategory(slug as string, category)
 
   if (!newsDetails) {
     return null
