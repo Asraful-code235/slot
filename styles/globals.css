@@ -11,7 +11,7 @@
   border-radius: 50%  !important;
   /* background-color: gray !important; */
 }
-.slick-prev:before{
+/* .slick-prev:before{
  color: gray  !important;
  width: 20px  !important;
  height: 20px  !important;
@@ -20,8 +20,24 @@
  color: gray  !important;
  width: 20px  !important;
  height: 20px  !important;
-}
-/* .slick-next{
-  display:none !important ; 
 } */
+.slick-next{
+  display:none !important ; 
+}
+.mantine-Carousel-control{
+  background-color: black !important;
 
+}
+
+ .mantine-Carousel-control > svg{
+  color:white !important;
+  font-weight: 700 !important;
+  width: 20px !important;
+  height: 20px !important;
+
+
+}
+
+.mantine-Carousel-indicators button{
+  background-color: white !important;
+}
