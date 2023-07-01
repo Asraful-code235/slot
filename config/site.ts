@@ -17,10 +17,10 @@ export const siteConfig = {
       title: "CASINO",
       href: "/casino",
     },
-    {
-      title: "LIVE STATISTICS",
-      href: "/live-statistics",
-    },
+    // {
+    //   title: "LIVE STATISTICS",
+    //   href: "/live-statistics",
+    // },
     {
       title: "POKER",
       href: "/poker",

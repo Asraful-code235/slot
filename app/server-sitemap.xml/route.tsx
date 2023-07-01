@@ -47,32 +47,32 @@ export async function GET(request: Request) {
         // changefreq
         // priority
       },
+      // {
+      //   loc: "https://slot-ndkk.vercel.app/live-statistics",
+      //   lastmod: new Date().toISOString(),
+      //   // changefreq
+      //   // priority
+      // },
       {
-        loc: "https://slot-ndkk.vercel.app/live-statistics",
+        loc: "https://slot-ndkk.vercel.app/poker",
         lastmod: new Date().toISOString(),
         // changefreq
         // priority
       },
       {
-        loc: "https://slot-ndkk.vercel.app/slot/poker",
+        loc: "https://slot-ndkk.vercel.app/guide",
         lastmod: new Date().toISOString(),
         // changefreq
         // priority
       },
       {
-        loc: "https://slot-ndkk.vercel.app/slot/guide",
+        loc: "https://slot-ndkk.vercel.app/blog-and-news",
         lastmod: new Date().toISOString(),
         // changefreq
         // priority
       },
       {
-        loc: "https://slot-ndkk.vercel.app/slot/blog-and-news",
-        lastmod: new Date().toISOString(),
-        // changefreq
-        // priority
-      },
-      {
-        loc: "https://slot-ndkk.vercel.app/slot/about-us",
+        loc: "https://slot-ndkk.vercel.app/about-us",
         lastmod: new Date().toISOString(),
         // changefreq
         // priority

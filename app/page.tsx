@@ -26,6 +26,7 @@ export default function IndexPage() {
     autoplay: true,
     autoplaySpeed: 7000,
     cssEase: "linear",
+    arrows: true,
   }
 
   return (
