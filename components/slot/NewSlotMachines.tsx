@@ -62,10 +62,10 @@ const NewSlotMachines = (props: Props) => {
   return (
     <div className="mx-auto  flex max-w-7xl flex-col items-center justify-center gap-8">
       <div className="space-y-2 text-center text-gray-600">
-        <h1 className="text-2xl font-bold md:text-3xl">Nuove Slot Machine</h1>
-        <p className="text-lg font-medium">
-          Ultimo aggiornamento: 8 marzo 2023
-        </p>
+        <h1 className="text-2xl font-bold md:text-3xl">
+          Le Migliori Slot del momento
+        </h1>
+        <p className="text-lg font-medium">slot della settimana</p>
       </div>
       <div className="w-full">
         <Slider {...settings} responsive={settings.responsive}>

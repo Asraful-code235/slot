@@ -56,7 +56,7 @@ const News = () => {
   return (
     <div className="flex w-screen flex-col items-center justify-center gap-8 overflow-hidden bg-slate-100 py-16">
       <div className="space-y-2 text-center text-gray-600">
-        <h1 className="text-2xl font-bold md:text-3xl">Notizie</h1>
+        <h1 className="text-2xl font-bold md:text-3xl">Le Nuove uscite</h1>
         <p className="text-lg font-medium">Ultime notizie ed eventi</p>
       </div>
       <div className="max-w-5xl text-gray-600 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
@@ -73,7 +73,7 @@ const News = () => {
                 alt={post.title}
                 width={640}
                 height={300}
-                className="aspect-square w-full rounded-md object-cover object-center hover:opacity-75 hover:transition-opacity hover:duration-300"
+                className="aspect-video w-full rounded-md object-cover object-center hover:opacity-75 hover:transition-opacity hover:duration-300"
               />
               <div className="mt-4 flex items-center gap-x-4 text-xs">
                 <time dateTime={post.publishedAt} className="text-gray-500">

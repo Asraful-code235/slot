@@ -80,10 +80,8 @@ const ThemeSection = (props: Props) => {
   return (
     <section className="mx-auto max-w-7xl space-y-6 bg-white py-16 pb-24">
       <div className="space-y-2 text-center text-gray-600">
-        <h1 className="text-2xl font-bold md:text-3xl">Slot divise per tema</h1>
-        <p className="text-base font-normal">
-          Ultimo aggiornamento: 8 marzo 2023
-        </p>
+        <h1 className="text-2xl font-bold md:text-3xl">slot divise per tema</h1>
+        <p className="text-base font-normal">slot della settimana</p>
       </div>
       <div className="mx-auto w-fit">
         <div className="flex items-center gap-2 divide-x divide-gray-200 rounded-full border border-gray-200 px-4 py-2">

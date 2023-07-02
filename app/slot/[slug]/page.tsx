@@ -1,8 +1,11 @@
 "use client"
 
+import { useState } from "react"
+import { Metadata } from "next"
 import Image from "next/image"
 import Link from "next/link"
 import { useParams } from "next/navigation"
+import { client } from "@/sanity/lib/client"
 import { urlForImage } from "@/sanity/lib/image"
 // @ts-ignore
 import BlockContent from "@sanity/block-content-to-react"
@@ -15,11 +18,33 @@ import {
 } from "@/components/hooks/useGetSlotDetails"
 import { formatDate } from "@/components/utils/utils"
 
-type Props = {}
+import getSlotDetails from "../../../lib/getSlotDetails"
+
+interface Props {
+  params: {
+    slug: string
+  }
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const slug = params?.slug
+  const slot = await getSlotDetails(slug)
+
+  console.log(slot)
+
+  return {
+    title: slot.title,
+    description: slot.excerpt,
+  }
+}
 
 const BlogAndNewsDetailsPage = () => {
   const router = useParams()
+  const [iframeLoaded, setIframeLoaded] = useState(false)
 
+  const handleIframeLoad = () => {
+    setIframeLoaded(true)
+  }
   const slug = router?.slug
   const slotDetails = useGetSlotDetailsWithSlug(slug as string)
   const category = slotDetails?.category?._id
@@ -30,12 +55,13 @@ const BlogAndNewsDetailsPage = () => {
     return null
   }
 
+  // console.log(slotDetails)
   return (
     <>
-      <Helmet>
+      {/* <Helmet>
         <title>Slot | {slotDetails?.title}</title>
         <meta name="description" content={`${slotDetails?.title}`} />
-      </Helmet>
+      </Helmet> */}
       <section className=" mx-auto max-w-7xl px-8 pb-24">
         <nav className="my-8 font-bold text-black" aria-label="Breadcrumb">
           <ol className="inline-flex list-none truncate p-0 text-xs md:text-base ">
@@ -66,21 +92,46 @@ const BlogAndNewsDetailsPage = () => {
             </li>
           </ol>
         </nav>
-        <article className="grid grid-cols-1 gap-4 md:grid-cols-4">
-          <section className="col-span-4 flex flex-col gap-4 md:col-span-3 ">
+        <article className="grid grid-cols-1 gap-4 lg:grid-cols-4">
+          <section className="col-span-4 flex flex-col gap-4 lg:col-span-3 ">
             <article className="space-y-4 text-justify tracking-tight text-gray-600">
               <h1 className="line-clamp-2 whitespace-pre-wrap text-2xl font-bold md:text-3xl">
                 {slotDetails?.title}
               </h1>
 
-              <div className="w-full aspect-auto col-span-3">
-                <iframe
-                  className="w-full aspect-video"
-                  src={
-                    slotDetails.href ||
-                    "https://static-live.hacksawgaming.com/1160/1.24.0/index.html?language=it&amp;channel=desktop&amp;gameid=1160&amp;mode=2&amp;token=&amp;lobbyurl=https%3A%2F%2Fwww.hacksawgaming.com&amp;currency=EUR&amp;partner=demo&amp;env=https://rgs-demo.hacksawgaming.com/api"
-                  }
-                ></iframe>
+              <div className="col-span-3 aspect-auto w-full">
+                {!iframeLoaded && (
+                  <div className="overlay-button aspect-video w-full bg-gray-600 bg-opacity-75">
+                    <div className="relative">
+                      <Image
+                        src={urlForImage(slotDetails?.mainImage?.asset).url()}
+                        alt={slotDetails.title}
+                        width={300}
+                        height={400}
+                        className="w-full  object-cover object-center rounded-md  aspect-video"
+                      />
+
+                      <div className="overlay-button flex items-center justify-center aspect-video w-full  absolute inset-0 backdrop-blur-sm bg-gray-800 bg-opacity-50">
+                        <button
+                          className="px-8 py-4  rounded-md bg-red-500 text-white animate-pulse"
+                          onClick={handleIframeLoad}
+                        >
+                          Clicca Qui per giocare Gratis
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                )}
+                {iframeLoaded && (
+                  <iframe
+                    className="aspect-video w-full"
+                    src={
+                      slotDetails.href ||
+                      "https://static-live.hacksawgaming.com/1160/1.24.0/index.html?language=it&amp;channel=desktop&amp;gameid=1160&amp;mode=2&amp;token=&amp;lobbyurl=https%3A%2F%2Fwww.hacksawgaming.com&amp;currency=EUR&amp;partner=demo&amp;env=https://rgs-demo.hacksawgaming.com/api"
+                    }
+                    onLoad={handleIframeLoad}
+                  ></iframe>
+                )}
               </div>
 
               <div className="mt-4 flex items-center gap-x-4 text-xs">
@@ -113,16 +164,16 @@ const BlogAndNewsDetailsPage = () => {
           </section>
 
           {/* related */}
-          <section className="col-span-4 w-full md:col-span-1">
+          <section className="col-span-4 w-full lg:col-span-1">
             <h2 className="my-4 text-2xl font-bold text-gray-600 md:mt-2 ">
               Related Posts
             </h2>
             {relatedPosts && (
-              <section className="flex w-full items-center justify-center col-span-4  flex-col gap-4 p-0">
+              <section className="col-span-4 flex w-full flex-col items-center  justify-center gap-4 p-0">
                 {relatedPosts.map((relatedPost: any) => (
                   <article
                     key={relatedPost.slug.current}
-                    className=" flex flex-col gap-4 w-fit rounded-md"
+                    className=" flex w-fit flex-col gap-4 rounded-md"
                   >
                     <Image
                       src={

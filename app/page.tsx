@@ -19,7 +19,7 @@ const items = [
     img: "/images/image2.jpg",
   },
   {
-    img: "/images/image1.jpg",
+    img: "/images/image1.png",
   },
 ]
 
@@ -34,16 +34,16 @@ export default function IndexPage() {
         />
       </Helmet>
       <section className="w-screen mx-auto">
-        <div className=" w-[100vw] mx-auto  ">
-          <Carousel autoPlay infiniteLoop interval={5000} className="">
+        <div className=" w-[100vw] mx-auto   ">
+          <Carousel autoPlay infiniteLoop interval={5000} className=" w-full ">
             {items.map((item) => (
               <div key={item.img}>
                 <Image
                   alt="slider__image"
                   src={item.img}
-                  className=" w-full  object-cover object-center aspect-video md:aspect-[16/5]"
-                  width={800}
-                  height={600}
+                  className=" w-full  object-cover h-full aspect-video md:aspect-[16/6]"
+                  width={1000}
+                  height={800}
                   priority
                 />
               </div>
