@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import React, { useState } from "react"
 import { Metadata } from "next"
 import Image from "next/image"
 import Link from "next/link"
@@ -26,18 +26,6 @@ interface Props {
   }
 }
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const slug = params?.slug
-  const slot = await getSlotDetails(slug)
-
-  console.log(slot)
-
-  return {
-    title: slot.title,
-    description: slot.excerpt,
-  }
-}
-
 const BlogAndNewsDetailsPage = () => {
   const router = useParams()
   const [iframeLoaded, setIframeLoaded] = useState(false)
@@ -55,13 +43,48 @@ const BlogAndNewsDetailsPage = () => {
     return null
   }
 
-  // console.log(slotDetails)
+  const BlockRenderer = (props: any) => {
+    const { style = "normal", listItem, _type } = props.node
+
+    if (style === "blockquote") {
+      return <blockquote>- {props.children}</blockquote>
+    }
+    if (style === "h1") {
+      return (
+        <h2 style={{ color: "red", fontWeight: 800, fontSize: "20px" }}>
+          {props.children}
+        </h2>
+      )
+    }
+    if (style === "h2") {
+      return (
+        <h2 style={{ color: "red", fontWeight: 700, fontSize: "18px" }}>
+          {props.children}
+        </h2>
+      )
+    }
+
+    if (listItem == "bullet") {
+      return <p style={{ color: "red", display: "none" }}>{props.children}</p>
+    }
+
+    if (_type == "span") {
+      return <span style={{ color: "red" }}>{props.children}</span>
+    }
+
+    // Fall back to default handling
+    return BlockContent.defaultSerializers.types.block(props)
+  }
   return (
     <>
-      {/* <Helmet>
+      <Helmet>
         <title>Slot | {slotDetails?.title}</title>
         <meta name="description" content={`${slotDetails?.title}`} />
-      </Helmet> */}
+        <link
+          rel="canonical"
+          href={`https://slot-ndkk.vercel.app/slot/${slotDetails?.slug.current}`}
+        />
+      </Helmet>
       <section className=" mx-auto max-w-7xl px-8 pb-24">
         <nav className="my-8 font-bold text-black" aria-label="Breadcrumb">
           <ol className="inline-flex list-none truncate p-0 text-xs md:text-base ">
@@ -156,8 +179,9 @@ const BlogAndNewsDetailsPage = () => {
               </div>
             </article>
             <BlockContent
+              serializers={{ types: { block: BlockRenderer } }}
               blocks={slotDetails?.body}
-              imageOptions={{ w: 320, h: 240, fit: "max" }}
+              imageOptions={{ w: 1000, h: 600 }}
               projectId={process.env.NEXT_PUBLIC_SANITY_PROJECT_ID}
               dataset={process.env.NEXT_PUBLIC_SANITY_DATASET}
             />
@@ -171,7 +195,8 @@ const BlogAndNewsDetailsPage = () => {
             {relatedPosts && (
               <section className="col-span-4 flex w-full flex-col items-center  justify-center gap-4 p-0">
                 {relatedPosts.map((relatedPost: any) => (
-                  <article
+                  <Link
+                    href={`/slot/${relatedPost.slug.current}`}
                     key={relatedPost.slug.current}
                     className=" flex w-fit flex-col gap-4 rounded-md"
                   >
@@ -201,14 +226,11 @@ const BlogAndNewsDetailsPage = () => {
                           {relatedPost?.category.title}
                         </p>
                       </div>
-                      <Link
-                        href={`/blog-and-news/${relatedPost.slug.current}`}
-                        className="line-clamp-2 font-semibold leading-4 text-gray-900 group-hover:text-gray-600"
-                      >
+                      <p className="line-clamp-2 font-semibold leading-4 text-gray-900 group-hover:text-gray-600">
                         {relatedPost.title}
-                      </Link>
+                      </p>
                     </div>
-                  </article>
+                  </Link>
                 ))}
               </section>
             )}

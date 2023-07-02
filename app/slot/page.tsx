@@ -39,7 +39,9 @@ const SlotPage = (props: Props) => {
     setShowAllCards(true)
   }
 
-  const visibleSlots = showAllCards ? filteredSlots : filteredSlots?.slice(0, 6)
+  const visibleSlots = showAllCards
+    ? filteredSlots
+    : filteredSlots?.slice(0, 10)
 
   const categories = Array.from(
     new Set(AllSlot?.map((slot: any) => slot?.category[0].title))

@@ -115,7 +115,8 @@ const BlogAndNewsDetailsPage = () => {
             {relatedPosts && (
               <section className="flex w-full flex-col gap-4 p-0">
                 {relatedPosts.map((relatedPost) => (
-                  <article
+                  <Link
+                    href={`/blog-and-news/${relatedPost.slug.current}`}
                     key={relatedPost.slug.current}
                     className=" flex flex-col gap-4  w-full"
                   >
@@ -133,7 +134,7 @@ const BlogAndNewsDetailsPage = () => {
                       }
                     />
 
-                    <div className=" flex flex-col items-start gap-x-4 text-xs">
+                    <article className=" flex flex-col items-start gap-x-4 text-xs">
                       <div className="flex items-center gap-x-4 text-xs">
                         <time
                           dateTime={relatedPost.publishedAt}
@@ -145,14 +146,11 @@ const BlogAndNewsDetailsPage = () => {
                           {relatedPost?.category.title}
                         </p>
                       </div>
-                      <Link
-                        href={`/blog-and-news/${relatedPost.slug.current}`}
-                        className="line-clamp-2 font-semibold leading-4 text-gray-900 group-hover:text-gray-600"
-                      >
+                      <p className="line-clamp-2 font-semibold leading-4 text-gray-900 group-hover:text-gray-600">
                         {relatedPost.title}
-                      </Link>
-                    </div>
-                  </article>
+                      </p>
+                    </article>
+                  </Link>
                 ))}
               </section>
             )}

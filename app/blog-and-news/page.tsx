@@ -37,10 +37,14 @@ const BlogAndNewsPage = (props: Props) => {
       </section>
       <section className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-4 gap-4">
         <div className="col-span-1 md:col-span-3">
-          {guide?.slice(0, 1).map((guide) => (
+          {guide?.slice(0, 1).map((guide, key) => (
             // @ts-ignore
 
-            <div key={guide.slug} className="space-y-4">
+            <Link
+              href={`/blog-and-news/${guide.slug.current}`}
+              key={key}
+              className="space-y-4"
+            >
               <Image
                 width={1000}
                 height={250}
@@ -49,28 +53,23 @@ const BlogAndNewsPage = (props: Props) => {
                 alt={guide.title}
                 className="mb-4 aspect-video rounded-md object-cover object-center hover:opacity-70 hover:transition-opacity hover:duration-300"
               />
-              <Link
-                href={`/blog-and-news/${guide.slug.current}`}
-                className=" text-xl font-bold text-red-500"
-              >
-                {guide.title}
-              </Link>
+              <p className=" text-xl font-bold text-red-500">{guide.title}</p>
               <p className="text-left font-medium text-gray-600">
                 {guide.excerpt}{" "}
-                <Link
-                  href={`/blog-and-news/${guide.slug.current}`}
+                <p
                   className="font-bold text-sky-500
                 "
                 >
                   see more
-                </Link>
+                </p>
               </p>
-            </div>
+            </Link>
           ))}
 
           <div className="mt-16 space-y-2">
             {guide?.slice(1).map((guide, key) => (
-              <div
+              <Link
+                href={`/blog-and-news/${guide.slug.current}`}
                 // @ts-ignore
                 key={guide.slug + key}
                 className="flex items-start gap-4 space-y-4"
@@ -84,24 +83,20 @@ const BlogAndNewsPage = (props: Props) => {
                   className="h-[300px] w-[340px] max-w-[350px] flex-1 rounded-md object-cover object-center hover:opacity-70 hover:transition-opacity hover:duration-300"
                 />
                 <div className="flex flex-col gap-4">
-                  <Link
-                    href={`/blog-and-news/${guide.slug.current}`}
-                    className="text-xl font-bold text-red-500"
-                  >
+                  <p className="text-xl font-bold text-red-500">
                     {guide.title}
-                  </Link>
+                  </p>
                   <p className="line-clamp-3 text-left font-medium text-gray-600">
                     {guide.excerpt}{" "}
                   </p>
-                  <Link
-                    href={`/blog-and-news/${guide.slug.current}`}
+                  <p
                     className="-mt-2 font-bold text-sky-500
                 "
                   >
                     see more
-                  </Link>
+                  </p>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </div>

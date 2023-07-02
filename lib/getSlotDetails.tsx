@@ -6,7 +6,7 @@ const getSlotDetails = async (slug: string) => {
         title,
         slug,
        
-        excerpt,
+        excerpt, 
       }[0]
     `
 

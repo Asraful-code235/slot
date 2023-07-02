@@ -54,6 +54,12 @@ export default defineType({
       of: [{ type: "reference", to: { type: "category" } }],
     }),
     defineField({
+      name: "Cards",
+      title: "Cards",
+      type: "array",
+      of: [{ type: "reference", to: { type: "slotCard" } }],
+    }),
+    defineField({
       name: "publishedAt",
       title: "Published at",
       type: "datetime",
