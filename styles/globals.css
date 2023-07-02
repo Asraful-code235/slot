@@ -24,20 +24,9 @@
 .slick-next{
   display:none !important ; 
 }
-.mantine-Carousel-control{
-  background-color: black !important;
 
+.control-arrow >button {
+background-color: white !important;
+/* color: white !important; */
 }
 
- .mantine-Carousel-control > svg{
-  color:white !important;
-  font-weight: 700 !important;
-  width: 20px !important;
-  height: 20px !important;
-
-
-}
-
-.mantine-Carousel-indicators button{
-  background-color: white !important;
-}
