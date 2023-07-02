@@ -33,14 +33,9 @@ export default function IndexPage() {
           content="Esplora una vasta selezione di slot online su cobra sito. Goditi l'emozione dei giochi di slot con grafica coinvolgente, funzioni speciali e la possibilità di vincere premi fantastici. Registrati ora per un'esperienza di gioco indimenticabile!"
         />
       </Helmet>
-      <section className=" -mt-2">
-        <div className="   ">
-          <Carousel
-            autoPlay
-            infiniteLoop
-            interval={5000}
-            // className=" w-screen mx-auto "
-          >
+      <section className="w-screen mx-auto">
+        <div className=" w-[100vw] mx-auto  ">
+          <Carousel autoPlay infiniteLoop interval={5000} className="">
             {items.map((item) => (
               <div key={item.img}>
                 <Image

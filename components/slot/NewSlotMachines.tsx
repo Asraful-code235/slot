@@ -64,8 +64,7 @@ const NewSlotMachines = (props: Props) => {
       <div className="space-y-2 text-center text-gray-600">
         <h1 className="text-2xl font-bold md:text-3xl">Nuove Slot Machine</h1>
         <p className="text-lg font-medium">
-          Ultimo aggiornamento: 8 marzo 2023, Clicca sulla anteprima del gioco
-          per giocare
+          Ultimo aggiornamento: 8 marzo 2023
         </p>
       </div>
       <div className="w-full">
@@ -83,8 +82,8 @@ const NewSlotMachines = (props: Props) => {
                 alt={slot.title}
                 className="aspect-square w-full rounded-md object-cover object-center"
               />
-              <div className="p-2 text-left text-lg font-medium text-gray-600 line-clamp-2">
-                <h3>{slot.title}</h3>
+              <div className="p-2 text-left text-lg font-medium text-gray-600 ">
+                <h3 className="line-clamp-1 ">{slot.title}</h3>
               </div>
             </Link>
           ))}

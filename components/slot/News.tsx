@@ -84,10 +84,10 @@ const News = () => {
                 </p>
               </div>
               <div className="space-y-2  text-base font-medium text-gray-600">
-                <h3 className="mt-3 line-clamp-1 text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-600 ">
+                <h3 className="mt-3 line-clamp-1 text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-600  ">
                   {post.title}
                 </h3>
-                <div className="line-clamp-2 text-sm leading-6 text-gray-600 md:line-clamp-3">
+                <div className="line-clamp-2 text-sm leading-6 text-gray-600 md:line-clamp-3 ">
                   {post.excerpt}
                 </div>
               </div>

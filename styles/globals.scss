@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+
+body{
+  overflow-x: hidden !important;
+}
 .slick-arrow{
   /* display:none !important; */
   width: 20px  !important;
@@ -11,22 +15,54 @@
   border-radius: 50%  !important;
   /* background-color: gray !important; */
 }
-/* .slick-prev:before{
+.slick-prev:before{
  color: gray  !important;
  width: 20px  !important;
  height: 20px  !important;
+
+ @media screen and (max-width:648px) {
+  display: none !important;
+  
+ }
 }
 .slick-next:before{
  color: gray  !important;
  width: 20px  !important;
  height: 20px  !important;
-} */
-.slick-next{
-  display:none !important ; 
+
+ @media screen and (max-width:648px) {
+  display: none !important;
+  
+ }
 }
+/* .slick-next{
+  display:none !important ; 
+} */
 
 .control-arrow >button {
 background-color: white !important;
 /* color: white !important; */
+}
+
+
+
+.control-prev {
+width: 40px !important;
+>button{
+  width: 20px !important;
+  height: 20px !important;
+}
+}
+.control-next {
+width: 40px !important;
+>button{
+  width: 20px !important;
+  height: 20px !important;
+}
+}
+
+
+::-webkit-scrollbar {
+  width: 4px !important;
 }
 
