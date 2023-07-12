@@ -11,6 +11,7 @@ const PokerPage = (props: Props) => {
       <Helmet>
         <title>Poker</title>
         <meta name="description" content="Get to know poker" />
+        <link rel="canonical" href={`https://slot-ndkk.vercel.app/poker`} />
       </Helmet>
       <section className="mx-auto max-w-7xl">
         <Image

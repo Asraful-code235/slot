@@ -1,7 +1,6 @@
 import { client } from "@/sanity/lib/client"
 import { useQuery } from "@tanstack/react-query"
 
-
 const useGetSlotDetailsWithSlug = (slug: string) => {
   const { data: slotDetails } = useQuery({
     queryKey: ["/me/blog-and-news", slug],
@@ -17,6 +16,7 @@ const useGetSlotDetailsWithSlug = (slug: string) => {
               _type
             }
           },
+          rating,
           href,
           excerpt,
           publishedAt,
@@ -51,6 +51,7 @@ const useGetRelatedSlotByCategory = (slug: string, category: string) => {
             }
           },
           excerpt,
+          rating,
           "category": categories[0]->{_id,title},
           publishedAt,
           author->{_ref, name},

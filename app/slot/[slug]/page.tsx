@@ -7,6 +7,7 @@ import Link from "next/link"
 import { useParams } from "next/navigation"
 import { client } from "@/sanity/lib/client"
 import { urlForImage } from "@/sanity/lib/image"
+import { StarIcon } from "@heroicons/react/24/solid"
 // @ts-ignore
 import BlockContent from "@sanity/block-content-to-react"
 // @ts-ignore
@@ -77,7 +78,7 @@ const BlogAndNewsDetailsPage = () => {
   }
   return (
     <>
-      <Helmet>
+      <Helmet htmlAttributes={{ lang: "en" }}>
         <title>Slot | {slotDetails?.title}</title>
         <meta name="description" content={`${slotDetails?.title}`} />
         <link
@@ -118,25 +119,39 @@ const BlogAndNewsDetailsPage = () => {
         <article className="grid grid-cols-1 gap-4 lg:grid-cols-4">
           <section className="col-span-4 flex flex-col gap-4 lg:col-span-3 ">
             <article className="space-y-4 text-justify tracking-tight text-gray-600">
-              <h1 className="line-clamp-2 whitespace-pre-wrap text-2xl font-bold md:text-3xl">
-                {slotDetails?.title}
-              </h1>
+              <div>
+                <h1 className="line-clamp-2 whitespace-pre-wrap text-2xl font-bold md:text-3xl">
+                  {slotDetails?.title}
+                </h1>
+                <span className="flex items-center gap-1">
+                  {Array.from({ length: 5 }).map((_, index) => (
+                    <StarIcon
+                      key={index}
+                      className={`h-5 w-5 ${
+                        index < slotDetails?.rating
+                          ? "text-orange-500"
+                          : "text-gray-500"
+                      }`}
+                    />
+                  ))}
+                </span>
+              </div>
 
               <div className="col-span-3 aspect-auto w-full">
                 {!iframeLoaded && (
-                  <div className="overlay-button aspect-video w-full bg-gray-600 bg-opacity-75">
-                    <div className="relative">
+                  <div className="overlay-button aspect-video w-full !rounded-md bg-gray-600 bg-opacity-75">
+                    <div className="relative  !rounded-md">
                       <Image
                         src={urlForImage(slotDetails?.mainImage?.asset).url()}
                         alt={slotDetails.title}
                         width={300}
                         height={400}
-                        className="w-full  object-cover object-center rounded-md  aspect-video"
+                        className="aspect-video  w-full rounded-md object-cover  object-center"
                       />
 
-                      <div className="overlay-button flex items-center justify-center aspect-video w-full  absolute inset-0 backdrop-blur-sm bg-gray-800 bg-opacity-50">
+                      <div className="overlay-button absolute inset-0 flex aspect-video w-full  items-center justify-center bg-gray-800 bg-opacity-50 backdrop-blur-sm">
                         <button
-                          className="px-8 py-4  rounded-md bg-red-500 text-white animate-pulse"
+                          className="animate-pulse rounded-md  bg-red-500 px-8 py-4 text-white"
                           onClick={handleIframeLoad}
                         >
                           Clicca Qui per giocare Gratis
@@ -147,7 +162,7 @@ const BlogAndNewsDetailsPage = () => {
                 )}
                 {iframeLoaded && (
                   <iframe
-                    className="aspect-video w-full"
+                    className="aspect-video w-full !rounded-md"
                     src={
                       slotDetails.href ||
                       "https://static-live.hacksawgaming.com/1160/1.24.0/index.html?language=it&amp;channel=desktop&amp;gameid=1160&amp;mode=2&amp;token=&amp;lobbyurl=https%3A%2F%2Fwww.hacksawgaming.com&amp;currency=EUR&amp;partner=demo&amp;env=https://rgs-demo.hacksawgaming.com/api"
@@ -170,12 +185,12 @@ const BlogAndNewsDetailsPage = () => {
                 <p className="relative z-10 rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100">
                   {slotDetails?.category.title}
                 </p>
-                <Link
+                {/* <Link
                   href={`/guide/${slotDetails?.guide?.slug.current}`}
                   className="relative z-10 rounded-md bg-red-500 px-4 py-1.5 font-medium text-white hover:bg-red-600"
                 >
                   Guide
-                </Link>
+                </Link> */}
               </div>
             </article>
             <BlockContent

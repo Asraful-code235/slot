@@ -59,10 +59,10 @@ const News = () => {
         <h1 className="text-2xl font-bold md:text-3xl">Le Nuove uscite</h1>
         <p className="text-lg font-medium">Ultime notizie ed eventi</p>
       </div>
-      <div className="max-w-5xl text-gray-600 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
+      <div className="max-w-5xl text-gray-600 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
         {newsPosts?.map((post, key: number) => (
           // Rest of the code
-          <div key={key} className="relative p-4 ">
+          <div key={key} className="relative p-4 bg-white">
             <Link
               href={`/blog-and-news/${post.slug.current}`}
               className="hover:scale-[1.02] transition-all duration-300"

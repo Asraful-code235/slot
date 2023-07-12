@@ -14,7 +14,6 @@ type Props = {}
 
 const GuidePage = (props: Props) => {
   const guide = useGuidePosts()
-  console.log(guide)
   return (
     <>
       <Helmet>
@@ -23,6 +22,7 @@ const GuidePage = (props: Props) => {
           name="description"
           content="Here you can find all the guide for you slot games"
         />
+        <link rel="canonical" href={`https://slot-ndkk.vercel.app/guide`} />
       </Helmet>
       <article className="mx-auto max-w-7xl px-4 py-8 md:py-16">
         <section>

@@ -31,6 +31,8 @@ const GuideDetailsPage = () => {
       <Helmet>
         <title>Guide | {newsDetails?.title}</title>
         <meta name="description" content={`${newsDetails?.title}`} />
+        href=
+        {`https://slot-ndkk.vercel.app/guide/${newsDetails?.title}`}
       </Helmet>
       <section className=" mx-auto max-w-4xl px-8 pb-24">
         <nav className="my-8 font-bold text-black" aria-label="Breadcrumb">

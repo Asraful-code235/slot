@@ -55,6 +55,7 @@ const SlotPage = (props: Props) => {
           name="description"
           content="Esplora una vasta selezione di slot online su cobra sito. Goditi l'emozione dei giochi di slot con grafica coinvolgente, funzioni speciali e la possibilità di vincere premi fantastici. Registrati ora per un'esperienza di gioco indimenticabile!"
         />
+        <link rel="canonical" href={`https://slot-ndkk.vercel.app/slot`} />
       </Helmet>
       <article className="mx-auto max-w-7xl px-4 py-8 md:py-16">
         <section className="space-y-4 text-center tracking-tight text-gray-600">

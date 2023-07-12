@@ -13,6 +13,7 @@ const CasinoPage = (props: Props) => {
       <Helmet>
         <title>Casino</title>
         <meta name="description" content="Get to know about online Casino" />
+        <link rel="canonical" href={`https://slot-ndkk.vercel.app/casino`} />
       </Helmet>
       <section className="mx-auto max-w-7xl px-4 py-8 md:py-16">
         <article className="mx-auto mb-4 max-w-4xl">

@@ -1,7 +1,6 @@
 import { client } from "@/sanity/lib/client"
 import { useQuery } from "@tanstack/react-query"
 
-
 interface NewsPost {
   title: string
   slug: {
@@ -32,6 +31,7 @@ const useGetNewsPostsWithId = (slug: string): NewsPost | undefined => {
     queryFn: async () => {
       const query = `
         *[_type == "post" && slug.current == $slug] {
+
           title,
           slug,
           mainImage {
@@ -41,6 +41,7 @@ const useGetNewsPostsWithId = (slug: string): NewsPost | undefined => {
               _type
             }
           },
+         
           excerpt,
           publishedAt,
           "category": categories[0]->{_id,title},
@@ -76,6 +77,7 @@ const useGetRelatedPostsByCategory = (
             }
           },
           excerpt,
+          rating,
           "category": categories[0]->{_id,title},
           publishedAt,
           author->{_ref, name},

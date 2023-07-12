@@ -32,6 +32,7 @@ export default function IndexPage() {
           name="description"
           content="Esplora una vasta selezione di slot online su cobra sito. Goditi l'emozione dei giochi di slot con grafica coinvolgente, funzioni speciali e la possibilità di vincere premi fantastici. Registrati ora per un'esperienza di gioco indimenticabile!"
         />
+        <link rel="canonical" href={`https://slot-ndkk.vercel.app/`} />
       </Helmet>
       <section className="w-screen mx-auto">
         <div className=" w-[100vw] mx-auto   ">
