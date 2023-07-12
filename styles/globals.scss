@@ -66,3 +66,17 @@ width: 40px !important;
   width: 4px !important;
 }
 
+
+
+.cardHoverEffect{
+  cursor: pointer;
+  transition: all 300ms ease-in-out;
+  .cardHoverEffectActive{
+    display: none;
+  }
+  &:hover{
+    .cardHoverEffectActive{
+      display: block;
+    }
+  }
+}

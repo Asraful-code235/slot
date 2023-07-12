@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query"
 
 const useGetSlotDetailsWithSlug = (slug: string) => {
   const { data: slotDetails } = useQuery({
-    queryKey: ["/me/blog-and-news", slug],
+    queryKey: ["/me/slot/details", slug],
     queryFn: async () => {
       const query = `
         *[_type == "slot" && slug.current == $slug] {
@@ -18,6 +18,16 @@ const useGetSlotDetailsWithSlug = (slug: string) => {
           },
           rating,
           href,
+          Cards[]->{
+            _id,
+            title,
+            noDeposit,
+            colors,
+            withDeposit,
+            image,
+            slug,
+            list[]
+          },
           excerpt,
           publishedAt,
           "category": categories[0]->{_id,title},
@@ -37,7 +47,7 @@ const useGetSlotDetailsWithSlug = (slug: string) => {
 
 const useGetRelatedSlotByCategory = (slug: string, category: string) => {
   const { data: relatedSlot } = useQuery({
-    queryKey: ["/me/blog-and-news/category", slug, category],
+    queryKey: ["/me/slot/related", slug, category],
     queryFn: async () => {
       const query = `
         *[_type == "slot" && references($category) && slug.current != $slug] {

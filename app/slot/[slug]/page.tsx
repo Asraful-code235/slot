@@ -7,6 +7,7 @@ import Link from "next/link"
 import { useParams } from "next/navigation"
 import { client } from "@/sanity/lib/client"
 import { urlForImage } from "@/sanity/lib/image"
+import { InformationCircleIcon } from "@heroicons/react/24/outline"
 import { StarIcon } from "@heroicons/react/24/solid"
 // @ts-ignore
 import BlockContent from "@sanity/block-content-to-react"
@@ -76,6 +77,8 @@ const BlogAndNewsDetailsPage = () => {
     // Fall back to default handling
     return BlockContent.defaultSerializers.types.block(props)
   }
+
+  console.log(slotDetails)
   return (
     <>
       <Helmet htmlAttributes={{ lang: "en" }}>
@@ -203,13 +206,13 @@ const BlogAndNewsDetailsPage = () => {
           </section>
 
           {/* related */}
-          <section className="col-span-4 w-full lg:col-span-1">
+          <section className="col-span-4 w-full space-y-4 lg:col-span-1">
             <h2 className="my-4 text-2xl font-bold text-gray-600 md:mt-2 ">
               Related Posts
             </h2>
             {relatedPosts && (
               <section className="col-span-4 flex w-full flex-col items-center  justify-center gap-4 p-0">
-                {relatedPosts.map((relatedPost: any) => (
+                {relatedPosts.slice(0, 3).map((relatedPost: any) => (
                   <Link
                     href={`/slot/${relatedPost.slug.current}`}
                     key={relatedPost.slug.current}
@@ -249,6 +252,51 @@ const BlogAndNewsDetailsPage = () => {
                 ))}
               </section>
             )}
+
+            <div className="flex flex-wrap gap-4">
+              {slotDetails?.Cards?.map((card: any, key: number) => (
+                <article
+                  key={key}
+                  className={`cardHoverEffect space-y-4 rounded-lg border border-gray-200 ${
+                    card?.colors ? `bg-${card?.colors}-500` : "bg-green-500"
+                  } shadow-sm transition-transform duration-300 hover:scale-105`}
+                >
+                  <div className="flex flex-col items-center justify-center gap-2 p-4 text-white text-sm font-medium leading-2">
+                    <Image
+                      width={64}
+                      height={64}
+                      src={urlForImage(card?.image?.asset).url()}
+                      alt="slot__cards"
+                      className="aspect-square w-16 rounded-full border border-transparent object-cover object-center"
+                    />
+                    <h3>Senza Deposito</h3>
+                    <p>{card?.noDeposit}</p>
+                    <h3>Con Deposito</h3>
+                    <p>{card?.withDeposit}</p>
+                  </div>
+                  <div className="cardHoverEffectActive bg-white p-6 text-sm text-gray-500  transition-opacity duration-300 ">
+                    <ul className="flex flex-col gap-2">
+                      {card?.list?.map((list: any, key: number) => (
+                        <li key={key} className="flex flex-col gap-3">
+                          <div className="flex gap-3">
+                            <InformationCircleIcon className="h-5 w-5 shrink-0 text-orange-500" />
+                            <span>{list}</span>
+                          </div>
+                        </li>
+                      ))}
+                      <div className="grid grid-cols-2 gap-3 mt-3">
+                        <button className="bg-red-500 hover:bg-red-700 text-white px-4 py-1.5 rounded-lg">
+                          VISITA IL SITO
+                        </button>
+                        <button className="bg-red-500 hover:bg-red-700 text-white px-4 py-1.5 rounded-lg">
+                          LEGGI LA GUIDA
+                        </button>
+                      </div>
+                    </ul>
+                  </div>
+                </article>
+              ))}
+            </div>
           </section>
         </article>
       </section>
