@@ -4,6 +4,11 @@ import React from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { urlForImage } from "@/sanity/lib/image"
+import {
+  ChatBubbleLeftIcon,
+  ChevronLeftIcon,
+  ChevronRightIcon,
+} from "@heroicons/react/24/outline"
 import { Helmet } from "react-helmet"
 
 import useNewsPosts from "@/components/hooks/useNewsPosts"
@@ -11,7 +16,34 @@ import useNewsPosts from "@/components/hooks/useNewsPosts"
 type Props = {}
 
 const BlogAndNewsPage = (props: Props) => {
-  const guide = useNewsPosts()
+  const itemsPerPage = 2
+  const {
+    posts,
+    currentPage,
+    totalPages,
+    goToPage,
+    nextPage,
+    prevPage,
+    isLoading,
+  } = useNewsPosts(itemsPerPage)
+
+  const renderPageNumbers = () => {
+    const pageNumbers = []
+    for (let i = 1; i <= totalPages; i++) {
+      pageNumbers.push(
+        <button
+          key={i}
+          onClick={() => goToPage(i)}
+          className={` p-2 px-4 rounded-md hover:bg-gray-100 ${
+            currentPage === i ? "bg-gray-200 " : ""
+          }`}
+        >
+          {i}
+        </button>
+      )
+    }
+    return pageNumbers
+  }
 
   return (
     <>
@@ -47,7 +79,7 @@ const BlogAndNewsPage = (props: Props) => {
         </section>
         <section className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-4 gap-4">
           <div className="col-span-1 md:col-span-3">
-            {guide?.slice(0, 1).map((guide, key) => (
+            {posts?.slice(0, 1).map((guide, key) => (
               // @ts-ignore
 
               <Link
@@ -77,7 +109,7 @@ const BlogAndNewsPage = (props: Props) => {
             ))}
 
             <div className="mt-16 space-y-2">
-              {guide?.slice(1).map((guide, key) => (
+              {posts?.map((guide, key) => (
                 <Link
                   href={`/blog-and-news/${guide.slug.current}`}
                   // @ts-ignore
@@ -113,6 +145,36 @@ const BlogAndNewsPage = (props: Props) => {
           <div className="col-span-1 "></div>
         </section>
       </article>
+      <div className="flex justify-center my-4 items-center gap-4">
+        <button
+          onClick={() => prevPage()}
+          disabled={currentPage === 1}
+          className={` p-2 rounded-full  ${
+            currentPage === 1 ? "bg-gray-50" : "bg-gray-200"
+          }`}
+        >
+          <ChevronLeftIcon
+            className={`w-5 h-5 ${
+              currentPage === 1 ? "text-gray-50" : "text-gray-600"
+            }`}
+          />
+        </button>
+        <div className="flex items-center gap-2">{renderPageNumbers()}</div>
+        <button
+          onClick={() => nextPage()}
+          disabled={currentPage === totalPages}
+          className={` p-2 rounded-full  ${
+            currentPage === totalPages ? "bg-gray-50" : "bg-gray-200"
+          }`}
+        >
+          <ChevronRightIcon
+            className={`w-5 h-5 ${
+              currentPage === totalPages ? "text-gray-50" : "text-gray-600"
+            }`}
+          />
+        </button>
+      </div>
+      {isLoading && <div>Loading...</div>}
     </>
   )
 }

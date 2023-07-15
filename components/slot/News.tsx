@@ -12,7 +12,16 @@ import useNewsPosts from "../hooks/useNewsPosts"
 import { formatDate } from "../utils/utils"
 
 const News = () => {
-  const newsPosts = useNewsPosts()
+  const itemsPerPage = 14
+  const {
+    posts: newsPosts,
+    currentPage,
+    totalPages,
+    goToPage,
+    nextPage,
+    prevPage,
+    isLoading,
+  } = useNewsPosts(itemsPerPage)
 
   const settings = {
     dots: true,
