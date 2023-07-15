@@ -16,7 +16,7 @@ import useNewsPosts from "@/components/hooks/useNewsPosts"
 type Props = {}
 
 const BlogAndNewsPage = (props: Props) => {
-  const itemsPerPage = 2
+  const itemsPerPage = 10
   const {
     posts,
     currentPage,
