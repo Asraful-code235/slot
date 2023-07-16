@@ -8,6 +8,8 @@ import Slider from "react-slick"
 
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
+import { constants } from "buffer"
+
 import useNewsPosts from "../hooks/useNewsPosts"
 import { formatDate } from "../utils/utils"
 
@@ -62,6 +64,26 @@ const News = () => {
     ],
   }
 
+  const featuredPosts = newsPosts?.filter((post) =>
+    // @ts-ignore
+    post.badges // @ts-ignore // @ts-ignore
+      .includes("featured")
+  )
+  const remainingPosts = newsPosts?.filter(
+    (post) =>
+      // @ts-ignore
+      !post.badges // @ts-ignore // @ts-ignore
+        .includes("featured")
+  )
+  const selectedPosts = featuredPosts?.slice(0, 2)
+  const remainingFeaturedPosts = featuredPosts?.slice(2)
+  const remainingDisplayedPosts = remainingPosts?.slice(
+    0,
+    3 -
+      // @ts-ignore
+      selectedPosts?.length
+  )
+
   return (
     <div className="flex w-screen flex-col items-center justify-center gap-8 overflow-hidden bg-slate-100 py-16">
       <div className="space-y-2 text-center text-gray-600">
@@ -72,9 +94,9 @@ const News = () => {
         className="max-w-5xl text-gray-600 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4
       "
       >
-        {newsPosts?.map((post, key: number) => (
+        {selectedPosts?.map((post, key: number) => (
           // Rest of the code
-          <div key={key} className="relative p-4 bg-white">
+          <div key={key} className="relative bg-white">
             <Link
               href={`/blog-and-news/${post.slug.current}`}
               className="hover:scale-[1.02] transition-all duration-300"
@@ -85,18 +107,52 @@ const News = () => {
                 alt={post.title}
                 width={640}
                 height={300}
-                className="aspect-video w-full rounded-md object-cover object-center hover:opacity-75 hover:transition-opacity hover:duration-300"
+                className="aspect-video w-full rounded-t-md object-cover object-center hover:opacity-75 hover:transition-opacity hover:duration-300"
               />
-              <div className="mt-4 flex items-center gap-x-4 text-xs">
+              <div className="pt-2 flex items-center gap-x-4 text-xs px-4">
                 <time dateTime={post.publishedAt} className="text-gray-500">
                   {formatDate(post.publishedAt)}
                 </time>
-                <p className="relative z-10 rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100">
+                {/* <p className="relative z-10 rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100">
                   {post?.author?.name}
-                </p>
+                </p> */}
               </div>
-              <div className="space-y-2  text-base font-medium text-gray-600">
-                <h3 className="mt-3 line-clamp-1 text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-600  ">
+              <div className="space-y-2 px-4 pb-4 text-base font-medium text-gray-600">
+                <h3 className="mt-3 text-red-500 line-clamp-1 text-lg font-semibold leading-6  group-hover:text-red-800  ">
+                  {post.title}
+                </h3>
+                <div className="line-clamp-2 text-sm leading-6 text-gray-600 md:line-clamp-3 ">
+                  {post.excerpt}
+                </div>
+              </div>
+            </Link>
+          </div>
+        ))}
+        {remainingDisplayedPosts?.map((post, key: number) => (
+          // Rest of the code
+          <div key={key} className="relative bg-white">
+            <Link
+              href={`/blog-and-news/${post.slug.current}`}
+              className="hover:scale-[1.02] transition-all duration-300"
+            >
+              <Image
+                // @ts-ignore
+                src={urlForImage(post?.mainImage).url()}
+                alt={post.title}
+                width={640}
+                height={300}
+                className="aspect-video w-full rounded-t-md object-cover object-center hover:opacity-75 hover:transition-opacity hover:duration-300"
+              />
+              <div className="pt-2 flex items-center gap-x-4 text-xs px-4">
+                <time dateTime={post.publishedAt} className="text-gray-500">
+                  {formatDate(post.publishedAt)}
+                </time>
+                {/* <p className="relative z-10 rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100">
+                  {post?.author?.name}
+                </p> */}
+              </div>
+              <div className="space-y-2 px-4 pb-4 text-base font-medium text-gray-600">
+                <h3 className="mt-3 text-red-500 line-clamp-1 text-lg font-semibold leading-6  group-hover:text-red-800  ">
                   {post.title}
                 </h3>
                 <div className="line-clamp-2 text-sm leading-6 text-gray-600 md:line-clamp-3 ">

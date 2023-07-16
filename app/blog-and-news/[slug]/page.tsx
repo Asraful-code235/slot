@@ -30,7 +30,7 @@ const BlogAndNewsDetailsPage = () => {
     return null
   }
 
-  console.log(relatedPosts)
+  console.log(newsDetails)
   return (
     <>
       <Helmet>
@@ -54,10 +54,10 @@ const BlogAndNewsDetailsPage = () => {
                 <path d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z" />
               </svg>
             </li>
-            <li className="flex items-center">
+            <li className="flex items-center text-red-500">
               <Link href="/blog-and-news">BLOG AND NEWS</Link>
               <svg
-                className="mx-3 h-3 w-3 fill-current"
+                className="mx-3 h-3 w-3 fill-current text-gray-500"
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 320 512"
               >
@@ -74,7 +74,7 @@ const BlogAndNewsDetailsPage = () => {
         <article className="grid grid-cols-1 gap-4 md:grid-cols-4">
           <section className="col-span-4 flex flex-col gap-4 md:col-span-3 ">
             <article className="space-y-4 text-justify tracking-tight text-gray-600">
-              <h1 className="line-clamp-2 whitespace-pre-wrap text-2xl font-bold md:text-3xl">
+              <h1 className="line-clamp-2 whitespace-pre-wrap text-2xl font-bold text-red-500 md:text-3xl">
                 {newsDetails?.title}
               </h1>
               <Image
@@ -86,7 +86,7 @@ const BlogAndNewsDetailsPage = () => {
                 width={700}
                 height={600}
                 className="aspect-video w-full rounded-md object-cover object-center"
-                alt={newsDetails?.mainImage.alt || "blog-and-news-details"}
+                alt={newsDetails?.mainImage?.alt || "blog-and-news-details"}
               />
               <div className="mt-4 flex items-center gap-x-4 text-xs">
                 <time
@@ -99,7 +99,7 @@ const BlogAndNewsDetailsPage = () => {
                   )}
                 </time>
                 <p className="relative z-10 rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100">
-                  {newsDetails?.category.title}
+                  {newsDetails?.category?.title}
                 </p>
               </div>
             </article>
@@ -116,13 +116,13 @@ const BlogAndNewsDetailsPage = () => {
             <h2 className="my-4 text-lg font-semibold text-gray-600 md:mt-2 ">
               Related Posts
             </h2>
-            {relatedPosts && (
+            {relatedPosts ? (
               <section className="flex w-full flex-col gap-4 p-0">
-                {relatedPosts.map((relatedPost) => (
+                {relatedPosts?.map((relatedPost) => (
                   <Link
-                    href={`/blog-and-news/${relatedPost.slug.current}`}
-                    key={relatedPost.slug.current}
-                    className=" flex flex-col gap-4  w-full"
+                    href={`/blog-and-news/${relatedPost?.slug?.current}`}
+                    key={relatedPost?.slug?.current}
+                    className=" flex w-full flex-col  gap-4"
                   >
                     <Image
                       src={
@@ -134,30 +134,30 @@ const BlogAndNewsDetailsPage = () => {
                       height={250}
                       className=" w--[280px] h-[200px] rounded-md  object-cover object-center"
                       alt={
-                        relatedPost?.mainImage.alt || "blog-and-news-details"
+                        relatedPost?.mainImage?.alt || "blog-and-news-details"
                       }
                     />
 
                     <article className=" flex flex-col items-start gap-x-4 text-xs">
                       <div className="flex items-center gap-x-4 text-xs">
                         <time
-                          dateTime={relatedPost.publishedAt}
+                          dateTime={relatedPost?.publishedAt}
                           className="text-gray-500"
                         >
-                          {formatDate(relatedPost.publishedAt)}
+                          {formatDate(relatedPost?.publishedAt)}
                         </time>
                         <p className="relative z-10 rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100">
-                          {relatedPost?.category.title}
+                          {relatedPost?.category?.title}
                         </p>
                       </div>
-                      <p className="line-clamp-2 font-semibold leading-4 text-gray-900 group-hover:text-gray-600">
-                        {relatedPost.title}
+                      <p className="line-clamp-2 font-semibold leading-4 text-red-500 group-hover:text-gray-600">
+                        {relatedPost?.title}
                       </p>
                     </article>
                   </Link>
                 ))}
               </section>
-            )}
+            ) : null}
           </section>
         </article>
       </section>

@@ -41,6 +41,7 @@ const fetchNewsPosts = async (
               url
             }
           },
+          badges,
           excerpt,
           publishedAt,
           author->{_ref, name},

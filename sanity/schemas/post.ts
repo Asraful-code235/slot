@@ -25,6 +25,25 @@ export default defineType({
       type: "string",
     }),
     defineField({
+      name: "badges",
+      title: "Featured Post (Select Two)",
+      type: "array",
+      of: [
+        {
+          type: "string",
+          options: {
+            list: [
+              { title: "Featured", value: "featured" },
+              { title: "Default", value: "default" },
+              // Add more badge options as needed
+            ],
+          },
+        },
+      ],
+      validation: (Rule) => Rule.max(2),
+      initialValue: ["default"],
+    }),
+    defineField({
       name: "author",
       title: "Author",
       type: "reference",

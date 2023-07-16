@@ -102,10 +102,10 @@ const BlogAndNewsDetailsPage = () => {
                 <path d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z" />
               </svg>
             </li>
-            <li className="flex items-center">
+            <li className="flex items-center text-red-500">
               <Link href="/slot">SLOT</Link>
               <svg
-                className="mx-3 h-3 w-3 fill-current"
+                className="mx-3 h-3 w-3 fill-current text-gray-500"
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 320 512"
               >
@@ -119,83 +119,86 @@ const BlogAndNewsDetailsPage = () => {
             </li>
           </ol>
         </nav>
-        <article className="grid grid-cols-1 gap-4 lg:grid-cols-4">
-          <section className="col-span-4 flex flex-col gap-4 lg:col-span-3 ">
-            <article className="space-y-4 text-justify tracking-tight text-gray-600">
-              <div>
-                <h1 className="line-clamp-2 whitespace-pre-wrap text-2xl font-bold md:text-3xl">
-                  {slotDetails?.title}
-                </h1>
-                <span className="flex items-center gap-1">
-                  {Array.from({ length: 5 }).map((_, index) => (
-                    <StarIcon
-                      key={index}
-                      className={`h-5 w-5 ${
-                        index < slotDetails?.rating
-                          ? "text-orange-500"
-                          : "text-gray-500"
-                      }`}
+        <section className="col-span-4 flex flex-col gap-4 lg:col-span-3 ">
+          <article className="space-y-4 text-justify tracking-tight text-gray-600">
+            <div>
+              <h1 className="line-clamp-2 whitespace-pre-wrap text-2xl font-bold md:text-3xl">
+                {slotDetails?.title}
+              </h1>
+              <span className="flex items-center gap-1">
+                {Array.from({ length: 5 }).map((_, index) => (
+                  <StarIcon
+                    key={index}
+                    className={`h-5 w-5 ${
+                      index < slotDetails?.rating
+                        ? "text-orange-500"
+                        : "text-gray-500"
+                    }`}
+                  />
+                ))}
+              </span>
+            </div>
+
+            <div className=" aspect-auto w-full">
+              {!iframeLoaded && (
+                <div className="overlay-button aspect-video w-full !rounded-md bg-gray-600 bg-opacity-75">
+                  <div className="relative  !rounded-md">
+                    <Image
+                      src={urlForImage(slotDetails?.mainImage?.asset).url()}
+                      alt={slotDetails.title}
+                      width={300}
+                      height={400}
+                      className="aspect-video  w-full rounded-md object-cover  object-center"
                     />
-                  ))}
-                </span>
-              </div>
 
-              <div className="col-span-3 aspect-auto w-full">
-                {!iframeLoaded && (
-                  <div className="overlay-button aspect-video w-full !rounded-md bg-gray-600 bg-opacity-75">
-                    <div className="relative  !rounded-md">
-                      <Image
-                        src={urlForImage(slotDetails?.mainImage?.asset).url()}
-                        alt={slotDetails.title}
-                        width={300}
-                        height={400}
-                        className="aspect-video  w-full rounded-md object-cover  object-center"
-                      />
-
-                      <div className="overlay-button absolute inset-0 flex aspect-video w-full  items-center justify-center bg-gray-800 bg-opacity-50 backdrop-blur-sm">
-                        <button
-                          className="animate-pulse rounded-md  bg-red-500 px-8 py-4 text-white"
-                          onClick={handleIframeLoad}
-                        >
-                          Clicca Qui per giocare Gratis
-                        </button>
-                      </div>
+                    <div className="overlay-button absolute inset-0 flex aspect-video w-full  items-center justify-center bg-gray-800 bg-opacity-50 backdrop-blur-sm">
+                      <button
+                        className="animate-pulse rounded-md  bg-red-500 px-8 py-4 text-white"
+                        onClick={handleIframeLoad}
+                      >
+                        Clicca Qui per giocare Gratis
+                      </button>
                     </div>
                   </div>
-                )}
-                {iframeLoaded && (
-                  <iframe
-                    className="aspect-video w-full !rounded-md"
-                    src={
-                      slotDetails.href ||
-                      "https://static-live.hacksawgaming.com/1160/1.24.0/index.html?language=it&amp;channel=desktop&amp;gameid=1160&amp;mode=2&amp;token=&amp;lobbyurl=https%3A%2F%2Fwww.hacksawgaming.com&amp;currency=EUR&amp;partner=demo&amp;env=https://rgs-demo.hacksawgaming.com/api"
-                    }
-                    onLoad={handleIframeLoad}
-                  ></iframe>
-                )}
-              </div>
+                </div>
+              )}
+              {iframeLoaded && (
+                <iframe
+                  className="aspect-video w-full !rounded-md"
+                  src={
+                    slotDetails.href ||
+                    "https://static-live.hacksawgaming.com/1160/1.24.0/index.html?language=it&amp;channel=desktop&amp;gameid=1160&amp;mode=2&amp;token=&amp;lobbyurl=https%3A%2F%2Fwww.hacksawgaming.com&amp;currency=EUR&amp;partner=demo&amp;env=https://rgs-demo.hacksawgaming.com/api"
+                  }
+                  onLoad={handleIframeLoad}
+                ></iframe>
+              )}
+            </div>
 
-              <div className="mt-4 flex items-center gap-x-4 text-xs">
-                <time
-                  dateTime={slotDetails?.publishedAt}
-                  className="text-gray-500"
-                >
-                  {formatDate(
-                    // @ts-ignore
-                    slotDetails?.publishedAt
-                  )}
-                </time>
-                <p className="relative z-10 rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100">
-                  {slotDetails?.category.title}
-                </p>
-                {/* <Link
+            <div className="mt-4 flex items-center gap-x-4 text-xs">
+              <time
+                dateTime={slotDetails?.publishedAt}
+                className="text-gray-500"
+              >
+                {formatDate(
+                  // @ts-ignore
+                  slotDetails?.publishedAt
+                )}
+              </time>
+              <p className="relative z-10 rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100">
+                {slotDetails?.category.title}
+              </p>
+              {/* <Link
                   href={`/guide/${slotDetails?.guide?.slug.current}`}
                   className="relative z-10 rounded-md bg-red-500 px-4 py-1.5 font-medium text-white hover:bg-red-600"
                 >
                   Guide
                 </Link> */}
-              </div>
-            </article>
+            </div>
+          </article>
+        </section>
+        <article className="grid grid-cols-1 gap-4 lg:grid-cols-4">
+          {/* related */}
+          <article className="grid-cols-1 lg:col-span-3 ">
             <BlockContent
               serializers={{ types: { block: BlockRenderer } }}
               blocks={slotDetails?.body}
@@ -203,9 +206,8 @@ const BlogAndNewsDetailsPage = () => {
               projectId={process.env.NEXT_PUBLIC_SANITY_PROJECT_ID}
               dataset={process.env.NEXT_PUBLIC_SANITY_DATASET}
             />
-          </section>
+          </article>
 
-          {/* related */}
           <section className="col-span-4 w-full space-y-4 lg:col-span-1">
             <h2 className="my-4 text-2xl font-bold text-gray-600 md:mt-2 ">
               Related Posts

@@ -44,7 +44,6 @@ const BlogAndNewsPage = (props: Props) => {
     }
     return pageNumbers
   }
-
   return (
     <>
       <Helmet>
@@ -78,14 +77,14 @@ const BlogAndNewsPage = (props: Props) => {
           </nav>
         </section>
         <section className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-4 gap-4">
-          <div className="col-span-1 md:col-span-3">
+          <div className="col-span-1 md:col-span-4 ">
             {posts?.slice(0, 1).map((guide, key) => (
               // @ts-ignore
 
               <Link
                 href={`/blog-and-news/${guide.slug.current}`}
                 key={key}
-                className="space-y-4"
+                className="space-y-4 p-4 "
               >
                 <Image
                   width={1000}
@@ -93,7 +92,7 @@ const BlogAndNewsPage = (props: Props) => {
                   // @ts-ignore
                   src={urlForImage(guide?.mainImage).url()}
                   alt={guide.title}
-                  className="mb-4 aspect-video rounded-md object-cover object-center hover:opacity-70 hover:transition-opacity hover:duration-300"
+                  className="mb-4 w-full aspect-[16/7] border border-transparent rounded-md object-cover object-center hover:opacity-70 hover:transition-opacity hover:duration-300"
                 />
                 <p className=" text-xl font-bold text-red-500">{guide.title}</p>
                 <p className="text-left font-medium text-gray-600">
@@ -108,13 +107,13 @@ const BlogAndNewsPage = (props: Props) => {
               </Link>
             ))}
 
-            <div className="mt-16 space-y-2">
+            <div className="mt-16 space-y-6 md:space-y-2">
               {posts?.map((guide, key) => (
                 <Link
                   href={`/blog-and-news/${guide.slug.current}`}
                   // @ts-ignore
                   key={guide.slug + key}
-                  className="flex items-start gap-4 space-y-4"
+                  className="flex  border border-gray-200 rounded-md flex-col md:flex-row items-start gap-4 space-y-4"
                 >
                   <Image
                     width={400}
@@ -122,7 +121,7 @@ const BlogAndNewsPage = (props: Props) => {
                     // @ts-ignore
                     src={urlForImage(guide?.mainImage).url()}
                     alt={guide.title}
-                    className="h-[300px] w-[340px] max-w-[350px] flex-1 rounded-md object-cover object-center hover:opacity-70 hover:transition-opacity hover:duration-300"
+                    className="w-full aspect-video md:h-[300px] md:w-[340px] md:max-w-[350px] flex-1 rounded-md object-cover object-center hover:opacity-70 hover:transition-opacity hover:duration-300"
                   />
                   <div className="flex flex-col gap-4">
                     <p className="text-xl font-bold text-red-500">
@@ -145,35 +144,37 @@ const BlogAndNewsPage = (props: Props) => {
           <div className="col-span-1 "></div>
         </section>
       </article>
-      <div className="flex justify-center my-4 items-center gap-4">
-        <button
-          onClick={() => prevPage()}
-          disabled={currentPage === 1}
-          className={` p-2 rounded-full  ${
-            currentPage === 1 ? "bg-gray-50" : "bg-gray-200"
-          }`}
-        >
-          <ChevronLeftIcon
-            className={`w-5 h-5 ${
-              currentPage === 1 ? "text-gray-50" : "text-gray-600"
+      {totalPages > 0 ? (
+        <div className="flex justify-center my-4 items-center gap-4">
+          <button
+            onClick={() => prevPage()}
+            disabled={currentPage === 1}
+            className={` p-2 rounded-full  ${
+              currentPage === 1 ? "bg-gray-50" : "bg-gray-200"
             }`}
-          />
-        </button>
-        <div className="flex items-center gap-2">{renderPageNumbers()}</div>
-        <button
-          onClick={() => nextPage()}
-          disabled={currentPage === totalPages}
-          className={` p-2 rounded-full  ${
-            currentPage === totalPages ? "bg-gray-50" : "bg-gray-200"
-          }`}
-        >
-          <ChevronRightIcon
-            className={`w-5 h-5 ${
-              currentPage === totalPages ? "text-gray-50" : "text-gray-600"
+          >
+            <ChevronLeftIcon
+              className={`w-5 h-5 ${
+                currentPage === 1 ? "text-gray-50" : "text-gray-600"
+              }`}
+            />
+          </button>
+          <div className="flex items-center gap-2">{renderPageNumbers()}</div>
+          <button
+            onClick={() => nextPage()}
+            disabled={currentPage === totalPages}
+            className={` p-2 rounded-full  ${
+              currentPage === totalPages ? "bg-gray-50" : "bg-gray-200"
             }`}
-          />
-        </button>
-      </div>
+          >
+            <ChevronRightIcon
+              className={`w-5 h-5 ${
+                currentPage === totalPages ? "text-gray-50" : "text-gray-600"
+              }`}
+            />
+          </button>
+        </div>
+      ) : null}
       {isLoading && <div>Loading...</div>}
     </>
   )

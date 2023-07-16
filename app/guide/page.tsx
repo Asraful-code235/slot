@@ -5,6 +5,7 @@ import { Metadata } from "next"
 import Image from "next/image"
 import Link from "next/link"
 import { urlForImage } from "@/sanity/lib/image"
+import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline"
 // @ts-ignore
 import { Helmet } from "react-helmet"
 
@@ -13,7 +14,34 @@ import useGuidePosts from "@/components/hooks/useGuidePosts"
 type Props = {}
 
 const GuidePage = (props: Props) => {
-  const guide = useGuidePosts()
+  const itemsPerPage = 10
+  const {
+    posts: guide,
+    currentPage,
+    totalPages,
+    goToPage,
+    nextPage,
+    prevPage,
+    isLoading,
+  } = useGuidePosts(itemsPerPage)
+
+  const renderPageNumbers = () => {
+    const pageNumbers = []
+    for (let i = 1; i <= totalPages; i++) {
+      pageNumbers.push(
+        <button
+          key={i}
+          onClick={() => goToPage(i)}
+          className={` p-2 px-4 rounded-md hover:bg-gray-100 ${
+            currentPage === i ? "bg-gray-200 " : ""
+          }`}
+        >
+          {i}
+        </button>
+      )
+    }
+    return pageNumbers
+  }
   return (
     <>
       <Helmet>
@@ -47,7 +75,7 @@ const GuidePage = (props: Props) => {
           </nav>
         </section>
         <section className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-4">
-          <div className="col-span-1 md:col-span-3">
+          <div className="col-span-1 md:col-span-4">
             {guide?.slice(0, 1).map((guide, key) => (
               // @ts-ignore
               <Link
@@ -61,17 +89,17 @@ const GuidePage = (props: Props) => {
                   // @ts-ignore
                   src={urlForImage(guide?.mainImage).url()}
                   alt={guide.title}
-                  className="mb-4 aspect-video rounded-md object-cover object-center hover:opacity-70 hover:transition-opacity hover:duration-300"
+                  className="mb-4 w-full aspect-video rounded-md object-cover object-center hover:opacity-70 hover:transition-opacity hover:duration-300"
                 />
                 <p className=" text-xl font-bold text-red-500">{guide.title}</p>
-                <p className="text-left font-medium text-gray-600">
+                <p className="text-left font-medium text-gray-600 line-clamp-3">
                   {guide.excerpt}{" "}
-                  <p
-                    className="font-bold text-sky-500
+                </p>
+                <p
+                  className="font-bold text-sky-500 mt-2
                 "
-                  >
-                    see more
-                  </p>
+                >
+                  see more
                 </p>
               </Link>
             ))}
@@ -82,7 +110,7 @@ const GuidePage = (props: Props) => {
                   href={`/guide/${guide.slug.current}`}
                   // @ts-ignore
                   key={guide.slug + key}
-                  className="flex items-start gap-4 space-y-4"
+                  className="flex  border border-gray-200 rounded-md flex-col md:flex-row items-start gap-4 space-y-4"
                 >
                   <Image
                     width={400}
@@ -90,9 +118,9 @@ const GuidePage = (props: Props) => {
                     // @ts-ignore
                     src={urlForImage(guide?.mainImage).url()}
                     alt={guide.title}
-                    className="h-[300px] w-[340px] max-w-[350px] flex-1 rounded-md object-cover object-center hover:opacity-70 hover:transition-opacity hover:duration-300"
+                    className="w-full aspect-video md:h-[300px] md:w-[340px] md:max-w-[350px] flex-1 rounded-t-md md:rounded-l-md object-cover object-center hover:opacity-70 hover:transition-opacity hover:duration-300"
                   />
-                  <div className="flex flex-col gap-4">
+                  <div className="flex flex-col gap-4 p-4">
                     <p className="text-xl font-bold text-red-500">
                       {guide.title}
                     </p>
@@ -113,6 +141,38 @@ const GuidePage = (props: Props) => {
           <div className="col-span-1 "></div>
         </section>
       </article>
+      {totalPages > 0 ? (
+        <div className="flex justify-center my-4 items-center gap-4">
+          <button
+            onClick={() => prevPage()}
+            disabled={currentPage === 1}
+            className={` p-2 rounded-full  ${
+              currentPage === 1 ? "bg-gray-50" : "bg-gray-200"
+            }`}
+          >
+            <ChevronLeftIcon
+              className={`w-5 h-5 ${
+                currentPage === 1 ? "text-gray-50" : "text-gray-600"
+              }`}
+            />
+          </button>
+          <div className="flex items-center gap-2">{renderPageNumbers()}</div>
+          <button
+            onClick={() => nextPage()}
+            disabled={currentPage === totalPages}
+            className={` p-2 rounded-full  ${
+              currentPage === totalPages ? "bg-gray-50" : "bg-gray-200"
+            }`}
+          >
+            <ChevronRightIcon
+              className={`w-5 h-5 ${
+                currentPage === totalPages ? "text-gray-50" : "text-gray-600"
+              }`}
+            />
+          </button>
+        </div>
+      ) : null}
+      {isLoading && <div>Loading...</div>}
     </>
   )
 }
