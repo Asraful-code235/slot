@@ -19,14 +19,7 @@ const useGetSlotDetailsWithSlug = (slug: string) => {
           rating,
           href,
           Cards[]->{
-            _id,
-            title,
-            noDeposit,
-            colors,
-            withDeposit,
-            image,
-            slug,
-            list[]
+            ...
           },
           excerpt,
           publishedAt,
@@ -62,6 +55,7 @@ const useGetRelatedSlotByCategory = (slug: string, category: string) => {
           },
           excerpt,
           rating,
+          
           "category": categories[0]->{_id,title},
           publishedAt,
           author->{_ref, name},

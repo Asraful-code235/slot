@@ -8,6 +8,7 @@ const useSlot = () => {
       const query = `
         *[_type == "slot"]  | order(publishedAt desc) {
           ...,
+          position,
           "category": categories[0]->{_id,title},
         } 
       `

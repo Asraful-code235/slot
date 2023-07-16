@@ -75,6 +75,18 @@ export default defineType({
       },
     }),
     defineField({
+      name: "position",
+      title: "Card position",
+      type: "string",
+      options: {
+        list: [
+          { title: "Top of card", value: "center" },
+          { title: "Bello Card", value: "bcard" },
+          { title: "Right Aligned", value: "rcard" },
+        ],
+      },
+    }),
+    defineField({
       name: "list",
       title: "Description List",
       type: "array",

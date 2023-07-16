@@ -7,7 +7,10 @@ import Link from "next/link"
 import { useParams } from "next/navigation"
 import { client } from "@/sanity/lib/client"
 import { urlForImage } from "@/sanity/lib/image"
-import { InformationCircleIcon } from "@heroicons/react/24/outline"
+import {
+  ChevronRightIcon,
+  InformationCircleIcon,
+} from "@heroicons/react/24/outline"
 import { StarIcon } from "@heroicons/react/24/solid"
 // @ts-ignore
 import BlockContent from "@sanity/block-content-to-react"
@@ -78,7 +81,29 @@ const BlogAndNewsDetailsPage = () => {
     return BlockContent.defaultSerializers.types.block(props)
   }
 
+  // Assuming slotDetails.Cards is an array of card objects
+
+  const centerCards = slotDetails?.Cards?.filter(
+    // @ts-ignore
+
+    (card) => card.position === "center"
+  )
+
+  // Filter the cards with position "bcard"
+  const belloCards = slotDetails?.Cards?.filter(
+    // @ts-ignore
+
+    (card) => card.position === "bcard"
+  )
+
+  // Filter the cards with position "rcard"
+  const rightAlignedCards = slotDetails?.Cards?.filter(
+    // @ts-ignore
+    (card) => card.position === "rcard"
+  )
+
   console.log(slotDetails)
+
   return (
     <>
       <Helmet htmlAttributes={{ lang: "en" }}>
@@ -196,9 +221,44 @@ const BlogAndNewsDetailsPage = () => {
             </div>
           </article>
         </section>
-        <article className="grid grid-cols-1 gap-4 lg:grid-cols-4">
+        <article className="grid grid-cols-1 lg:gap-4 lg:grid-cols-4 ">
           {/* related */}
           <article className="grid-cols-1 lg:col-span-3 ">
+            <div className="my-4">
+              <div className=" flex-wrap gap-4 w-full flex  justify-center mt-4">
+                {belloCards?.slice(0, 3).map((card: any, key: number) => (
+                  <article
+                    key={key}
+                    className={`
+                  ${
+                    card?.colors.length > 0
+                      ? `bg-${card?.colors}-400`
+                      : "bg-green-500"
+                  }
+                  cardHoverEffect space-y-4 rounded-lg border border-gray-200  shadow-sm transition-transform duration-300 hover:scale-105`}
+                  >
+                    <div className="flex items-center justify-center gap-4 p-4 text-white text-sm font-medium leading-2">
+                      <Image
+                        width={64}
+                        height={64}
+                        src={urlForImage(card?.image?.asset).url()}
+                        alt="slot__cards"
+                        className="aspect-square w-16 rounded-full border border-transparent object-cover object-center"
+                      />
+                      <div className="flex items-center justify-center gap-1 text-xs font-normal text-white">
+                        <div className="flex flex-col gap-1 text-xs font-normal text-white">
+                          <h3>Senza Deposito</h3>
+                          <p>{card?.noDeposit}</p>
+                          <h3>Con Deposito</h3>
+                          <p>{card?.withDeposit}</p>
+                        </div>
+                        <ChevronRightIcon className="w-6 h-6 text-white" />
+                      </div>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </div>
             <BlockContent
               serializers={{ types: { block: BlockRenderer } }}
               blocks={slotDetails?.body}
@@ -255,13 +315,17 @@ const BlogAndNewsDetailsPage = () => {
               </section>
             )}
 
-            <div className="flex flex-wrap gap-4">
-              {slotDetails?.Cards?.map((card: any, key: number) => (
+            <div className=" flex-wrap gap-4 w-full hidden md:flex  justify-center">
+              {rightAlignedCards?.map((card: any, key: number) => (
                 <article
                   key={key}
-                  className={`cardHoverEffect space-y-4 rounded-lg border border-gray-200 ${
-                    card?.colors ? `bg-${card?.colors}-500` : "bg-green-500"
-                  } shadow-sm transition-transform duration-300 hover:scale-105`}
+                  className={`
+                  ${
+                    card?.colors.length > 0
+                      ? `bg-${card?.colors}-400`
+                      : "bg-green-500"
+                  }
+                  cardHoverEffect space-y-4 rounded-lg border border-gray-200  shadow-sm transition-transform duration-300 hover:scale-105`}
                 >
                   <div className="flex flex-col items-center justify-center gap-2 p-4 text-white text-sm font-medium leading-2">
                     <Image
