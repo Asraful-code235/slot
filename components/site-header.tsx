@@ -15,10 +15,7 @@ export function SiteHeader() {
   }
 
   return (
-    <header
-      id="header"
-      className="  sm:sticky  top-0 z-40 w-full border-b bg-black"
-    >
+    <header id="header" className="  z-40 w-full border-b bg-black">
       <div className="container flex h-20 items-center space-x-4 sm:justify-between sm:space-x-0">
         <MainNav items={siteConfig.mainNav} />
         <div className="block min-[875px]:hidden">

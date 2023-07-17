@@ -25,16 +25,16 @@ export default function RootLayout({ children }: RootLayoutProps) {
           <Head>Slot</Head>
           <body
             className={cn(
-              "min-h-screen overflow-x-hidden bg-background font-sans  relative",
+              "bg-background relative min-h-screen overflow-x-hidden  font-sans",
               fontSans.variable
             )}
           >
             <div className="relative flex min-h-screen flex-col">
               <SiteHeader />
               <main className="flex-1 !overflow-x-hidden">{children}</main>
-              <div className="border border-transparent shadow bg-gray-700  cursor-pointer text-white p-2 opacity-60 hover:opacity-100 rounded-full fixed right-8 bottom-8">
+              <div className="fixed bottom-8 right-8 cursor-pointer  rounded-full border border-transparent bg-gray-700 p-2 text-white opacity-60 shadow hover:opacity-100">
                 <Link href="/">
-                  <ArrowUpIcon className="w-5 h-5 text-white  " />
+                  <ArrowUpIcon className="h-5 w-5 text-white  " />
                 </Link>
               </div>
               <FooterPage />

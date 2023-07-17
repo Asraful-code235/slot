@@ -16,7 +16,7 @@ const FooterPage = (props: Props) => {
             />
             <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
 
-            <span className="ml-3 text-xl text-white">Cobra</span>
+            {/* <span className="ml-3 text-xl text-white">Cobra</span> */}
           </a>
         </div>
         <div className="-mb-10 mt-10 flex grow flex-wrap text-center md:mt-0 md:pl-20 md:text-left">
@@ -34,24 +34,14 @@ const FooterPage = (props: Props) => {
               <li>
                 <a className="text-white">Codice etico</a>
               </li>
-              <li>
-                <a className="text-white">Affiliazione</a>
-              </li>
-              <li>
-                <a className="text-white">Assistenza</a>
-              </li>
-              <li>
-                <a className="text-white">Termini sportivi</a>
-              </li>
+
               <li>
                 <a className="text-white">Termini e condizioni</a>
               </li>
               <li>
                 <a className="text-white">Giochi responsabili</a>
               </li>
-              <li>
-                <a className="text-white">Impostazioni dei cookie</a>
-              </li>
+
               <li>
                 <a className="text-white">Mappa del sito</a>
               </li>
@@ -71,24 +61,6 @@ const FooterPage = (props: Props) => {
               <li>
                 <a className="text-white">Giochi Online</a>
               </li>
-              <li>
-                <a className="text-white">Giochi di Carte Online</a>
-              </li>
-              <li>
-                <a className="text-white">Casino Live Online</a>
-              </li>
-              <li>
-                <a className="text-white">Roulette Online Live</a>
-              </li>
-              <li>
-                <a className="text-white">Blackjack Online Live</a>
-              </li>
-              <li>
-                <a className="text-white">Poker Online</a>
-              </li>
-              <li>
-                <a className="text-white">Bingo Online</a>
-              </li>
             </nav>
           </div>
           <div className="w-full px-4 md:w-1/2 lg:w-1/4">
@@ -98,15 +70,6 @@ const FooterPage = (props: Props) => {
             <nav className="mb-10 list-none">
               <li>
                 <a className="text-white">Bonus Casinò</a>
-              </li>
-              <li>
-                <a className="text-white">Scarica il Client Poker</a>
-              </li>
-              <li>
-                <a className="text-white">Giochi Esclusivi</a>
-              </li>
-              <li>
-                <a className="text-white">Slot con Jackpot</a>
               </li>
             </nav>
           </div>
