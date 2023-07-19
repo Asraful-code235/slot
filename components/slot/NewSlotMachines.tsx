@@ -10,6 +10,7 @@ import Link from "next/link"
 import { urlForImage } from "@/sanity/lib/image"
 import { StarIcon } from "@heroicons/react/24/solid"
 
+import useSortedSlots from "../hooks/useGetSortedSlots"
 import useSlot from "../hooks/useSlot"
 
 type SlotMachine = {
@@ -58,7 +59,7 @@ const NewSlotMachines = (props: Props) => {
     ],
   }
 
-  const slots = useSlot()
+  const sortedslots = useSortedSlots()
 
   return (
     <div className="mx-auto  flex max-w-6xl flex-col items-center justify-center gap-8">
@@ -70,33 +71,34 @@ const NewSlotMachines = (props: Props) => {
       </div>
       <div className="w-full">
         <Slider {...settings} responsive={settings.responsive}>
-          {slots?.map((slot: any) => (
+          {sortedslots?.sortedSlots?.map((slot: any) => (
             <Link
               href={`/slot/${slot.slug.current}`}
               key={slot.slug}
               className=" p-2 "
             >
               <Image
-                width={340}
-                height={250}
+                width={288}
+                height={358}
                 src={urlForImage(slot?.mainImage).url()}
                 alt={slot.title}
-                className="aspect-square w-full rounded-md object-cover object-center"
+                className="aspect-square h-[258px] w-full rounded-md object-center object-cover"
               />
-              <div className="p-2 text-left text-lg font-medium text-gray-600 ">
-                <span className="flex items-center gap-1">
-                  {Array.from({ length: 5 }).map((_, index) => (
-                    <StarIcon
-                      key={index}
-                      className={`h-5 w-5 ${
-                        index < slot?.rating
-                          ? "text-orange-500"
-                          : "text-gray-500"
-                      }`}
-                    />
-                  ))}
-                </span>
-                <h3 className="truncate text-base text-left ">{slot.title}</h3>
+              <div className="py-2 text-left text-lg font-medium text-gray-600 ">
+                <div className="flex items-center gap-1">
+                  <div className="w-full flex items-center justify-between gap-1 text-sm ">
+                    <p className="bg-gray-100 rounded-full text-gray-600 px-2 py-0.5">
+                      #{slot?.category.title}
+                    </p>
+                    <div className="flex items-center gap-1">
+                      {slot?.rating}
+                      <StarIcon className="h-5 w-5 text-orange-500" />
+                    </div>
+                  </div>
+                </div>
+                <h3 className="truncate text-xs font-bold text-left ">
+                  {slot.title}
+                </h3>
               </div>
             </Link>
           ))}

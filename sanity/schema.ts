@@ -9,6 +9,7 @@ import landingPage from "./schemas/landingPage"
 import post from "./schemas/post"
 import slot from "./schemas/slot"
 import slotCard from "./schemas/slotCard"
+import sorthomeSlots from "./schemas/sorthomeSlots"
 
 export const schema: { types: SchemaTypeDefinition[] } = {
   types: [
@@ -20,6 +21,7 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     guide,
     slotCard,
     casino,
+    sorthomeSlots,
     landingPage,
   ],
 }
