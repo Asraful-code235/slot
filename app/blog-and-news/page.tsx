@@ -108,7 +108,7 @@ const BlogAndNewsPage = (props: Props) => {
             ))}
 
             <div className="mt-16 space-y-6 md:space-y-2">
-              {posts?.map((guide, key) => (
+              {posts?.slice(1).map((guide, key) => (
                 <Link
                   href={`/blog-and-news/${guide.slug.current}`}
                   // @ts-ignore

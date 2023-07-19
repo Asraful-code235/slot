@@ -9,7 +9,7 @@ import BlockContent from "@sanity/block-content-to-react"
 // @ts-ignore
 import { Helmet } from "react-helmet"
 
-import { useGetRelatedCasinoByCategory } from "@/components/hooks/useGetCasinoPostWithId"
+import { useGetCasinoPostWithId } from "@/components/hooks/useGetCasinoPostWithId"
 import {
   useGetNewsPostsWithId,
   useGetRelatedPostsByCategory,
@@ -18,14 +18,14 @@ import { formatDate } from "@/components/utils/utils"
 
 type Props = {}
 
-const BlogAndNewsDetailsPage = () => {
+const CasinoDetailsPage = () => {
   const router = useParams()
 
   const slug = router?.slug
-  const newsDetails = useGetNewsPostsWithId(slug as string)
+  const newsDetails = useGetCasinoPostWithId(slug as string)
   const category = newsDetails?.category?._id
   // @ts-ignore
-  const relatedPosts = useGetRelatedCasinoByCategory(slug as string, category)
+  const relatedPosts = useGetRelatedPostsByCategory(slug as string, category)
 
   if (!newsDetails) {
     return null
@@ -39,7 +39,7 @@ const BlogAndNewsDetailsPage = () => {
         <meta name="description" content={`${newsDetails?.title}`} />
         <link
           rel="canonical"
-          href={`https://slot-ndkk.vercel.app/blog-and-news/${newsDetails?.title}`}
+          href={`https://slot-ndkk.vercel.app/casino/${newsDetails?.title}`}
         />
       </Helmet>
       <section className=" mx-auto max-w-7xl px-8 pb-24">
@@ -56,7 +56,7 @@ const BlogAndNewsDetailsPage = () => {
               </svg>
             </li>
             <li className="flex items-center text-red-500">
-              <Link href="/blog-and-news">BLOG AND NEWS</Link>
+              <Link href="/casino">Casino</Link>
               <svg
                 className="mx-3 h-3 w-3 fill-current text-gray-500"
                 xmlns="http://www.w3.org/2000/svg"
@@ -73,7 +73,7 @@ const BlogAndNewsDetailsPage = () => {
           </ol>
         </nav>
         <article className="grid grid-cols-1 gap-4 md:grid-cols-4">
-          <section className="col-span-4 flex flex-col gap-4 md:col-span-3 ">
+          <section className="col-span-4 flex flex-col gap-4 md:col-span-4 ">
             <article className="space-y-4 text-justify tracking-tight text-gray-600">
               <h1 className="line-clamp-2 whitespace-pre-wrap text-2xl font-bold text-red-500 md:text-3xl">
                 {newsDetails?.title}
@@ -86,7 +86,7 @@ const BlogAndNewsDetailsPage = () => {
                 }
                 width={700}
                 height={600}
-                className="aspect-video w-full rounded-md object-cover object-center"
+                className="aspect-[16/7] w-full rounded-md object-cover object-center"
                 alt={newsDetails?.mainImage?.alt || "blog-and-news-details"}
               />
               <div className="mt-4 flex items-center gap-x-4 text-xs">
@@ -113,7 +113,7 @@ const BlogAndNewsDetailsPage = () => {
           </section>
 
           {/* related */}
-          <section className="col-span-4 w-full md:col-span-1">
+          {/* <section className="col-span-4 w-full md:col-span-1">
             <h2 className="my-4 text-lg font-semibold text-gray-600 md:mt-2 ">
               Related Posts
             </h2>
@@ -131,9 +131,9 @@ const BlogAndNewsDetailsPage = () => {
                         urlForImage(relatedPost?.mainImage?.asset).url() ||
                         "/images/image2.jpg"
                       }
-                      width={400}
-                      height={250}
-                      className=" w--[280px] h-[200px] rounded-md  object-cover object-center"
+                      width={600}
+                      height={400}
+                      className=" w-full aspect-video  rounded-md  object-cover object-center"
                       alt={
                         relatedPost?.mainImage?.alt || "blog-and-news-details"
                       }
@@ -159,11 +159,11 @@ const BlogAndNewsDetailsPage = () => {
                 ))}
               </section>
             ) : null}
-          </section>
+          </section> */}
         </article>
       </section>
     </>
   )
 }
 
-export default BlogAndNewsDetailsPage
+export default CasinoDetailsPage

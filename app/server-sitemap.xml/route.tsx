@@ -26,7 +26,49 @@ export async function GET(request: Request) {
       }
     })
 
-    console.log(response)
+    const getGuide = groq`
+    *[_type == "guide"] | order(publishedAt desc) {
+      ...,
+      "category": categories[0]->{_id, title}
+    } 
+  `
+
+    const getNews = groq`
+  *[_type == "posts"] | order(publishedAt desc) {
+    ...,
+    "category": categories[0]->{_id, title}
+  } 
+`
+
+    const response1 = await client.fetch(getGuide)
+    // Method to source urls from cms
+    // const response = await fetch(`https://slot-ndkk.vercel.app/api/slots`)
+
+    if (!response1.ok) {
+      console.log(response1)
+    }
+
+    const res1 = response1.map((url: any) => {
+      return {
+        loc: `https://slot-ndkk.vercel.app/guide/${url.slug.current}`,
+        lastmod: new Date().toISOString(),
+      }
+    })
+
+    const response2 = await client.fetch(getNews)
+    // Method to source urls from cms
+    // const response = await fetch(`https://slot-ndkk.vercel.app/api/slots`)
+
+    if (!response2.ok) {
+      console.log(response2)
+    }
+
+    const res2 = response2.map((url: any) => {
+      return {
+        loc: `https://slot-ndkk.vercel.app/news/${url.slug.current}`,
+        lastmod: new Date().toISOString(),
+      }
+    })
 
     return getServerSideSitemap([
       {
@@ -78,6 +120,8 @@ export async function GET(request: Request) {
         // priority
       },
       ...res,
+      ...res1,
+      ...res2,
     ])
   } catch (error) {
     console.error(error)

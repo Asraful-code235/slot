@@ -60,7 +60,7 @@ const NewSlotMachines = (props: Props) => {
   const slots = useSlot()
   console.log(slots)
   return (
-    <div className="mx-auto  flex max-w-7xl flex-col items-center justify-center gap-8">
+    <div className="mx-auto  flex max-w-6xl flex-col items-center justify-center gap-8">
       <div className="space-y-2 text-center text-gray-600">
         <h1 className="text-2xl font-bold md:text-3xl">
           Le Migliori Slot del momento

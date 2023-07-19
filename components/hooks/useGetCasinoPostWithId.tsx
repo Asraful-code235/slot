@@ -1,7 +1,7 @@
 import { client } from "@/sanity/lib/client"
 import { useQuery } from "@tanstack/react-query"
 
-interface NewsPost {
+interface Casino {
   title: string
   slug: {
     current: string
@@ -25,13 +25,12 @@ interface NewsPost {
   body: any // Update with the correct type for the body property
 }
 
-const useGetNewsPostsWithId = (slug: string): NewsPost | undefined => {
-  const { data: newsPost } = useQuery<NewsPost>({
-    queryKey: ["/me/blog-and-news/details", slug],
+const useGetCasinoPostWithId = (slug: string): Casino | undefined => {
+  const { data: guidePost } = useQuery<Casino>({
+    queryKey: ["/me/casino/details", slug],
     queryFn: async () => {
       const query = `
-        *[_type == "post" && slug.current == $slug] {
-
+        *[_type == "casino" && slug.current == $slug] {
           title,
           slug,
           mainImage {
@@ -41,7 +40,6 @@ const useGetNewsPostsWithId = (slug: string): NewsPost | undefined => {
               _type
             }
           },
-         
           excerpt,
           publishedAt,
           "category": categories[0]->{_id,title},
@@ -49,24 +47,24 @@ const useGetNewsPostsWithId = (slug: string): NewsPost | undefined => {
           body
         }[0]
       `
-      const response = await client.fetch<NewsPost>(query, { slug })
+      const response = await client.fetch<Casino>(query, { slug })
       return response
     },
     keepPreviousData: true,
   })
 
-  return newsPost
+  return guidePost
 }
 
-const useGetRelatedPostsByCategory = (
+const useGetRelatedCasinoByCategory = (
   slug: string,
   category: string
-): NewsPost[] | undefined => {
-  const { data: relatedPosts } = useQuery<NewsPost[]>({
-    queryKey: ["/me/blog-and-news/category", slug, category],
+): Casino[] | undefined => {
+  const { data: relatedPosts } = useQuery<Casino[]>({
+    queryKey: ["/me/casino/related", slug, category],
     queryFn: async () => {
       const query = `
-        *[_type == "post" && references($category) && slug.current != $slug] {
+        *[_type == "casino" && references($category) && slug.current != $slug] {
           title,
           slug,
           mainImage {
@@ -77,14 +75,16 @@ const useGetRelatedPostsByCategory = (
             }
           },
           excerpt,
-          rating,
           "category": categories[0]->{_id,title},
           publishedAt,
           author->{_ref, name},
           body
         }
       `
-      const response = await client.fetch<NewsPost[]>(query, { slug, category })
+      const response = await client.fetch<Casino[]>(query, {
+        slug,
+        category,
+      })
       return response
     },
     keepPreviousData: true,
@@ -93,4 +93,4 @@ const useGetRelatedPostsByCategory = (
   return relatedPosts
 }
 
-export { useGetNewsPostsWithId, useGetRelatedPostsByCategory }
+export { useGetCasinoPostWithId, useGetRelatedCasinoByCategory }

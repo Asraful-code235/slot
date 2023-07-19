@@ -1,22 +1,58 @@
 "use client"
 
+import React from "react"
 import Image from "next/image"
 import Link from "next/link"
-// @ts-ignore
+import { urlForImage } from "@/sanity/lib/image"
+import {
+  ChatBubbleLeftIcon,
+  ChevronLeftIcon,
+  ChevronRightIcon,
+} from "@heroicons/react/24/outline"
 import { Helmet } from "react-helmet"
+
+import useCasino from "@/components/hooks/useCasino"
 
 type Props = {}
 
 const CasinoPage = (props: Props) => {
+  const itemsPerPage = 10
+  const {
+    posts,
+    currentPage,
+    totalPages,
+    goToPage,
+    nextPage,
+    prevPage,
+    isLoading,
+  } = useCasino(itemsPerPage)
+
+  const renderPageNumbers = () => {
+    const pageNumbers = []
+    for (let i = 1; i <= totalPages; i++) {
+      pageNumbers.push(
+        <button
+          key={i}
+          onClick={() => goToPage(i)}
+          className={` p-2 px-4 rounded-md hover:bg-gray-100 ${
+            currentPage === i ? "bg-gray-200 " : ""
+          }`}
+        >
+          {i}
+        </button>
+      )
+    }
+    return pageNumbers
+  }
   return (
     <>
       <Helmet>
         <title>Casino</title>
-        <meta name="description" content="Get to know about online Casino" />
+        <meta name="description" content="Casino" />
         <link rel="canonical" href={`https://slot-ndkk.vercel.app/casino`} />
       </Helmet>
-      <section className="mx-auto max-w-7xl px-4 py-8 md:py-16">
-        <article className="mx-auto mb-4 max-w-4xl">
+      <article className="mx-auto max-w-7xl px-4 py-8 md:py-16">
+        <section>
           <nav className=" font-bold text-black" aria-label="Breadcrumb">
             <ol className="inline-flex list-none truncate p-0 text-xs md:text-base ">
               <li className="flex items-center">
@@ -31,285 +67,112 @@ const CasinoPage = (props: Props) => {
               </li>
               <li className="flex items-center">
                 <Link className="text-red-500" href="/casino">
-                  CASINO
+                  Casino
                 </Link>
               </li>
             </ol>
           </nav>
-        </article>
-        <article className="mx-auto max-w-4xl">
-          <div>
-            <div>
-              <Image
-                src={"/images/online_casinoo.jpg"}
-                alt="online_casino"
-                width={1000}
-                height={400}
-                className="aspect-video rounded-md object-cover object-center"
-              />
-            </div>
-            <article className="line-height-4 mt-6 space-y-6 text-justify">
-              <h1 className="text-2xl font-bold text-red-500 md:text-3xl ">
-                Casino online
-              </h1>
-              <p className="text-base font-medium text-gray-600">
-                <strong>Che cos&apos;è un casinò online?</strong> Questa è la
-                prima domanda che potresti porti quando un giorno ti imbatti in
-                una simile realtà nella rete internet. All&apos;epoca della
-                digitalizzazione, anche
-                <strong> il gioco d&apos;azzardo si è dematerializzato</strong>.
-                Oggi, per praticare una delle tue forme preferite di gioco
-                d&apos;azzardo, che si tratti del poker, delle sommesse sportive
-                o del Bingo, non devi necessariamente recarti in una sala da
-                gioco fisica.{" "}
-                <strong>
-                  Puoi aprire un conto ed iscriverti ad uno dei numeroso casinò
-                  online che puoi trovare navigando nel web
-                </strong>
-                . E qui sorge il secondo interrogativo: come faccio a scegliere?
-                Il nostro sito nasce proprio per fornirti tutti gli{" "}
-                <strong>
-                  elementi per fare la tua scelta nel modo più saggio e oculato
-                  possibile
-                </strong>
-                . La prima caratteristica che non devi mai dimenticare o
-                trascurare è: verifica che il casinò online a cui vuoi fare
-                l&apos;iscrizione abbia un numero, che trovi sempre riportato in
-                alto o in basso. Quel numero si chiama “concessione” e ti
-                spieghiamo cosa significa.
-              </p>
+        </section>
+        <section className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-4 gap-4">
+          <div className="col-span-1 md:col-span-4 ">
+            {posts?.slice(0, 1).map((guide, key) => (
+              // @ts-ignore
 
-              <h2 className="mb-4 text-xl font-semibold text-gray-600">
-                L&apos;importanza della concessione ADM
-              </h2>
-              <p>
-                In Italia c&apos;è un ente che regolamenta il gioco d’azzardo,
-                ed è <strong>l&apos;Agenzia delle Dogane e dei Monopoli</strong>{" "}
-                abbreviata con la<strong> sigla ADM</strong>. Forse la conosci
-                con il nome AAMS che fino a poco tempo fa era quello ufficiale,
-                e che poi è stato cambiato.{" "}
-                <strong>
-                  AAMS stava per Amministrazione Autonoma dei Monopoli di Stato
-                </strong>
-                . Se è cambiato il nome, non è cambiata la sostanza. Questo ente
-                deve{" "}
-                <strong>
-                  verificare che il gioco d&apos;azzardo nel nostro Paese si
-                  svolga nella piena legalità
-                </strong>
-                , e controlla quindi il rispetto di certe norme e criteri
-                predefiniti. Si capisce come i casinò online non sfuggano di
-                certo a tale controllo. Anzi, quando si parla di gioco online le
-                procedure sono ancora più rigorose, visto che tutto è regolato
-                da software informatici. Il numero di concessione di cui ti
-                parlavamo viene erogato proprio da ADM e infatti riporta prima
-                questa sigla, seguita solitamente da cinque numeri.{" "}
-                <strong>
-                  Occasionalmente puoi trovare una sigla diversa che è GAD, che
-                  sta per Gioco a Distanza
-                </strong>
-                . Ancora una volta la sostanza non cambia: in ogni caso,{" "}
-                <strong>
-                  il casinò che presenta tale numero ha superato i rigidi
-                  controlli dello Stato
-                </strong>{" "}
-                ed è quindi un <strong>ambiente di gioco sicuro</strong>. Ma
-                quali sono i criteri che permettono di definire un casinò online
-                “sicuro” per il giocatore?
-              </p>
-              <h2 className="mb-4 text-xl font-semibold text-gray-600">
-                Protocolli di sicurezza per la movimentazione del denaro
-              </h2>
-              <p>
-                Ci sono siti, come ad esempio il nostro, dove puoi provare
-                alcuni dei giochi più popolari di casinò online, come ad esempio
-                le slot machine, in modalità del tutto gratuita. In tal caso non
-                ci sono problemi: ti stai divertendo senza usare il tuo denaro.
-                Ma il gioco d&apos;azzardo, si sa, nasce soprattutto per
-                scommettere delle cifre di denaro e per provare a vincerne delle
-                altre. Quando usi i tuoi soldi online di certo vuoi stare sicuro
-                che vadano a finire nel tuo conto di gioco e non chissà dove.
-                Allo stesso modo, vuoi avere la certezza di poter ritirare il
-                ricavato delle tue vincite in qualunque momento lo desideri.
-                Quindi,
-                <strong>
-                  <a
-                    className="text-sky-500"
-                    href="https://www.machineslotonline.it/guide/gioco-responsabile"
+              <Link
+                href={`/casino/${guide.slug.current}`}
+                key={key}
+                className="space-y-4 p-4 "
+              >
+                <Image
+                  width={1000}
+                  height={250}
+                  // @ts-ignore
+                  src={urlForImage(guide?.mainImage).url()}
+                  alt={guide.title}
+                  className="mb-4 w-full aspect-[16/7] border border-transparent rounded-md object-cover object-center hover:opacity-70 hover:transition-opacity hover:duration-300"
+                />
+                <p className=" text-xl font-bold text-red-500">{guide.title}</p>
+                <p className="text-left font-medium text-gray-600">
+                  {guide.excerpt}{" "}
+                  <p
+                    className="font-bold text-sky-500
+                "
                   >
-                    {" "}
-                    uno dei controlli più importanti che ADM
-                  </a>
-                  , tramite i suoi organi preposti, esegue sui casinò online,
-                  riguarda i protocolli di sicurezza che vengono usati per i
-                  trasferimenti di denaro
-                </strong>
-                . Un casinò affidabile solitamente ti propone tutte le più
-                comuni forme di pagamento virtuale, dalle carte di credito al
-                bonifico bancario. Se il casinò su cui hai aperto il tuo conto
-                di gioco ha la concessione ADM o GAD, puoi stare certo che tutto
-                si svolge nella massima trasparenza e che i tuoi soldi non
-                corrono alcun rischio.
-              </p>
-              <h2 className="mb-4 text-xl font-semibold text-gray-600">
-                Random Number Generator
-              </h2>
-              <p>
-                C&apos;è un altro aspetto molto importante che certifica la
-                trasparenza di un casinò online, ed è l&apos;utilizzo di sistemi
-                informatici che garantiscano a tutti, ma proprio a tutti i
-                giocatori che aprono un conto di gioco, le stesse medesime
-                possibilità di vincita. La casualità del gioco d&apos;azzardo è
-                uno dei suoi aspetti più affascinanti: non sai mai se e quando
-                potrai vincere, e non c&apos;è modo di fare previsioni. Se ci
-                sono forme di gambling, come il Poker, in cui l&apos;abilità
-                personale gioca comunque un ruolo, in altri casi, come nelle
-                slot machine, è solo la Fortuna a farla da padrona. Ad ogni modo
-                è necessario che i software di gioco che vengono usati per il
-                gambling online non siano manomissibili in nessun modo e che
-                riproducano in tutto e per tutto la casualità del gioco reale.
-                Per questo si usa un
-                <a
-                  className="text-sky-500"
-                  href="https://www.machineslotonline.it/guide/rng"
+                    see more
+                  </p>
+                </p>
+              </Link>
+            ))}
+
+            <div className="mt-16 space-y-6 md:space-y-2">
+              {posts?.slice(1).map((guide, key) => (
+                <Link
+                  href={`/casino/${guide.slug.current}`}
+                  // @ts-ignore
+                  key={guide.slug + key}
+                  className="flex  border border-gray-200 rounded-md flex-col md:flex-row items-start gap-4 space-y-4"
                 >
-                  <strong> algoritmo chiamato Random Number Generator</strong>
-                </a>
-                . Il termine inglese “random” vuol dire appunto “a caso”. ADM
-                controlla che questo, e altri sistemi simili, siano usati dal
-                casinò online
-                <strong>
-                  {" "}
-                  affinché le probabilità di vincita siano imparziali, e
-                  affinché nessun giocatore possa manipolare il sistema a suo
-                  vantaggio
-                </strong>
-                .
-              </p>
-              <h2 className="mb-4 text-xl font-semibold text-gray-600">
-                Servizi Complessivi
-              </h2>
-              <p>
-                Quando stiliamo la recensione di un casinò online non ti
-                parliamo solo della varietà dei giochi che esso ti offre.
-                Naturalmente, quello che può interessare maggiormente un
-                giocatore sono i Bonus a disposizione, oppure sapere se è
-                possibile fare scommesse sportive o giocare alla{" "}
-                <a
-                  className="text-sky-500"
-                  href="https://www.machineslotonline.it/slot/pragmatic-play/roulette"
-                >
-                  Roulette
-                </a>
-                . Ma quello che l&apos;ente controllore verifica è anche altro.
-                Per esempio,
-                <strong>
-                  {" "}
-                  un sito candidato a ricevere il numero di concessione deve
-                  dimostrare di avere un servizio di assistenza sempre presente
-                  e funzionante
-                </strong>
-                , poiché in ogni momento l&apos;utente potrebbe avere bisogno di
-                supporto. Ancora, ci deve essere una
-                <strong> sezione informativa</strong> in cui siano riportati nel
-                dettaglio tutte le regole dei giochi, le percentuali che
-                indicano le probabilità di vincita, o l&apos;ammontare dei
-                montepremi. La
-                <strong> chiarezza nella comunicazione</strong> è cioè un altro
-                fattore che rende un casinò online affidabile e sicuro, e un
-                buon candidato per una possibile iscrizione.{" "}
-                <strong>
-                  Infine, l&apos;usabilità generale del sito è un altro aspetto
-                  che viene valutato per verificarne la qualità.
-                </strong>
-              </p>
-              <h2 className="mb-4 text-xl font-semibold text-gray-600">
-                I migliori casinò online in Italia con concessione ADM
-              </h2>
-              <p>
-                Detto questo, ti forniamo una{" "}
-                <strong>
-                  top five dei casinò che possiedono concessione ADM
-                </strong>{" "}
-                e che offrono un ventaglio completo di opzioni di gambling e
-                betting, oltre che Bonus molto interessanti.{" "}
-                <strong>
-                  Puoi trovare però un elenco più completo nella sezione
-                  dedicata del nostro sito
-                </strong>
-                , con relative recensioni e punteggi.
-              </p>
-              <ul>
-                <li>
-                  <a
-                    className="text-sky-500"
-                    href="https://www.machineslotonline.it/casino-online/starcasino"
-                  >
-                    <strong>StarCasinò</strong>
-                  </a>
-                  ; vincitore nel 2019 del premio “Miglior Casinò
-                  dell&apos;anno”, questo sito gestito dal gruppo Betsson resta
-                  tra i preferiti in assoluto dai giocatori per la qualità
-                  grafica e il ghiotto Bonus di Benvenuto.
-                </li>
-                <li>
-                  <a
-                    className="text-sky-500"
-                    href="https://www.machineslotonline.it/casino-online/lottomatica"
-                  >
-                    <strong>Lottomatica</strong>
-                  </a>
-                  ; Lottomatica è un vero caposaldo nel mondo del gioco
-                  d&apos;azzardo in Italia e resta una garanzia di affidabilità,
-                  oltre ad avere un&apos;offerta di giochi tra le più ampie che
-                  esistano nel nostro Paese.
-                </li>
-                <li>
-                  <a
-                    className="text-sky-500"
-                    href="https://www.machineslotonline.it/casino-online/888"
-                  >
-                    <strong>888</strong>
-                  </a>
-                  ; il sito di 888 è molto ben organizzato e suddiviso nelle tre
-                  sezioni più importanti del gioco d&apos;azzardo online, ovvero
-                  Sport, Casino e Poker; il suo programma fedeltà è uno dei più
-                  remunerativi per chi resta iscritto per lungo tempo.
-                </li>
-                <li>
-                  <a
-                    className="text-sky-500"
-                    href="https://www.machineslotonline.it/casino-online/sisal"
-                  >
-                    <strong>Sisal</strong>
-                  </a>
-                  ; altro brand storico in Italia, è anche uno dei gestori che
-                  ha dato maggiore attenzione allo sviluppo delle app mobili,
-                  sempre più apprezzate e preferite dai giocatori.
-                </li>
-                <li>
-                  <a
-                    className="text-sky-500"
-                    href="https://www.machineslotonline.it/casino-online/leovegas"
-                  >
-                    <strong>LeoVegas</strong>
-                  </a>
-                  ; il punto forte di questo casinò online sono sicuramente le{" "}
-                  <a
-                    className="text-sky-500"
-                    href="https://www.machineslotonline.it/slot"
-                  >
-                    slot machine
-                  </a>
-                  , visto che ne possiede oltre 500 e non manca mai di acquisire
-                  nuovi titoli per restare sempre aggiornato con le novità del
-                  momento.
-                </li>
-              </ul>
-            </article>
+                  <Image
+                    width={400}
+                    height={250}
+                    // @ts-ignore
+                    src={urlForImage(guide?.mainImage).url()}
+                    alt={guide.title}
+                    className="w-full aspect-video md:h-[300px] md:w-[340px] md:max-w-[350px] flex-1 rounded-md object-cover object-center hover:opacity-70 hover:transition-opacity hover:duration-300"
+                  />
+                  <div className="flex flex-col gap-4">
+                    <p className="text-xl font-bold text-red-500">
+                      {guide.title}
+                    </p>
+                    <p className="line-clamp-3 text-left font-medium text-gray-600">
+                      {guide.excerpt}{" "}
+                    </p>
+                    <p
+                      className="-mt-2 font-bold text-sky-500
+                "
+                    >
+                      see more
+                    </p>
+                  </div>
+                </Link>
+              ))}
+            </div>
           </div>
-        </article>
-      </section>
+          <div className="col-span-1 "></div>
+        </section>
+      </article>
+      {totalPages > 0 ? (
+        <div className="flex justify-center my-4 items-center gap-4">
+          <button
+            onClick={() => prevPage()}
+            disabled={currentPage === 1}
+            className={` p-2 rounded-full  ${
+              currentPage === 1 ? "bg-gray-50" : "bg-gray-200"
+            }`}
+          >
+            <ChevronLeftIcon
+              className={`w-5 h-5 ${
+                currentPage === 1 ? "text-gray-50" : "text-gray-600"
+              }`}
+            />
+          </button>
+          <div className="flex items-center gap-2">{renderPageNumbers()}</div>
+          <button
+            onClick={() => nextPage()}
+            disabled={currentPage === totalPages}
+            className={` p-2 rounded-full  ${
+              currentPage === totalPages ? "bg-gray-50" : "bg-gray-200"
+            }`}
+          >
+            <ChevronRightIcon
+              className={`w-5 h-5 ${
+                currentPage === totalPages ? "text-gray-50" : "text-gray-600"
+              }`}
+            />
+          </button>
+        </div>
+      ) : null}
+      {isLoading && <div>Loading...</div>}
     </>
   )
 }

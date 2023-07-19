@@ -4,7 +4,7 @@ import { useState } from "react"
 import { client } from "@/sanity/lib/client"
 import { useQuery } from "@tanstack/react-query"
 
-interface GuidePosts {
+interface Casino {
   title: string
   slug: {
     current: string
@@ -25,12 +25,12 @@ interface GuidePosts {
 const fetchNewsPosts = async (
   currentPage: number,
   itemsPerPage: number
-): Promise<{ posts: GuidePosts[]; totalCount: number }> => {
+): Promise<{ posts: Casino[]; totalCount: number }> => {
   const skip = (currentPage - 1) * itemsPerPage
 
   const query = `
     {
-      "posts": *[_type == "guide"]
+      "posts": *[_type == "casino"]
         | order(publishedAt desc)
         [${skip}...${skip + itemsPerPage - 1}] {
           title,
@@ -41,25 +41,26 @@ const fetchNewsPosts = async (
               url
             }
           },
+          badges,
           excerpt,
           publishedAt,
           author->{_ref, name},
         },
-      "totalCount": count(*[_type == "guide"])
+      "totalCount": count(*[_type == "casino"])
     }
   `
 
   const response = await client.fetch<{
-    posts: GuidePosts[]
+    posts: Casino[]
     totalCount: number
   }>(query)
   return response
 }
 
-const useGuidePosts = (
+const useCasino = (
   itemsPerPage: number
 ): {
-  posts: GuidePosts[] | undefined
+  posts: Casino[] | undefined
   currentPage: number
   totalPages: number
   goToPage: (page: number) => void
@@ -71,12 +72,12 @@ const useGuidePosts = (
   const [totalPages, setTotalPages] = useState(1)
 
   const {
-    data: guidePosts,
+    data: CasinoPosts,
     isLoading,
     isFetching,
     isPreviousData,
-  } = useQuery<{ posts: GuidePosts[]; totalCount: number }>({
-    queryKey: ["/me/guide", currentPage, itemsPerPage],
+  } = useQuery<{ posts: Casino[]; totalCount: number }>({
+    queryKey: ["/me/casino", currentPage, itemsPerPage],
     queryFn: () => fetchNewsPosts(currentPage, itemsPerPage),
     keepPreviousData: true,
     onSuccess: (data) => {
@@ -100,7 +101,7 @@ const useGuidePosts = (
   }
 
   return {
-    posts: guidePosts?.posts,
+    posts: CasinoPosts?.posts,
     currentPage,
     totalPages,
     goToPage,
@@ -109,4 +110,4 @@ const useGuidePosts = (
     isLoading,
   }
 }
-export default useGuidePosts
+export default useCasino

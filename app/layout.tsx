@@ -4,6 +4,7 @@ import "@/styles/globals.scss"
 import { Metadata } from "next"
 import Head from "next/head"
 import Link from "next/link"
+import { usePathname } from "next/navigation"
 import { ArrowUpIcon } from "@heroicons/react/24/outline"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 
@@ -18,6 +19,7 @@ interface RootLayoutProps {
 
 const queryClient = new QueryClient()
 export default function RootLayout({ children }: RootLayoutProps) {
+  const pathname = usePathname()
   return (
     <>
       <html lang="en" suppressHydrationWarning>
@@ -33,7 +35,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
               <SiteHeader />
               <main className="flex-1 !overflow-x-hidden">{children}</main>
               <div className="fixed bottom-8 right-8 cursor-pointer  rounded-full border border-transparent bg-gray-700 p-2 text-white opacity-60 shadow hover:opacity-100">
-                <Link href="/">
+                <Link href={`${pathname}`}>
                   <ArrowUpIcon className="h-5 w-5 text-white  " />
                 </Link>
               </div>

@@ -27,7 +27,7 @@ interface GuidePost {
 
 const useGetGuideWithPostId = (slug: string): GuidePost | undefined => {
   const { data: guidePost } = useQuery<GuidePost>({
-    queryKey: ["/me/guide", slug],
+    queryKey: ["/me/guide/details", slug],
     queryFn: async () => {
       const query = `
         *[_type == "guide" && slug.current == $slug] {
