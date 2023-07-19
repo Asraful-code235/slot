@@ -3,14 +3,21 @@
 import Image from "next/image"
 import { Helmet } from "react-helmet"
 
+import useMetadata from "@/components/hooks/useGetMetaData"
+
 type Props = {}
 
 const PokerPage = (props: Props) => {
+  const homePageMetaData = useMetadata()
+  const getHomeMeta = homePageMetaData?.find((m: any) => m.page === "/poker")
+
+  const title = getHomeMeta?.title
+  const desc = getHomeMeta?.desc
   return (
     <div>
       <Helmet>
-        <title>Poker</title>
-        <meta name="description" content="Get to know poker" />
+        <title>{title}</title>
+        <meta name="description" content={`${desc}`} />
         <link rel="canonical" href={`https://slot-ndkk.vercel.app/poker`} />
       </Helmet>
       <section className="mx-auto max-w-7xl">

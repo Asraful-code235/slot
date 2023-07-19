@@ -9,6 +9,7 @@ const useSlot = () => {
         *[_type == "slot"]  | order(publishedAt desc) {
           ...,
           position,
+          rating,
           "category": categories[0]->{_id,title},
         } 
       `

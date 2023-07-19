@@ -5,10 +5,21 @@ import blockContent from "./schemas/blockContent"
 import casino from "./schemas/casino"
 import category from "./schemas/category"
 import guide from "./schemas/guide"
+import landingPage from "./schemas/landingPage"
 import post from "./schemas/post"
 import slot from "./schemas/slot"
 import slotCard from "./schemas/slotCard"
 
 export const schema: { types: SchemaTypeDefinition[] } = {
-  types: [post, author, category, blockContent, slot, guide, slotCard, casino],
+  types: [
+    post,
+    author,
+    category,
+    blockContent,
+    slot,
+    guide,
+    slotCard,
+    casino,
+    landingPage,
+  ],
 }

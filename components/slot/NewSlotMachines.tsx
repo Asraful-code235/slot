@@ -8,6 +8,7 @@ import "slick-carousel/slick/slick-theme.css"
 import Image from "next/image"
 import Link from "next/link"
 import { urlForImage } from "@/sanity/lib/image"
+import { StarIcon } from "@heroicons/react/24/solid"
 
 import useSlot from "../hooks/useSlot"
 
@@ -58,14 +59,14 @@ const NewSlotMachines = (props: Props) => {
   }
 
   const slots = useSlot()
-  console.log(slots)
+
   return (
     <div className="mx-auto  flex max-w-6xl flex-col items-center justify-center gap-8">
       <div className="space-y-2 text-center text-gray-600">
         <h1 className="text-2xl font-bold md:text-3xl">
           Le Migliori Slot del momento
         </h1>
-        <p className="text-lg font-medium">slot della settimana</p>
+        <p className="text-lg font-bold">slot della settimana</p>
       </div>
       <div className="w-full">
         <Slider {...settings} responsive={settings.responsive}>
@@ -83,7 +84,19 @@ const NewSlotMachines = (props: Props) => {
                 className="aspect-square w-full rounded-md object-cover object-center"
               />
               <div className="p-2 text-left text-lg font-medium text-gray-600 ">
-                <h3 className="line-clamp-1 ">{slot.title}</h3>
+                <span className="flex items-center gap-1">
+                  {Array.from({ length: 5 }).map((_, index) => (
+                    <StarIcon
+                      key={index}
+                      className={`h-5 w-5 ${
+                        index < slot?.rating
+                          ? "text-orange-500"
+                          : "text-gray-500"
+                      }`}
+                    />
+                  ))}
+                </span>
+                <h3 className="truncate text-base text-left ">{slot.title}</h3>
               </div>
             </Link>
           ))}

@@ -9,6 +9,19 @@ export default defineType({
       name: "title",
       title: "Title",
       type: "string",
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: "metaTitle",
+      title: "Meta Title",
+      type: "string",
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: "metaDesc",
+      title: "Meta Description",
+      type: "string",
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "slug",
@@ -18,6 +31,7 @@ export default defineType({
         source: "title",
         maxLength: 96,
       },
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "rating",
@@ -32,11 +46,13 @@ export default defineType({
           { title: "5", value: 5 },
         ],
       },
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "href",
       title: "Game Link",
       type: "string",
+      validation: (Rule) => Rule.required(),
     }),
 
     defineField({
@@ -66,6 +82,7 @@ export default defineType({
       title: "Categories",
       type: "array",
       of: [{ type: "reference", to: { type: "category" } }],
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "Cards",
@@ -77,6 +94,7 @@ export default defineType({
       name: "publishedAt",
       title: "Published at",
       type: "datetime",
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "body",

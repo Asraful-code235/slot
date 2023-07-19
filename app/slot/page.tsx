@@ -8,11 +8,18 @@ import { urlForImage } from "@/sanity/lib/image"
 import { Helmet } from "react-helmet"
 
 import useGetAllSlot from "@/components/hooks/useGetAllSlot"
+import useMetadata from "@/components/hooks/useGetMetaData"
 import { formatDate } from "@/components/utils/utils"
 
 type Props = {}
 
 const SlotPage = (props: Props) => {
+  const homePageMetaData = useMetadata()
+  const getHomeMeta = homePageMetaData?.find((m: any) => m.page === "/slot")
+
+  const title = getHomeMeta?.title
+  const desc = getHomeMeta?.desc
+
   const { AllSlot, isLoading } = useGetAllSlot()
   const [searchQuery, setSearchQuery] = useState("")
   const [selectedCategory, setSelectedCategory] = useState("All")
@@ -50,11 +57,8 @@ const SlotPage = (props: Props) => {
   return (
     <>
       <Helmet>
-        <title>Slot</title>
-        <meta
-          name="description"
-          content="Esplora una vasta selezione di slot online su cobra sito. Goditi l'emozione dei giochi di slot con grafica coinvolgente, funzioni speciali e la possibilità di vincere premi fantastici. Registrati ora per un'esperienza di gioco indimenticabile!"
-        />
+        <title>{title}</title>
+        <meta name={`${desc}`} />
         <link rel="canonical" href={`https://slot-ndkk.vercel.app/slot`} />
       </Helmet>
       <article className="mx-auto max-w-7xl px-4 py-8 md:py-16">

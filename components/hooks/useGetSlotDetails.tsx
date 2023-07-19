@@ -7,6 +7,7 @@ const useGetSlotDetailsWithSlug = (slug: string) => {
     queryFn: async () => {
       const query = `
         *[_type == "slot" && slug.current == $slug] {
+          ...,
           title,
           slug,
           mainImage {
@@ -16,6 +17,8 @@ const useGetSlotDetailsWithSlug = (slug: string) => {
               _type
             }
           },
+          metaTitle,
+          metaDesc,
           rating,
           href,
           Cards[]->{
@@ -44,6 +47,7 @@ const useGetRelatedSlotByCategory = (slug: string, category: string) => {
     queryFn: async () => {
       const query = `
         *[_type == "slot" && references($category) && slug.current != $slug] {
+          ...,
           title,
           slug,
           mainImage {

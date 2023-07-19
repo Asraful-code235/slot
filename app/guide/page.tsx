@@ -9,11 +9,18 @@ import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline"
 // @ts-ignore
 import { Helmet } from "react-helmet"
 
+import useMetadata from "@/components/hooks/useGetMetaData"
 import useGuidePosts from "@/components/hooks/useGuidePosts"
 
 type Props = {}
 
 const GuidePage = (props: Props) => {
+  const homePageMetaData = useMetadata()
+  const getHomeMeta = homePageMetaData?.find((m: any) => m.page === "/guide")
+
+  const title = getHomeMeta?.title
+  const desc = getHomeMeta?.desc
+
   const itemsPerPage = 10
   const {
     posts: guide,
@@ -45,11 +52,8 @@ const GuidePage = (props: Props) => {
   return (
     <>
       <Helmet>
-        <title>Guide</title>
-        <meta
-          name="description"
-          content="Here you can find all the guide for you slot games"
-        />
+        <title>{title}</title>
+        <meta name="description" content={`${desc}`} />
         <link rel="canonical" href={`https://slot-ndkk.vercel.app/guide`} />
       </Helmet>
       <article className="mx-auto max-w-7xl px-4 py-8 md:py-16">

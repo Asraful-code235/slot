@@ -11,11 +11,20 @@ import {
 } from "@heroicons/react/24/outline"
 import { Helmet } from "react-helmet"
 
+import useMetadata from "@/components/hooks/useGetMetaData"
 import useNewsPosts from "@/components/hooks/useNewsPosts"
 
 type Props = {}
 
 const BlogAndNewsPage = (props: Props) => {
+  const homePageMetaData = useMetadata()
+  const getHomeMeta = homePageMetaData?.find(
+    (m: any) => m.page === "/blog-and-news"
+  )
+
+  const title = getHomeMeta?.title
+  const desc = getHomeMeta?.desc
+
   const itemsPerPage = 10
   const {
     posts,
@@ -47,8 +56,8 @@ const BlogAndNewsPage = (props: Props) => {
   return (
     <>
       <Helmet>
-        <title>Blog E Notize</title>
-        <meta name="description" content="Blog E Notize" />
+        <title>{title}</title>
+        <meta name="description" content={`${desc}`} />
         <link
           rel="canonical"
           href={`https://slot-ndkk.vercel.app/blog-and-news`}

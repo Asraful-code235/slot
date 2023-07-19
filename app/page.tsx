@@ -7,6 +7,7 @@ import { Helmet } from "react-helmet"
 // requires a loader
 import { Carousel } from "react-responsive-carousel"
 
+import useMetadata from "@/components/hooks/useGetMetaData"
 import Guide from "@/components/slot/Guide"
 import NewSlotMachines from "@/components/slot/NewSlotMachines"
 import News from "@/components/slot/News"
@@ -24,14 +25,16 @@ const items = [
 ]
 
 export default function IndexPage() {
+  const homePageMetaData = useMetadata()
+  const getHomeMeta = homePageMetaData?.find((m: any) => m.page === "/")
+
+  const title = getHomeMeta?.title
+  const desc = getHomeMeta?.desc
   return (
     <>
       <Helmet>
-        <title>Cobra Sito</title>
-        <meta
-          name="description"
-          content="Esplora una vasta selezione di slot online su cobra sito. Goditi l'emozione dei giochi di slot con grafica coinvolgente, funzioni speciali e la possibilità di vincere premi fantastici. Registrati ora per un'esperienza di gioco indimenticabile!"
-        />
+        <title>{title}</title>
+        <meta name="description" content={`${desc}`} />
         <link rel="canonical" href={`https://slot-ndkk.vercel.app/`} />
       </Helmet>
       <section className="w-screen mx-auto">

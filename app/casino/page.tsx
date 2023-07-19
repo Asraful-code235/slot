@@ -12,10 +12,17 @@ import {
 import { Helmet } from "react-helmet"
 
 import useCasino from "@/components/hooks/useCasino"
+import useMetadata from "@/components/hooks/useGetMetaData"
 
 type Props = {}
 
 const CasinoPage = (props: Props) => {
+  const homePageMetaData = useMetadata()
+  const getHomeMeta = homePageMetaData?.find((m: any) => m.page === "/casino")
+
+  const title = getHomeMeta?.title
+  const desc = getHomeMeta?.desc
+
   const itemsPerPage = 10
   const {
     posts,
@@ -47,8 +54,8 @@ const CasinoPage = (props: Props) => {
   return (
     <>
       <Helmet>
-        <title>Casino</title>
-        <meta name="description" content="Casino" />
+        <title>{title}</title>
+        <meta name="description" content={`${desc}`} />
         <link rel="canonical" href={`https://slot-ndkk.vercel.app/casino`} />
       </Helmet>
       <article className="mx-auto max-w-7xl px-4 py-8 md:py-16">

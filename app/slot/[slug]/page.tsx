@@ -107,8 +107,11 @@ const BlogAndNewsDetailsPage = () => {
   return (
     <>
       <Helmet htmlAttributes={{ lang: "en" }}>
-        <title>Slot | {slotDetails?.title}</title>
-        <meta name="description" content={`${slotDetails?.title}`} />
+        <title>Slot | {slotDetails?.metaTitle}</title>
+        <meta
+          name="description"
+          content={`${slotDetails?.metaDesc || "this is a description"}`}
+        />
         <link
           rel="canonical"
           href={`https://slot-ndkk.vercel.app/slot/${slotDetails?.slug.current}`}
@@ -229,13 +232,10 @@ const BlogAndNewsDetailsPage = () => {
                 {belloCards?.slice(0, 3).map((card: any, key: number) => (
                   <article
                     key={key}
-                    className={`
-                  ${
-                    card?.colors.length > 0
-                      ? `bg-${card?.colors}-400`
-                      : "bg-green-500"
-                  }
-                  cardHoverEffect space-y-4 rounded-lg border border-gray-200  shadow-sm transition-transform duration-300 hover:scale-105`}
+                    style={{
+                      backgroundColor: `${card.colors}`,
+                    }}
+                    className={`cardHoverEffect space-y-4 rounded-lg border border-gray-200  shadow-sm transition-transform duration-300 hover:scale-105`}
                   >
                     <div className="flex items-center justify-center gap-4 p-4 text-white text-sm font-medium leading-2">
                       <Image
@@ -319,13 +319,10 @@ const BlogAndNewsDetailsPage = () => {
               {rightAlignedCards?.map((card: any, key: number) => (
                 <article
                   key={key}
-                  className={`
-                  ${
-                    card?.colors.length > 0
-                      ? `bg-${card?.colors}-400`
-                      : "bg-green-500"
-                  }
-                  cardHoverEffect space-y-4 rounded-lg border border-gray-200  shadow-sm transition-transform duration-300 hover:scale-105`}
+                  style={{
+                    backgroundColor: `${card.colors}`,
+                  }}
+                  className={`cardHoverEffect bg-opacity-80 space-y-4 rounded-lg border border-gray-200  shadow-sm transition-transform duration-300 hover:scale-105`}
                 >
                   <div className="flex flex-col items-center justify-center gap-2 p-4 text-white text-sm font-medium leading-2">
                     <Image

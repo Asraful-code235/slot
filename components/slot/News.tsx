@@ -88,7 +88,7 @@ const News = () => {
     <div className="flex w-screen flex-col items-center justify-center gap-8 overflow-hidden bg-slate-100 py-16">
       <div className="space-y-2 text-center text-gray-600">
         <h1 className="text-2xl font-bold md:text-3xl">Le Nuove uscite</h1>
-        <p className="text-lg font-medium">Ultime notizie ed eventi</p>
+        <p className="text-lg font-bold">Ultime notizie ed eventi</p>
       </div>
       <div
         className="max-w-5xl text-gray-600 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4
@@ -113,9 +113,9 @@ const News = () => {
                 <time dateTime={post.publishedAt} className="text-gray-500">
                   {formatDate(post.publishedAt)}
                 </time>
-                {/* <p className="relative z-10 rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100">
+                <p className="relative z-10 rounded-full bg-gray-300 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100">
                   {post?.author?.name}
-                </p> */}
+                </p>
               </div>
               <div className="space-y-2 px-4 pb-4 text-base font-medium text-gray-600">
                 <h3 className="mt-3 text-red-500 line-clamp-1 text-lg font-semibold leading-6  group-hover:text-red-800  ">
@@ -147,9 +147,9 @@ const News = () => {
                 <time dateTime={post.publishedAt} className="text-gray-500">
                   {formatDate(post.publishedAt)}
                 </time>
-                {/* <p className="relative z-10 rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100">
+                <p className="relative z-10 rounded-full bg-gray-300 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100">
                   {post?.author?.name}
-                </p> */}
+                </p>
               </div>
               <div className="space-y-2 px-4 pb-4 text-base font-medium text-gray-600">
                 <h3 className="mt-3 text-red-500 line-clamp-1 text-lg font-semibold leading-6  group-hover:text-red-800  ">

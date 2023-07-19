@@ -3,14 +3,23 @@
 import React from "react"
 import { Helmet } from "react-helmet"
 
+import useMetadata from "@/components/hooks/useGetMetaData"
+
 type Props = {}
 
 const AboutPage = (props: Props) => {
+  const homePageMetaData = useMetadata()
+  const getHomeMeta = homePageMetaData?.find(
+    (m: any) => m.page === "/blog-and-news"
+  )
+
+  const title = getHomeMeta?.title
+  const desc = getHomeMeta?.desc
   return (
     <>
       <Helmet>
-        <title>chi siamo</title>
-        <meta name="description" content="get to know us" />
+        <title>{title}</title>
+        <meta name="description" content={`${desc}`} />
         <link rel="canonical" href={`https://slot-ndkk.vercel.app/about-us`} />
       </Helmet>
       <div className="mx-auto max-w-7xl px-4 py-24">
