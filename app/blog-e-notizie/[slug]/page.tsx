@@ -4,6 +4,10 @@ import Image from "next/image"
 import Link from "next/link"
 import { useParams } from "next/navigation"
 import { urlForImage } from "@/sanity/lib/image"
+import {
+  ChevronRightIcon,
+  InformationCircleIcon,
+} from "@heroicons/react/24/outline"
 // @ts-ignore
 import BlockContent from "@sanity/block-content-to-react"
 // @ts-ignore
@@ -12,6 +16,7 @@ import { Helmet } from "react-helmet"
 import { useGetRelatedCasinoByCategory } from "@/components/hooks/useGetCasinoPostWithId"
 import {
   useGetNewsPostsWithId,
+  useGetRelatedNewseByAuthor,
   useGetRelatedPostsByCategory,
 } from "@/components/hooks/useGetNewsPostsWithId"
 import { formatDate } from "@/components/utils/utils"
@@ -23,15 +28,40 @@ const BlogAndNewsDetailsPage = () => {
 
   const slug = router?.slug
   const newsDetails = useGetNewsPostsWithId(slug as string)
-  const category = newsDetails?.category?._id
+
+  const authorId =
+    // @ts-ignore
+    newsDetails?.author?._ref
+
+  const relatedPosts = useGetRelatedNewseByAuthor(authorId, slug as string)
+
   // @ts-ignore
-  const relatedPosts = useGetRelatedCasinoByCategory(slug as string, category)
+  const centerCards = newsDetails?.Cards?.filter(
+    // @ts-ignore
+
+    (card) => card.position === "center"
+  )
+
+  // Filter the cards with position "bcard"
+  // @ts-ignore
+  const belloCards = newsDetails?.Cards?.filter(
+    // @ts-ignore
+
+    (card) => card.position === "bcard"
+  )
+
+  // Filter the cards with position "rcard"
+  // @ts-ignore
+  const rightAlignedCards = newsDetails?.Cards?.filter(
+    // @ts-ignore
+    // @ts-ignore
+    (card) => card.position === "rcard"
+  )
 
   if (!newsDetails) {
     return null
   }
 
-  console.log(newsDetails)
   return (
     <>
       <Helmet>
@@ -56,7 +86,7 @@ const BlogAndNewsDetailsPage = () => {
               </svg>
             </li>
             <li className="flex items-center text-red-500">
-              <Link href="/blog-and-news">BLOG AND NEWS</Link>
+              <Link href="/blog-e-notizie">BLOG E NOTIZiE</Link>
               <svg
                 className="mx-3 h-3 w-3 fill-current text-gray-500"
                 xmlns="http://www.w3.org/2000/svg"
@@ -104,12 +134,46 @@ const BlogAndNewsDetailsPage = () => {
                 </p>
               </div>
             </article>
-            <BlockContent
-              blocks={newsDetails?.body}
-              imageOptions={{ w: 320, h: 240, fit: "max" }}
-              projectId={process.env.NEXT_PUBLIC_SANITY_PROJECT_ID}
-              dataset={process.env.NEXT_PUBLIC_SANITY_DATASET}
-            />
+            <article className="grid-cols-1 lg:col-span-3 ">
+              <div className="my-4">
+                <div className=" mt-4 flex w-full flex-wrap  justify-center gap-4">
+                  {belloCards?.slice(0, 3).map((card: any, key: number) => (
+                    <article
+                      key={key}
+                      style={{
+                        backgroundColor: `${card.colors}`,
+                      }}
+                      className={`cardHoverEffect space-y-4 rounded-lg border border-gray-200  shadow-sm transition-transform duration-300 hover:scale-105`}
+                    >
+                      <div className="leading-2 flex items-center justify-center gap-4 p-4 text-sm font-medium text-white">
+                        <Image
+                          width={64}
+                          height={64}
+                          src={urlForImage(card?.image?.asset).url()}
+                          alt="slot__cards"
+                          className="aspect-square w-16 rounded-full border border-transparent object-cover object-center"
+                        />
+                        <div className="flex items-center justify-center gap-1 text-xs font-normal text-white">
+                          <div className="flex flex-col gap-1 text-xs font-normal text-white">
+                            <h3>Senza Deposito</h3>
+                            <p>{card?.noDeposit}</p>
+                            <h3>Con Deposito</h3>
+                            <p>{card?.withDeposit}</p>
+                          </div>
+                          <ChevronRightIcon className="h-6 w-6 text-white" />
+                        </div>
+                      </div>
+                    </article>
+                  ))}
+                </div>
+              </div>
+              <BlockContent
+                blocks={newsDetails?.body}
+                imageOptions={{ w: 320, h: 240, fit: "max" }}
+                projectId={process.env.NEXT_PUBLIC_SANITY_PROJECT_ID}
+                dataset={process.env.NEXT_PUBLIC_SANITY_DATASET}
+              />
+            </article>
           </section>
 
           {/* related */}
@@ -119,9 +183,9 @@ const BlogAndNewsDetailsPage = () => {
             </h2>
             {relatedPosts ? (
               <section className="flex w-full flex-col gap-4 p-0">
-                {relatedPosts?.map((relatedPost) => (
+                {relatedPosts?.map((relatedPost: any) => (
                   <Link
-                    href={`/blog-and-news/${relatedPost?.slug?.current}`}
+                    href={`/blog-e-notizie/${relatedPost?.slug?.current}`}
                     key={relatedPost?.slug?.current}
                     className=" flex w-full flex-col  gap-4"
                   >
@@ -147,8 +211,11 @@ const BlogAndNewsDetailsPage = () => {
                         >
                           {formatDate(relatedPost?.publishedAt)}
                         </time>
-                        <p className="relative z-10 rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100">
+                        {/* <p className="relative z-10 rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100">
                           {relatedPost?.category?.title}
+                        </p> */}
+                        <p className="relative z-10 capitalize rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100">
+                          {relatedPost?.author?.name}
                         </p>
                       </div>
                       <p className="line-clamp-2 font-semibold leading-4 text-red-500 group-hover:text-gray-600">
@@ -159,6 +226,51 @@ const BlogAndNewsDetailsPage = () => {
                 ))}
               </section>
             ) : null}
+            <div className=" hidden w-full flex-wrap justify-center gap-4  md:flex mt-8">
+              {rightAlignedCards?.map((card: any, key: number) => (
+                <article
+                  key={key}
+                  style={{
+                    backgroundColor: `${card.colors}`,
+                  }}
+                  className={`cardHoverEffect space-y-4 rounded-lg border border-gray-200 bg-opacity-80  shadow-sm transition-transform duration-300 hover:scale-105`}
+                >
+                  <div className="leading-2 flex flex-col items-center justify-center gap-2 p-4 text-sm font-medium text-white">
+                    <Image
+                      width={64}
+                      height={64}
+                      src={urlForImage(card?.image?.asset).url()}
+                      alt="slot__cards"
+                      className="aspect-square w-16 rounded-full border border-transparent object-cover object-center"
+                    />
+                    <h3>Senza Deposito</h3>
+                    <p>{card?.noDeposit}</p>
+                    <h3>Con Deposito</h3>
+                    <p>{card?.withDeposit}</p>
+                  </div>
+                  <div className="cardHoverEffectActive bg-white p-6 text-sm text-gray-500  transition-opacity duration-300 ">
+                    <ul className="flex flex-col gap-2">
+                      {card?.list?.map((list: any, key: number) => (
+                        <li key={key} className="flex flex-col gap-3">
+                          <div className="flex gap-3">
+                            <InformationCircleIcon className="h-5 w-5 shrink-0 text-orange-500" />
+                            <span>{list}</span>
+                          </div>
+                        </li>
+                      ))}
+                      <div className="mt-3 grid grid-cols-2 gap-3">
+                        <button className="rounded-lg bg-red-500 px-4 py-1.5 text-white hover:bg-red-700">
+                          VISITA IL SITO
+                        </button>
+                        <button className="rounded-lg bg-red-500 px-4 py-1.5 text-white hover:bg-red-700">
+                          LEGGI LA GUIDA
+                        </button>
+                      </div>
+                    </ul>
+                  </div>
+                </article>
+              ))}
+            </div>
           </section>
         </article>
       </section>

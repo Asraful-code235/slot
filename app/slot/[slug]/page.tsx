@@ -46,8 +46,6 @@ const BlogAndNewsDetailsPage = () => {
   const authorId = slotDetails?.author?._ref
 
   const relatedPosts = useGetRelatedSlotByAuthor(authorId, slug as string)
-  console.log(slotDetails)
-  console.log(relatedPosts)
 
   // @ts-ignore
   // const relatedPosts = useGetRelatedSlotByCategory(slug as string, category)

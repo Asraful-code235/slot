@@ -65,7 +65,7 @@ export async function GET(request: Request) {
 
     const res2 = response2.map((url: any) => {
       return {
-        loc: `https://slot-ndkk.vercel.app/news/${url.slug.current}`,
+        loc: `https://slot-ndkk.vercel.app/blog-e-notizie/${url.slug.current}`,
         lastmod: new Date().toISOString(),
       }
     })
@@ -108,13 +108,13 @@ export async function GET(request: Request) {
         // priority
       },
       {
-        loc: "https://slot-ndkk.vercel.app/blog-and-news",
+        loc: "https://slot-ndkk.vercel.app/blog-e-notizie",
         lastmod: new Date().toISOString(),
         // changefreq
         // priority
       },
       {
-        loc: "https://slot-ndkk.vercel.app/about-us",
+        loc: "https://slot-ndkk.vercel.app/chi-siamo",
         lastmod: new Date().toISOString(),
         // changefreq
         // priority

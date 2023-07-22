@@ -40,10 +40,13 @@ const useGetGuideWithPostId = (slug: string): GuidePost | undefined => {
               _type
             }
           },
+          Cards[]->{
+            ...
+          },
           excerpt,
           publishedAt,
           "category": categories[0]->{_id,title},
-          author->{_ref, name},
+          author,
           body
         }[0]
       `
@@ -56,41 +59,36 @@ const useGetGuideWithPostId = (slug: string): GuidePost | undefined => {
   return guidePost
 }
 
-// const useGetRelatedGuideByCategory = (
-//   slug: string,
-//   category: string
-// ): GuidePost[] | undefined => {
-//   const { data: relatedPosts } = useQuery<GuidePost[]>({
-//     queryKey: ["/me/guide/category", slug, category],
-//     queryFn: async () => {
-//       const query = groq`
-//         *[_type == "guide" && references($category) && slug.current != $slug] {
-//           title,
-//           slug,
-//           mainImage {
-//             alt,
-//             asset {
-//               _ref,
-//               _type
-//             }
-//           },
-//           excerpt,
-//           "category": categories[0]->{_id,title},
-//           publishedAt,
-//           author->{_ref, name},
-//           body
-//         }
-//       `
-//       const response = await client.fetch<GuidePost[]>(query, {
-//         slug,
-//         category,
-//       })
-//       return response
-//     },
-//     keepPreviousData: true,
-//   })
+const useGetRelatedGuideByAuthor = (authorId: any, slug: any) => {
+  const { data: relatedGuides } = useQuery({
+    queryKey: ["/me/guide/related/author", authorId, slug],
+    queryFn: async () => {
+      const query = `
+        *[_type == "guide" && author._ref == $authorId && references($authorId) && slug.current != $slug] {
+          ...,
+          title,
+          slug,
+          mainImage {
+            alt,
+            asset {
+              _ref,
+              _type
+            }
+          },
+          excerpt,
+          rating,
+          author->{_ref,name},
+          "category": categories[0]->{_id,title},
+          publishedAt,
+          body 
+        }
+      `
+      const response = await client.fetch(query, { authorId, slug })
+      return response
+    },
+    keepPreviousData: true,
+  })
 
-//   return relatedPosts
-// }
-
-export { useGetGuideWithPostId }
+  return relatedGuides
+}
+export { useGetGuideWithPostId, useGetRelatedGuideByAuthor }

@@ -8,25 +8,27 @@ import "slick-carousel/slick/slick-theme.css"
 import Image from "next/image"
 import Link from "next/link"
 import { urlForImage } from "@/sanity/lib/image"
+import { StarIcon } from "@heroicons/react/24/solid"
 
+import useSortedSlots from "../hooks/useGetSortedSlots"
 import useSlot from "../hooks/useSlot"
 
 type Props = {}
 
 const ThemeSection = (props: Props) => {
   // @ts-ignore
-  const slotMachines = useSlot()
+  const slotMachines = useSortedSlots()
 
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
 
   const filteredSlotMachines =
     selectedCategory && selectedCategory !== "ALL"
-      ? slotMachines.filter((slotMachine: any) =>
+      ? slotMachines.sortedSlots.filter((slotMachine: any) =>
           slotMachine.category.title
             .toLowerCase()
             .includes(selectedCategory.toLowerCase())
         )
-      : slotMachines
+      : slotMachines?.sortedSlots
 
   const settings = {
     dots: true,
@@ -98,7 +100,7 @@ const ThemeSection = (props: Props) => {
           ))}
         </div>
       </div>
-      <div className="w-full mx-auto px-6">
+      <div className="max-w-full mx-auto px-6">
         <Slider
           {...settings}
           responsive={settings.responsive}
@@ -109,17 +111,30 @@ const ThemeSection = (props: Props) => {
               <Link
                 href={`/slot/${slotMachine.slug.current}`}
                 key={key}
-                className=" p-4 max-w-sm"
+                className=" p-2 "
               >
                 <Image
-                  width={400}
-                  height={400}
+                  width={288}
+                  height={358}
                   src={urlForImage(slotMachine?.mainImage).url()}
                   alt={slotMachine.title}
-                  className="aspect-square w-full rounded-md object-cover object-center"
+                  className="aspect-square h-[258px] w-full rounded-md object-center object-cover"
                 />
-                <div className="p-2 text-lg font-medium text-gray-600">
-                  <h3 className="line-clamp-1">{slotMachine.title}</h3>
+                <div className="py-2 text-left text-lg font-medium text-gray-600 ">
+                  <div className="flex items-center gap-1">
+                    <div className="w-full flex items-center justify-between gap-1 text-sm ">
+                      <p className="bg-gray-100 rounded-full text-gray-600 px-2 py-0.5">
+                        #{slotMachine?.category.title}
+                      </p>
+                      <div className="flex items-center gap-1">
+                        {slotMachine?.rating}
+                        <StarIcon className="h-5 w-5 text-orange-500" />
+                      </div>
+                    </div>
+                  </div>
+                  <h3 className="truncate text-xs font-bold text-left ">
+                    {slotMachine.title}
+                  </h3>
                 </div>
               </Link>
             ))}

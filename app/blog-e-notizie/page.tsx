@@ -43,7 +43,7 @@ const BlogAndNewsPage = (props: Props) => {
         <button
           key={i}
           onClick={() => goToPage(i)}
-          className={` p-2 px-4 rounded-md hover:bg-gray-100 ${
+          className={` rounded-md p-2 px-4 hover:bg-gray-100 ${
             currentPage === i ? "bg-gray-200 " : ""
           }`}
         >
@@ -78,20 +78,20 @@ const BlogAndNewsPage = (props: Props) => {
                 </svg>
               </li>
               <li className="flex items-center">
-                <Link className="text-red-500" href="/blog-and-news">
+                <Link className="text-red-500" href="/blog-e-notizie">
                   BLOG AND NEWS
                 </Link>
               </li>
             </ol>
           </nav>
         </section>
-        <section className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-4 gap-4">
+        <section className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-4">
           <div className="col-span-1 md:col-span-4 ">
             {posts?.slice(0, 1).map((guide, key) => (
               // @ts-ignore
 
               <Link
-                href={`/blog-and-news/${guide.slug.current}`}
+                href={`/blog-e-notizie/${guide.slug.current}`}
                 key={key}
                 className="space-y-4 p-4 "
               >
@@ -101,7 +101,7 @@ const BlogAndNewsPage = (props: Props) => {
                   // @ts-ignore
                   src={urlForImage(guide?.mainImage).url()}
                   alt={guide.title}
-                  className="mb-4 w-full aspect-[16/7] border border-transparent rounded-md object-cover object-center hover:opacity-70 hover:transition-opacity hover:duration-300"
+                  className="mb-4 aspect-[16/7] w-full rounded-md border border-transparent object-cover object-center hover:opacity-70 hover:transition-opacity hover:duration-300"
                 />
                 <p className=" text-xl font-bold text-red-500">{guide.title}</p>
                 <p className="text-left font-medium text-gray-600">
@@ -119,10 +119,10 @@ const BlogAndNewsPage = (props: Props) => {
             <div className="mt-16 space-y-6 md:space-y-2">
               {posts?.slice(1).map((guide, key) => (
                 <Link
-                  href={`/blog-and-news/${guide.slug.current}`}
+                  href={`/blog-e-notizie/${guide.slug.current}`}
                   // @ts-ignore
                   key={guide.slug + key}
-                  className="flex  border border-gray-200 rounded-md flex-col md:flex-row items-start gap-4 space-y-4"
+                  className="flex  flex-col items-start gap-4 space-y-4 rounded-md border border-gray-200 md:flex-row"
                 >
                   <Image
                     width={400}
@@ -130,7 +130,7 @@ const BlogAndNewsPage = (props: Props) => {
                     // @ts-ignore
                     src={urlForImage(guide?.mainImage).url()}
                     alt={guide.title}
-                    className="w-full aspect-video md:h-[300px] md:w-[340px] md:max-w-[350px] flex-1 rounded-md object-cover object-center hover:opacity-70 hover:transition-opacity hover:duration-300"
+                    className="aspect-video w-full flex-1 rounded-md object-cover object-center hover:opacity-70 hover:transition-opacity hover:duration-300 md:h-[300px] md:w-[340px] md:max-w-[350px]"
                   />
                   <div className="flex flex-col gap-4">
                     <p className="text-xl font-bold text-red-500">
@@ -154,16 +154,16 @@ const BlogAndNewsPage = (props: Props) => {
         </section>
       </article>
       {totalPages > 0 ? (
-        <div className="flex justify-center my-4 items-center gap-4">
+        <div className="my-4 flex items-center justify-center gap-4">
           <button
             onClick={() => prevPage()}
             disabled={currentPage === 1}
-            className={` p-2 rounded-full  ${
+            className={` rounded-full p-2  ${
               currentPage === 1 ? "bg-gray-50" : "bg-gray-200"
             }`}
           >
             <ChevronLeftIcon
-              className={`w-5 h-5 ${
+              className={`h-5 w-5 ${
                 currentPage === 1 ? "text-gray-50" : "text-gray-600"
               }`}
             />
@@ -172,12 +172,12 @@ const BlogAndNewsPage = (props: Props) => {
           <button
             onClick={() => nextPage()}
             disabled={currentPage === totalPages}
-            className={` p-2 rounded-full  ${
+            className={` rounded-full p-2  ${
               currentPage === totalPages ? "bg-gray-50" : "bg-gray-200"
             }`}
           >
             <ChevronRightIcon
-              className={`w-5 h-5 ${
+              className={`h-5 w-5 ${
                 currentPage === totalPages ? "text-gray-50" : "text-gray-600"
               }`}
             />

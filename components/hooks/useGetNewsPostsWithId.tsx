@@ -41,11 +41,13 @@ const useGetNewsPostsWithId = (slug: string): NewsPost | undefined => {
               _type
             }
           },
-         
+          Cards[]->{
+            ...
+          },
           excerpt,
           publishedAt,
           "category": categories[0]->{_id,title},
-          author->{_ref, name},
+          author,
           body
         }[0]
       `
@@ -56,6 +58,39 @@ const useGetNewsPostsWithId = (slug: string): NewsPost | undefined => {
   })
 
   return newsPost
+}
+
+const useGetRelatedNewseByAuthor = (authorId: any, slug: any) => {
+  const { data: relatedGuides } = useQuery({
+    queryKey: ["/me/news/related/author", authorId, slug],
+    queryFn: async () => {
+      const query = `
+        *[_type == "post" && author._ref == $authorId  && slug.current != $slug] {
+          ...,
+          title,
+          slug,
+          mainImage {
+            alt,
+            asset {
+              _ref,
+              _type
+            }
+          },
+          excerpt,
+          rating,
+          author->{_ref,name},
+          "category": categories[0]->{_id,title},
+          publishedAt,
+          body 
+        }
+      `
+      const response = await client.fetch(query, { authorId, slug })
+      return response
+    },
+    keepPreviousData: true,
+  })
+
+  return relatedGuides
 }
 
 const useGetRelatedPostsByCategory = (
@@ -76,6 +111,9 @@ const useGetRelatedPostsByCategory = (
               _type
             }
           },
+          Cards[]->{
+            ...
+          },
           excerpt,
           rating,
           "category": categories[0]->{_id,title},
@@ -93,4 +131,8 @@ const useGetRelatedPostsByCategory = (
   return relatedPosts
 }
 
-export { useGetNewsPostsWithId, useGetRelatedPostsByCategory }
+export {
+  useGetNewsPostsWithId,
+  useGetRelatedPostsByCategory,
+  useGetRelatedNewseByAuthor,
+}

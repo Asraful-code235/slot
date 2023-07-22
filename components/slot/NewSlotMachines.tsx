@@ -82,7 +82,7 @@ const NewSlotMachines = (props: Props) => {
                 height={358}
                 src={urlForImage(slot?.mainImage).url()}
                 alt={slot.title}
-                className="aspect-square h-[258px] w-full rounded-md object-center object-cover"
+                className="aspect-square h-[228px] w-full rounded-md object-center object-cover"
               />
               <div className="py-2 text-left text-lg font-medium text-gray-600 ">
                 <div className="flex items-center gap-1">

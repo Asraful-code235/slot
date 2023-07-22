@@ -50,6 +50,12 @@ export default defineType({
       to: { type: "author" },
     }),
     defineField({
+      name: "Cards",
+      title: "Cards",
+      type: "array",
+      of: [{ type: "reference", to: { type: "slotCard" } }],
+    }),
+    defineField({
       name: "mainImage",
       title: "Main image",
       type: "image",

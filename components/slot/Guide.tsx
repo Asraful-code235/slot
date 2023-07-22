@@ -51,9 +51,9 @@ const Guide = () => {
                 <time dateTime={post.publishedAt} className="text-gray-500">
                   {formatDate(post.publishedAt)}
                 </time>
-                {/* <p className="relative bg-gray-200 z-10 rounded-full  px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100">
+                <p className="relative bg-gray-200 z-10 rounded-full  px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100">
                   {post?.author?.name}
-                </p> */}
+                </p>
               </div>
               <div className="space-y-2 px-4 pb-4 text-base font-medium text-gray-600">
                 <h3 className="mt-3 line-clamp-1 text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-600 ">

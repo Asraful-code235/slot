@@ -4,12 +4,19 @@ import Image from "next/image"
 import Link from "next/link"
 import { useParams } from "next/navigation"
 import { urlForImage } from "@/sanity/lib/image"
+import {
+  ChevronRightIcon,
+  InformationCircleIcon,
+} from "@heroicons/react/24/outline"
 // @ts-ignore
 import BlockContent from "@sanity/block-content-to-react"
 // @ts-ignore
 import { Helmet } from "react-helmet"
 
-import { useGetGuideWithPostId } from "@/components/hooks/useGetGuidesPostWithId"
+import {
+  useGetGuideWithPostId,
+  useGetRelatedGuideByAuthor,
+} from "@/components/hooks/useGetGuidesPostWithId"
 import { formatDate } from "@/components/utils/utils"
 
 type Props = {}
@@ -20,7 +27,37 @@ const GuideDetailsPage = () => {
   const slug = router?.slug
   const newsDetails = useGetGuideWithPostId(slug as string)
 
+  const authorId =
+    // @ts-ignore
+    newsDetails?.author?._ref
+
+  const relatedPosts = useGetRelatedGuideByAuthor(authorId, slug as string)
+
+  console.log(newsDetails)
+  console.log(relatedPosts)
+
   // @ts-ignore
+  const centerCards = newsDetails?.Cards?.filter(
+    // @ts-ignore
+
+    (card) => card.position === "center"
+  )
+
+  // Filter the cards with position "bcard"
+  // @ts-ignore
+  const belloCards = newsDetails?.Cards?.filter(
+    // @ts-ignore
+
+    (card) => card.position === "bcard"
+  )
+
+  // Filter the cards with position "rcard"
+  // @ts-ignore
+  const rightAlignedCards = newsDetails?.Cards?.filter(
+    // @ts-ignore
+    // @ts-ignore
+    (card) => card.position === "rcard"
+  )
 
   if (!newsDetails) {
     return null
@@ -34,7 +71,7 @@ const GuideDetailsPage = () => {
         href=
         {`https://slot-ndkk.vercel.app/guide/${newsDetails?.title}`}
       </Helmet>
-      <section className=" mx-auto max-w-4xl px-8 pb-24">
+      <section className=" mx-auto max-w-7xl ">
         <nav className="my-8 font-bold text-black" aria-label="Breadcrumb">
           <ol className="inline-flex list-none truncate p-0 text-xs md:text-base ">
             <li className="flex items-center">
@@ -64,7 +101,7 @@ const GuideDetailsPage = () => {
             </li>
           </ol>
         </nav>
-        <article className="max-w-4xl mx-auto text-justify ">
+        <article className="max-w-7xl mx-auto text-justify grid grid-cols-1 lg:grid-cols-4 lg:gap-4  ">
           <section className="col-span-4 flex flex-col gap-4 md:col-span-3 ">
             <article className="space-y-4 text-justify tracking-tight text-gray-600">
               <h1 className="line-clamp-2 whitespace-pre-wrap text-2xl font-bold md:text-3xl">
@@ -78,7 +115,7 @@ const GuideDetailsPage = () => {
                 }
                 width={700}
                 height={600}
-                className="aspect-video w-full rounded-md object-cover object-center"
+                className="aspect-[16/7] w-full rounded-md object-cover object-center"
                 alt={newsDetails?.mainImage?.alt || "blog-and-news-details"}
               />
               <div className="mt-4 flex items-center gap-x-4 text-xs">
@@ -96,15 +133,146 @@ const GuideDetailsPage = () => {
                 </p>
               </div>
             </article>
-            <BlockContent
-              blocks={newsDetails?.body}
-              imageOptions={{ w: 320, h: 240, fit: "max" }}
-              projectId={process.env.NEXT_PUBLIC_SANITY_PROJECT_ID}
-              dataset={process.env.NEXT_PUBLIC_SANITY_DATASET}
-            />
+            <article className="grid-cols-1 lg:col-span-3 ">
+              <div className="my-4">
+                <div className=" mt-4 flex w-full flex-wrap  justify-center gap-4">
+                  {belloCards?.slice(0, 3).map((card: any, key: number) => (
+                    <article
+                      key={key}
+                      style={{
+                        backgroundColor: `${card.colors}`,
+                      }}
+                      className={`cardHoverEffect space-y-4 rounded-lg border border-gray-200  shadow-sm transition-transform duration-300 hover:scale-105`}
+                    >
+                      <div className="leading-2 flex items-center justify-center gap-4 p-4 text-sm font-medium text-white">
+                        <Image
+                          width={64}
+                          height={64}
+                          src={urlForImage(card?.image?.asset).url()}
+                          alt="slot__cards"
+                          className="aspect-square w-16 rounded-full border border-transparent object-cover object-center"
+                        />
+                        <div className="flex items-center justify-center gap-1 text-xs font-normal text-white">
+                          <div className="flex flex-col gap-1 text-xs font-normal text-white">
+                            <h3>Senza Deposito</h3>
+                            <p>{card?.noDeposit}</p>
+                            <h3>Con Deposito</h3>
+                            <p>{card?.withDeposit}</p>
+                          </div>
+                          <ChevronRightIcon className="h-6 w-6 text-white" />
+                        </div>
+                      </div>
+                    </article>
+                  ))}
+                </div>
+              </div>
+              <BlockContent
+                blocks={newsDetails?.body}
+                imageOptions={{ w: 320, h: 240, fit: "max" }}
+                projectId={process.env.NEXT_PUBLIC_SANITY_PROJECT_ID}
+                dataset={process.env.NEXT_PUBLIC_SANITY_DATASET}
+              />
+            </article>
           </section>
 
           {/* related */}
+
+          <section className="col-span-4 w-full space-y-4 lg:col-span-1">
+            <h2 className="my-4 text-2xl font-bold text-gray-600 md:mt-2 ">
+              Related Posts
+            </h2>
+            {relatedPosts && (
+              <section className="col-span-4 flex w-full flex-col items-center  justify-center gap-4 p-0">
+                {relatedPosts.slice(0, 4).map((relatedPost: any) => (
+                  <Link
+                    href={`/guide/${relatedPost.slug.current}`}
+                    key={relatedPost.slug.current}
+                    className=" flex w-fit flex-col gap-4 rounded-md"
+                  >
+                    <Image
+                      src={
+                        // @ts-ignore
+                        urlForImage(relatedPost?.mainImage?.asset).url() ||
+                        "/images/image2.jpg"
+                      }
+                      width={400}
+                      height={250}
+                      className=" aspect-video rounded-md object-cover object-center "
+                      alt={
+                        relatedPost?.mainImage.alt || "blog-and-news-details"
+                      }
+                    />
+
+                    <div className=" flex flex-col items-start gap-x-4 text-xs">
+                      <div className="flex items-center gap-x-4 text-xs">
+                        <time
+                          dateTime={relatedPost.publishedAt}
+                          className="text-gray-500"
+                        >
+                          {formatDate(relatedPost.publishedAt)}
+                        </time>
+                        {/* <p className="relative z-10 rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100">
+                          {relatedPost?.category.title}
+                        </p> */}
+                        <p className="relative z-10 rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100">
+                          {relatedPost?.author?.name}
+                        </p>
+                      </div>
+                      <p className="line-clamp-2 font-semibold leading-4 text-gray-900 group-hover:text-gray-600">
+                        {relatedPost.title}
+                      </p>
+                    </div>
+                  </Link>
+                ))}
+              </section>
+            )}
+
+            <div className=" hidden w-full flex-wrap justify-center gap-4  md:flex">
+              {rightAlignedCards?.map((card: any, key: number) => (
+                <article
+                  key={key}
+                  style={{
+                    backgroundColor: `${card.colors}`,
+                  }}
+                  className={`cardHoverEffect space-y-4 rounded-lg border border-gray-200 bg-opacity-80  shadow-sm transition-transform duration-300 hover:scale-105`}
+                >
+                  <div className="leading-2 flex flex-col items-center justify-center gap-2 p-4 text-sm font-medium text-white">
+                    <Image
+                      width={64}
+                      height={64}
+                      src={urlForImage(card?.image?.asset).url()}
+                      alt="slot__cards"
+                      className="aspect-square w-16 rounded-full border border-transparent object-cover object-center"
+                    />
+                    <h3>Senza Deposito</h3>
+                    <p>{card?.noDeposit}</p>
+                    <h3>Con Deposito</h3>
+                    <p>{card?.withDeposit}</p>
+                  </div>
+                  <div className="cardHoverEffectActive bg-white p-6 text-sm text-gray-500  transition-opacity duration-300 ">
+                    <ul className="flex flex-col gap-2">
+                      {card?.list?.map((list: any, key: number) => (
+                        <li key={key} className="flex flex-col gap-3">
+                          <div className="flex gap-3">
+                            <InformationCircleIcon className="h-5 w-5 shrink-0 text-orange-500" />
+                            <span>{list}</span>
+                          </div>
+                        </li>
+                      ))}
+                      <div className="mt-3 grid grid-cols-2 gap-3">
+                        <button className="rounded-lg bg-red-500 px-4 py-1.5 text-white hover:bg-red-700">
+                          VISITA IL SITO
+                        </button>
+                        <button className="rounded-lg bg-red-500 px-4 py-1.5 text-white hover:bg-red-700">
+                          LEGGI LA GUIDA
+                        </button>
+                      </div>
+                    </ul>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </section>
         </article>
       </section>
     </>
