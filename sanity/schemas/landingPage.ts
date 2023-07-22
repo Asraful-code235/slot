@@ -2,7 +2,7 @@ import { defineField, defineType } from "sanity"
 
 export default defineType({
   name: "metadata",
-  title: "Pages Metadata",
+  title: "All Pages Metadata",
   type: "document",
   fields: [
     defineField({
@@ -11,12 +11,13 @@ export default defineType({
       type: "string",
       options: {
         list: [
-          { title: "Home Page", value: "/" },
+          { title: "Home ", value: "/" },
           { title: "Slot", value: "/slot" },
           { title: "Casino", value: "/casino" },
+          { title: "Bonus Di Benvenuto", value: "/migliori-bonus-casino" },
           { title: "Poker", value: "/poker" },
-          { title: "Blog and news", value: "/blog-and-news" },
-          { title: "About us", value: "/about-us" },
+          { title: "Blog E Notizie", value: "/blog-e-notize" },
+          { title: "Chi-Siamio", value: "/chi-ciamo" },
         ],
       },
       validation: (Rule) => Rule.required(),

@@ -9,18 +9,18 @@ export const siteConfig = {
       title: "SLOT",
       href: "/slot",
     },
-    // {
-    //   title: "SPORT",
-    //   href: "/sport",
-    // },
+    {
+      title: "SPORT",
+      href: "/sport",
+    },
     {
       title: "CASINO",
       href: "/casino",
     },
-    // {
-    //   title: "LIVE STATISTICS",
-    //   href: "/live-statistics",
-    // },
+    {
+      title: "Bonus di benvenuto",
+      href: "/migliori-bonus-casino",
+    },
     {
       title: "POKER",
       href: "/poker",
@@ -31,11 +31,11 @@ export const siteConfig = {
     },
     {
       title: "BLOG E NOTIZIE",
-      href: "/blog-and-news",
+      href: "/blog-e-notizie",
     },
     {
       title: "CHI SIAMO",
-      href: "/about-us",
+      href: "/chi-siamo",
     },
   ],
   links: {

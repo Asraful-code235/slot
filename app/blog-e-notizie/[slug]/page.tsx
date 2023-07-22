@@ -39,7 +39,7 @@ const BlogAndNewsDetailsPage = () => {
         <meta name="description" content={`${newsDetails?.title}`} />
         <link
           rel="canonical"
-          href={`https://slot-ndkk.vercel.app/blog-and-news/${newsDetails?.title}`}
+          href={`https://slot-ndkk.vercel.app/blog-e-notizie/${newsDetails?.title}`}
         />
       </Helmet>
       <section className=" mx-auto max-w-7xl px-8 pb-24">

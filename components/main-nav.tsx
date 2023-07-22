@@ -74,7 +74,7 @@ export function MainNav({ items }: MainNavProps) {
                   <Link
                     key={index}
                     href={item.href}
-                    className={`flex items-center text-sm font-medium ${
+                    className={`flex items-center uppercase text-sm font-medium ${
                       isActive ? "font-bold text-red-500" : ""
                     }`}
                   >

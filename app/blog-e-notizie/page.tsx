@@ -19,7 +19,7 @@ type Props = {}
 const BlogAndNewsPage = (props: Props) => {
   const homePageMetaData = useMetadata()
   const getHomeMeta = homePageMetaData?.find(
-    (m: any) => m.page === "/blog-and-news"
+    (m: any) => m.page === "/blog-e-notizie"
   )
 
   const title = getHomeMeta?.title
@@ -60,7 +60,7 @@ const BlogAndNewsPage = (props: Props) => {
         <meta name="description" content={`${desc}`} />
         <link
           rel="canonical"
-          href={`https://slot-ndkk.vercel.app/blog-and-news`}
+          href={`https://slot-ndkk.vercel.app/blog-e-notizie`}
         />
       </Helmet>
       <article className="mx-auto max-w-7xl px-4 py-8 md:py-16">

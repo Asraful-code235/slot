@@ -40,7 +40,9 @@ function MobileNav({ items, toggleMobileNav }) {
         <nav className="flex flex-col space-y-2 p-4">
           {items?.map((item: any, index: any) => (
             <Link key={index} href={item.href}>
-              <p className="text-white hover:text-red-500">{item.title}</p>
+              <p className="text-white hover:text-red-500 uppercase">
+                {item.title}
+              </p>
             </Link>
           ))}
         </nav>

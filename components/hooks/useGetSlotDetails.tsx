@@ -14,6 +14,7 @@ const useGetSlotDetailsWithSlug = (slug: string) => {
             alt,
             asset {
               _ref,
+         
               _type
             }
           },
@@ -27,7 +28,7 @@ const useGetSlotDetailsWithSlug = (slug: string) => {
           excerpt,
           publishedAt,
           "category": categories[0]->{_id,title},
-          author->{_ref, name},
+          author,
           guide->{_ref, name,slug},
           body
         }[0]
@@ -39,6 +40,39 @@ const useGetSlotDetailsWithSlug = (slug: string) => {
   })
 
   return slotDetails
+}
+
+const useGetRelatedSlotByAuthor = (authorId: any, slug: any) => {
+  const { data: relatedSlots } = useQuery({
+    queryKey: ["/me/slot/related/author", authorId, slug],
+    queryFn: async () => {
+      const query = `
+        *[_type == "slot" && author._ref == $authorId && references($authorId) && slug.current != $slug] {
+          ...,
+          title,
+          slug,
+          mainImage {
+            alt,
+            asset {
+              _ref,
+              _type
+            }
+          },
+          excerpt,
+          rating,
+          author,
+          "category": categories[0]->{_id,title},
+          publishedAt,
+          body 
+        }
+      `
+      const response = await client.fetch(query, { authorId, slug })
+      return response
+    },
+    keepPreviousData: true,
+  })
+
+  return relatedSlots
 }
 
 const useGetRelatedSlotByCategory = (slug: string, category: string) => {
@@ -62,7 +96,8 @@ const useGetRelatedSlotByCategory = (slug: string, category: string) => {
           
           "category": categories[0]->{_id,title},
           publishedAt,
-          author->{_ref, name},
+          "authors": author[]->{_ref, name},
+
           body
         }
       `
@@ -75,4 +110,8 @@ const useGetRelatedSlotByCategory = (slug: string, category: string) => {
   return relatedSlot
 }
 
-export { useGetSlotDetailsWithSlug, useGetRelatedSlotByCategory }
+export {
+  useGetSlotDetailsWithSlug,
+  useGetRelatedSlotByCategory,
+  useGetRelatedSlotByAuthor,
+}

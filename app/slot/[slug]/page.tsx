@@ -18,6 +18,7 @@ import BlockContent from "@sanity/block-content-to-react"
 import { Helmet } from "react-helmet"
 
 import {
+  useGetRelatedSlotByAuthor,
   useGetRelatedSlotByCategory,
   useGetSlotDetailsWithSlug,
 } from "@/components/hooks/useGetSlotDetails"
@@ -40,9 +41,16 @@ const BlogAndNewsDetailsPage = () => {
   }
   const slug = router?.slug
   const slotDetails = useGetSlotDetailsWithSlug(slug as string)
-  const category = slotDetails?.category?._id
+  // const category = slotDetails?.category?._id
+
+  const authorId = slotDetails?.author?._ref
+
+  const relatedPosts = useGetRelatedSlotByAuthor(authorId, slug as string)
+  console.log(slotDetails)
+  console.log(relatedPosts)
+
   // @ts-ignore
-  const relatedPosts = useGetRelatedSlotByCategory(slug as string, category)
+  // const relatedPosts = useGetRelatedSlotByCategory(slug as string, category)
 
   if (!slotDetails) {
     return null
@@ -101,8 +109,6 @@ const BlogAndNewsDetailsPage = () => {
     // @ts-ignore
     (card) => card.position === "rcard"
   )
-
-  console.log(slotDetails)
 
   return (
     <>
@@ -224,11 +230,11 @@ const BlogAndNewsDetailsPage = () => {
             </div>
           </article>
         </section>
-        <article className="grid grid-cols-1 lg:gap-4 lg:grid-cols-4 ">
+        <article className="grid grid-cols-1 lg:grid-cols-4 lg:gap-4 ">
           {/* related */}
           <article className="grid-cols-1 lg:col-span-3 ">
             <div className="my-4">
-              <div className=" flex-wrap gap-4 w-full flex  justify-center mt-4">
+              <div className=" mt-4 flex w-full flex-wrap  justify-center gap-4">
                 {belloCards?.slice(0, 3).map((card: any, key: number) => (
                   <article
                     key={key}
@@ -237,7 +243,7 @@ const BlogAndNewsDetailsPage = () => {
                     }}
                     className={`cardHoverEffect space-y-4 rounded-lg border border-gray-200  shadow-sm transition-transform duration-300 hover:scale-105`}
                   >
-                    <div className="flex items-center justify-center gap-4 p-4 text-white text-sm font-medium leading-2">
+                    <div className="leading-2 flex items-center justify-center gap-4 p-4 text-sm font-medium text-white">
                       <Image
                         width={64}
                         height={64}
@@ -252,7 +258,7 @@ const BlogAndNewsDetailsPage = () => {
                           <h3>Con Deposito</h3>
                           <p>{card?.withDeposit}</p>
                         </div>
-                        <ChevronRightIcon className="w-6 h-6 text-white" />
+                        <ChevronRightIcon className="h-6 w-6 text-white" />
                       </div>
                     </div>
                   </article>
@@ -274,7 +280,7 @@ const BlogAndNewsDetailsPage = () => {
             </h2>
             {relatedPosts && (
               <section className="col-span-4 flex w-full flex-col items-center  justify-center gap-4 p-0">
-                {relatedPosts.slice(0, 3).map((relatedPost: any) => (
+                {relatedPosts.slice(0, 4).map((relatedPost: any) => (
                   <Link
                     href={`/slot/${relatedPost.slug.current}`}
                     key={relatedPost.slug.current}
@@ -302,8 +308,11 @@ const BlogAndNewsDetailsPage = () => {
                         >
                           {formatDate(relatedPost.publishedAt)}
                         </time>
-                        <p className="relative z-10 rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100">
+                        {/* <p className="relative z-10 rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100">
                           {relatedPost?.category.title}
+                        </p> */}
+                        <p className="relative z-10 rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100">
+                          {relatedPost?.author?.name}
                         </p>
                       </div>
                       <p className="line-clamp-2 font-semibold leading-4 text-gray-900 group-hover:text-gray-600">
@@ -315,16 +324,16 @@ const BlogAndNewsDetailsPage = () => {
               </section>
             )}
 
-            <div className=" flex-wrap gap-4 w-full hidden md:flex  justify-center">
+            <div className=" hidden w-full flex-wrap justify-center gap-4  md:flex">
               {rightAlignedCards?.map((card: any, key: number) => (
                 <article
                   key={key}
                   style={{
                     backgroundColor: `${card.colors}`,
                   }}
-                  className={`cardHoverEffect bg-opacity-80 space-y-4 rounded-lg border border-gray-200  shadow-sm transition-transform duration-300 hover:scale-105`}
+                  className={`cardHoverEffect space-y-4 rounded-lg border border-gray-200 bg-opacity-80  shadow-sm transition-transform duration-300 hover:scale-105`}
                 >
-                  <div className="flex flex-col items-center justify-center gap-2 p-4 text-white text-sm font-medium leading-2">
+                  <div className="leading-2 flex flex-col items-center justify-center gap-2 p-4 text-sm font-medium text-white">
                     <Image
                       width={64}
                       height={64}
@@ -347,11 +356,11 @@ const BlogAndNewsDetailsPage = () => {
                           </div>
                         </li>
                       ))}
-                      <div className="grid grid-cols-2 gap-3 mt-3">
-                        <button className="bg-red-500 hover:bg-red-700 text-white px-4 py-1.5 rounded-lg">
+                      <div className="mt-3 grid grid-cols-2 gap-3">
+                        <button className="rounded-lg bg-red-500 px-4 py-1.5 text-white hover:bg-red-700">
                           VISITA IL SITO
                         </button>
-                        <button className="bg-red-500 hover:bg-red-700 text-white px-4 py-1.5 rounded-lg">
+                        <button className="rounded-lg bg-red-500 px-4 py-1.5 text-white hover:bg-red-700">
                           LEGGI LA GUIDA
                         </button>
                       </div>
