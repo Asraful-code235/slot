@@ -248,9 +248,9 @@ const SlotPage = (props: Props) => {
                 <div className="mt-8 flex justify-center">
                   <button
                     onClick={handleSeeMore}
-                    className="rounded-md bg-blue-500 px-4 py-2 font-semibold text-white hover:bg-blue-600"
+                    className="rounded-md bg-red-500 px-4 py-2 font-semibold text-white hover:bg-red-600"
                   >
-                    See More
+                    Mostra altre slot
                   </button>
                 </div>
               )}
