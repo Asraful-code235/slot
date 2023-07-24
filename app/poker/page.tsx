@@ -1,9 +1,19 @@
 "use client"
 
+import React from "react"
 import Image from "next/image"
+import Link from "next/link"
+import { urlForImage } from "@/sanity/lib/image"
+import {
+  ChatBubbleLeftIcon,
+  ChevronLeftIcon,
+  ChevronRightIcon,
+} from "@heroicons/react/24/outline"
 import { Helmet } from "react-helmet"
 
+import useCasino from "@/components/hooks/useCasino"
 import useMetadata from "@/components/hooks/useGetMetaData"
+import usePoker from "@/components/hooks/usePoker"
 
 type Props = {}
 
@@ -13,75 +23,164 @@ const PokerPage = (props: Props) => {
 
   const title = getHomeMeta?.title
   const desc = getHomeMeta?.desc
+
+  const itemsPerPage = 10
+  const {
+    posts,
+    currentPage,
+    totalPages,
+    goToPage,
+    nextPage,
+    prevPage,
+    isLoading,
+  } = usePoker(itemsPerPage)
+
+  const renderPageNumbers = () => {
+    const pageNumbers = []
+    for (let i = 1; i <= totalPages; i++) {
+      pageNumbers.push(
+        <button
+          key={i}
+          onClick={() => goToPage(i)}
+          className={` p-2 px-4 rounded-md hover:bg-gray-100 ${
+            currentPage === i ? "bg-gray-200 " : ""
+          }`}
+        >
+          {i}
+        </button>
+      )
+    }
+    return pageNumbers
+  }
   return (
-    <div>
+    <>
       <Helmet>
         <title>{title}</title>
         <meta name="description" content={`${desc}`} />
         <link rel="canonical" href={`https://slot-ndkk.vercel.app/poker`} />
       </Helmet>
-      <section className="mx-auto max-w-7xl">
-        <Image
-          src={"/images/poker.png"}
-          alt="poker"
-          width={1000}
-          height={600}
-          className="aspect-video w-full object-cover object-center"
-        />
+      <article className="mx-auto max-w-7xl px-4 py-8 md:py-16">
+        <section>
+          <nav className=" font-bold text-black" aria-label="Breadcrumb">
+            <ol className="inline-flex list-none truncate p-0 text-xs md:text-base ">
+              <li className="flex items-center">
+                <Link href="/">HOME</Link>
+                <svg
+                  className="mx-3 h-3 w-3 fill-current"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 320 512"
+                >
+                  <path d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z" />
+                </svg>
+              </li>
+              <li className="flex items-center">
+                <Link className="text-red-500" href="/casino">
+                  Poker
+                </Link>
+              </li>
+            </ol>
+          </nav>
+        </section>
+        <section className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-4 gap-4">
+          <div className="col-span-1 md:col-span-4 ">
+            {posts?.slice(0, 1).map((guide, key) => (
+              // @ts-ignore
 
-        <h1 className="my-4 text-2xl font-extrabold text-red-500 md:text-3xl">
-          Padronanza dell&apos;Arte del Poker: Strategie, Consigli e Altro
-        </h1>
-        <p className="text-base text-gray-600">
-          Benvenuti alla nostra guida completa su tutto ciò che riguarda il
-          poker! Che tu sia un professionista navigato o stia appena iniziando
-          il tuo viaggio nel mondo del poker, questa pagina è la tua risorsa di
-          riferimento per affinare le tue abilità, imparare nuove strategie e
-          rimanere aggiornato sulle ultime tendenze del gioco.
-        </p>
-        <article className="my-4 space-y-2">
-          <h2 className="text-xl font-bold text-red-500">
-            Introduzione al Poker
-          </h2>
-          <p>
-            In questa sezione, ti introdurremo al gioco del poker e ti forniremo
-            una breve panoramica sulla sua storia e le sue varianti. Dal
-            classico Texas Hold&apos;em a Omaha e Stud, esploreremo le regole
-            fondamentali e le meccaniche che costituiscono la base di questo
-            amato gioco di carte.
-          </p>
-        </article>
-        <article className="mb-4 space-y-2">
-          <h2 className="text-xl font-bold text-red-500">
-            Strategie Essenziali del Poker
-          </h2>
-          <p>
-            Diventare un giocatore di poker di successo richiede più che
-            fortuna; richiede strategia, analisi e la capacità di prendere
-            decisioni calcolate. In questa sezione, approfondiremo le strategie
-            essenziali del poker che ti aiuteranno a migliorare il tuo gioco e
-            aumentare le tue possibilità di vincere. Dall&apos;interpretazione
-            delle combinazioni di carte alla posizione al tavolo, fino al
-            maestoso arte del bluff, ti forniremo preziosi consigli e
-            suggerimenti da parte di professionisti esperti.
-          </p>
-        </article>
-        {/* <article className="mb-4 space-y-2">
-          <h2 className="text-xl font-bold text-red-500">
-            Tecniche e Tattiche Avanzate
-          </h2>
-          <p>
-            Una volta padroneggiato il base, e tempo di portare le tue abilità
-            nel poker al livello successivo. In questa sezione, esploreremo
-            tecniche e tattiche avanzate utilizzate dai giocatori esperti.
-            Scopri concetti matematici avanzati come le probabilità di vincita e
-            il valore atteso, studia gli aspetti psicologici come
-            l'interpretazione dei segnali degli avversari e scopri strategie per
-            il gioco dei tornei e il poker online.
-          </p>
-        </article> */}
-      </section>
-    </div>
+              <Link
+                href={`/poker/${guide.slug.current}`}
+                key={key}
+                className="space-y-4 p-4 "
+              >
+                <Image
+                  width={1000}
+                  height={250}
+                  // @ts-ignore
+                  src={urlForImage(guide?.mainImage).url()}
+                  alt={guide.title}
+                  className="mb-4 w-full aspect-[16/7] border border-transparent rounded-md object-cover object-center hover:opacity-70 hover:transition-opacity hover:duration-300"
+                />
+                <p className=" text-xl font-bold text-red-500">{guide.title}</p>
+                <p className="text-left font-medium text-gray-600">
+                  {guide.excerpt}{" "}
+                  <p
+                    className="font-bold text-sky-500
+                "
+                  >
+                    see more
+                  </p>
+                </p>
+              </Link>
+            ))}
+
+            <div className="mt-16 space-y-6 md:space-y-2">
+              {posts?.slice(1).map((guide, key) => (
+                <Link
+                  href={`/poker/${guide.slug.current}`}
+                  // @ts-ignore
+                  key={guide.slug + key}
+                  className="flex  border border-gray-200 rounded-md flex-col md:flex-row items-start gap-4 space-y-4"
+                >
+                  <Image
+                    width={400}
+                    height={250}
+                    // @ts-ignore
+                    src={urlForImage(guide?.mainImage).url()}
+                    alt={guide.title}
+                    className="w-full aspect-video md:h-[300px] md:w-[340px] md:max-w-[350px] flex-1 rounded-md object-cover object-center hover:opacity-70 hover:transition-opacity hover:duration-300"
+                  />
+                  <div className="flex flex-col gap-4">
+                    <p className="text-xl font-bold text-red-500">
+                      {guide.title}
+                    </p>
+                    <p className="line-clamp-3 text-left font-medium text-gray-600">
+                      {guide.excerpt}{" "}
+                    </p>
+                    <p
+                      className="-mt-2 font-bold text-sky-500
+                "
+                    >
+                      see more
+                    </p>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+          <div className="col-span-1 "></div>
+        </section>
+      </article>
+      {totalPages > 0 ? (
+        <div className="flex justify-center my-4 items-center gap-4">
+          <button
+            onClick={() => prevPage()}
+            disabled={currentPage === 1}
+            className={` p-2 rounded-full  ${
+              currentPage === 1 ? "bg-gray-50" : "bg-gray-200"
+            }`}
+          >
+            <ChevronLeftIcon
+              className={`w-5 h-5 ${
+                currentPage === 1 ? "text-gray-50" : "text-gray-600"
+              }`}
+            />
+          </button>
+          <div className="flex items-center gap-2">{renderPageNumbers()}</div>
+          <button
+            onClick={() => nextPage()}
+            disabled={currentPage === totalPages}
+            className={` p-2 rounded-full  ${
+              currentPage === totalPages ? "bg-gray-50" : "bg-gray-200"
+            }`}
+          >
+            <ChevronRightIcon
+              className={`w-5 h-5 ${
+                currentPage === totalPages ? "text-gray-50" : "text-gray-600"
+              }`}
+            />
+          </button>
+        </div>
+      ) : null}
+    </>
   )
 }
 

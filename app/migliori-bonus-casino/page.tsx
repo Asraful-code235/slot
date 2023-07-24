@@ -2,7 +2,7 @@
 
 import Image from "next/image"
 import { Helmet } from "react-helmet"
-
+ 
 import useMetadata from "@/components/hooks/useGetMetaData"
 
 export default function BonusPage() {

@@ -33,9 +33,6 @@ const GuideDetailsPage = () => {
 
   const relatedPosts = useGetRelatedGuideByAuthor(authorId, slug as string)
 
-  console.log(newsDetails)
-  console.log(relatedPosts)
-
   // @ts-ignore
   const centerCards = newsDetails?.Cards?.filter(
     // @ts-ignore

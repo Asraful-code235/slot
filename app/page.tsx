@@ -45,7 +45,7 @@ export default function IndexPage() {
                 <Image
                   alt="slider__image"
                   src={item.img}
-                  className=" w-full  object-cover h-full aspect-video md:aspect-[16/6]"
+                  className=" w-full  object-cover h-full aspect-video md:aspect-[16/5]"
                   width={1000}
                   height={800}
                   priority

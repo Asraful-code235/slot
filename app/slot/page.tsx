@@ -4,11 +4,17 @@ import { useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { urlForImage } from "@/sanity/lib/image"
+import {
+  ChevronRightIcon,
+  InformationCircleIcon,
+} from "@heroicons/react/24/outline"
+import { StarIcon } from "@heroicons/react/24/solid"
 // @ts-ignore
 import { Helmet } from "react-helmet"
 
 import useGetAllSlot from "@/components/hooks/useGetAllSlot"
 import useMetadata from "@/components/hooks/useGetMetaData"
+import useGetSlotCardsInSlotPage from "@/components/hooks/useGetSlotCardsInSlotPage"
 import { formatDate } from "@/components/utils/utils"
 
 type Props = {}
@@ -24,8 +30,6 @@ const SlotPage = (props: Props) => {
   const [searchQuery, setSearchQuery] = useState("")
   const [selectedCategory, setSelectedCategory] = useState("All")
   const [showAllCards, setShowAllCards] = useState(false)
-
-  if (isLoading) return "Loading..."
 
   const filteredSlots = AllSlot?.filter(
     (slot: any) =>
@@ -54,6 +58,31 @@ const SlotPage = (props: Props) => {
     new Set(AllSlot?.map((slot: any) => slot?.category[0].title))
   )
 
+  const { AllSlot: ShowCards } = useGetSlotCardsInSlotPage()
+
+  // @ts-ignore
+  const centerCards = ShowCards?.Cards?.filter(
+    // @ts-ignore
+
+    (card) => card.position === "center"
+  )
+
+  // Filter the cards with position "bcard"
+  // @ts-ignore
+  const belloCards = ShowCards?.Cards?.filter(
+    // @ts-ignore
+
+    (card) => card.position === "bcard"
+  )
+
+  // Filter the cards with position "rcard"
+  // @ts-ignore
+  const rightAlignedCards = ShowCards?.Cards?.filter(
+    // @ts-ignore
+    // @ts-ignore
+    (card) => card.position === "rcard"
+  )
+
   return (
     <>
       <Helmet>
@@ -76,7 +105,40 @@ const SlotPage = (props: Props) => {
             slot intuitiva di Slotify.
           </p>
         </section>
-        <section className="pt-24">
+        {/* cards section */}
+        <section>
+          <div className=" mt-4 flex w-full flex-wrap  justify-center gap-4">
+            {belloCards?.slice(0, 3).map((card: any, key: number) => (
+              <article
+                key={key}
+                style={{
+                  backgroundColor: `${card.colors}`,
+                }}
+                className={`cardHoverEffect space-y-4 rounded-lg border border-gray-200  shadow-sm transition-transform duration-300 hover:scale-105`}
+              >
+                <div className="leading-2 flex items-center justify-center gap-4 p-4 text-sm font-medium text-white">
+                  <Image
+                    width={64}
+                    height={64}
+                    src={urlForImage(card?.image?.asset).url()}
+                    alt="slot__cards"
+                    className="aspect-square w-16 rounded-full border border-transparent object-cover object-center"
+                  />
+                  <div className="flex items-center justify-center gap-1 text-xs font-normal text-white">
+                    <div className="flex flex-col gap-1 text-xs font-normal text-white">
+                      <h3>Senza Deposito</h3>
+                      <p>{card?.noDeposit}</p>
+                      <h3>Con Deposito</h3>
+                      <p>{card?.withDeposit}</p>
+                    </div>
+                    <ChevronRightIcon className="h-6 w-6 text-white" />
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+        <section className="">
           <form className="flex flex-col items-center justify-center gap-4 py-4 sm:flex-row">
             <div className="w-full">
               <label htmlFor="simple-search" className="sr-only">
@@ -134,52 +196,115 @@ const SlotPage = (props: Props) => {
             </div>
           </form>
 
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-            {visibleSlots?.map((slot: any) => (
-              <Link
-                href={`/slot/${slot.slug.current}`}
-                key={slot._id}
-                className="rounded-md border border-gray-200"
-              >
-                <Image
-                  width={340}
-                  height={250}
-                  src={urlForImage(slot?.mainImage).url()}
-                  alt={slot.title}
-                  className="aspect-square  rounded-md object-cover object-center hover:opacity-70 hover:transition-opacity hover:duration-300"
-                />
-                <div className="px-4 py-2">
-                  <div className="mt-4 flex items-center gap-x-4 text-xs">
-                    <time dateTime={slot.publishedAt} className="text-gray-500">
-                      {formatDate(slot.publishedAt)}
-                    </time>
-                    <p className="relative z-10 rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100">
-                      {slot?.category[0].title}
-                    </p>
-                  </div>
-                  <div className="space-y-2  text-base font-medium text-gray-600">
-                    <h3 className="mt-3 line-clamp-1 text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-600">
-                      {slot.title}
-                    </h3>
-                    <div className="line-clamp-2 text-sm leading-6 text-gray-600 md:line-clamp-3">
-                      {slot.excerpt}
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+            <div className="col-span-1 sm:col-span-2 md:col-span-3">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                {visibleSlots?.map((slot: any) => (
+                  <Link
+                    href={`/slot/${slot.slug.current}`}
+                    key={slot._id}
+                    className="rounded-md border border-gray-200 hover:scale-[1.02] hover:transition-all hover:duration-500"
+                  >
+                    <Image
+                      width={340}
+                      height={250}
+                      src={urlForImage(slot?.mainImage).url()}
+                      alt={slot.title}
+                      className="aspect-[10/7]  rounded-t-md object-cover object-center hover:opacity-70 hover:transition-opacity hover:duration-300"
+                    />
+                    <div className="px-4 py-2">
+                      <div className="mt-2 flex items-center gap-x-4 text-xs">
+                        <time
+                          dateTime={slot.publishedAt}
+                          className="text-gray-500"
+                        >
+                          {formatDate(slot.publishedAt)}
+                        </time>
+                        <p className="relative z-10 rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100">
+                          {slot?.category[0].title}
+                        </p>
+                      </div>
+                      <div className="space-y-2  text-base font-medium text-gray-600">
+                        <div className="flex items-center justify-between">
+                          <h3 className="mt-3 line-clamp-1 text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-600">
+                            {slot.title}
+                          </h3>
+                          <div className="flex items-center gap-1">
+                            {slot?.rating}
+                            <StarIcon className="h-5 w-5 text-orange-500" />
+                          </div>
+                        </div>
+                        {/* 
+                        <div className="line-clamp-2 text-sm leading-6 text-gray-600 md:line-clamp-3">
+                          {slot.excerpt}
+                        </div> */}
+                      </div>
                     </div>
-                  </div>
-                </div>
-              </Link>
-            ))}
-          </div>
+                  </Link>
+                ))}
+              </div>
 
-          {!showAllCards && (
-            <div className="mt-8 flex justify-center">
-              <button
-                onClick={handleSeeMore}
-                className="rounded-md bg-blue-500 px-4 py-2 font-semibold text-white hover:bg-blue-600"
-              >
-                See More
-              </button>
+              {!showAllCards && (
+                <div className="mt-8 flex justify-center">
+                  <button
+                    onClick={handleSeeMore}
+                    className="rounded-md bg-blue-500 px-4 py-2 font-semibold text-white hover:bg-blue-600"
+                  >
+                    See More
+                  </button>
+                </div>
+              )}
             </div>
-          )}
+            <section className="col-span-1">
+              <div className=" hidden w-full flex-wrap flex-col justify-center gap-4  md:flex">
+                {rightAlignedCards?.map((card: any, key: number) => (
+                  <article
+                    key={key}
+                    style={{
+                      backgroundColor: `${card.colors}`,
+                    }}
+                    className={`cardHoverEffect space-y-4 rounded-lg border border-gray-200 bg-opacity-80  shadow-sm transition-transform duration-300 hover:scale-105`}
+                  >
+                    <div className="leading-2 flex flex-col items-center justify-center gap-2 p-4 text-sm font-medium text-white">
+                      <Image
+                        width={64}
+                        height={64}
+                        src={urlForImage(card?.image?.asset).url()}
+                        alt="slot__cards"
+                        className="aspect-square w-16 rounded-full border border-transparent object-cover object-center"
+                      />
+                      <h3>Senza Deposito</h3>
+                      <p>{card?.noDeposit}</p>
+                      <h3>Con Deposito</h3>
+                      <p>{card?.withDeposit}</p>
+                    </div>
+                    <div className="cardHoverEffectActive bg-white p-6 text-sm text-gray-500  transition-opacity duration-300 ">
+                      <ul className="flex flex-col gap-2">
+                        {card?.list?.map((list: any, key: number) => (
+                          <li key={key} className="flex flex-col gap-3">
+                            <div className="flex gap-3">
+                              <InformationCircleIcon className="h-5 w-5 shrink-0 text-orange-500" />
+                              <span className="text-sm text-gray-600">
+                                {list}
+                              </span>
+                            </div>
+                          </li>
+                        ))}
+                        <div className="mt-3 grid grid-cols-2 gap-3">
+                          <button className="rounded-lg bg-red-500 px-4 py-1.5 text-white hover:bg-red-700">
+                            VISITA IL SITO
+                          </button>
+                          <button className="rounded-lg bg-red-500 px-4 py-1.5 text-white hover:bg-red-700">
+                            LEGGI LA GUIDA
+                          </button>
+                        </div>
+                      </ul>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </section>
+          </div>
         </section>
       </article>
     </>

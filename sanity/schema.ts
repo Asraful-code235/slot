@@ -7,6 +7,7 @@ import casino from "./schemas/casino"
 import category from "./schemas/category"
 import guide from "./schemas/guide"
 import landingPage from "./schemas/landingPage"
+import poker from "./schemas/poker"
 import post from "./schemas/post"
 import slot from "./schemas/slot"
 import slotCard from "./schemas/slotCard"
@@ -20,6 +21,7 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     category,
     blockContent,
     slot,
+    poker,
     guide,
     slotCard,
     casino,

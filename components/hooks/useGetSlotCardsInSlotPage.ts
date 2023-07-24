@@ -1,25 +1,25 @@
 import { client } from "@/sanity/lib/client"
 import { useQuery } from "@tanstack/react-query"
 
-const useGetAllSlot = () => {
+const useGetSlotCardsInSlotPage = () => {
   const {
     data: AllSlot,
     isLoading,
     isError,
   } = useQuery({
-    queryKey: ["/me/allSlot"],
+    queryKey: ["/me/allSlot/cards"],
     queryFn: async () => {
       const query = `
-        *[_type == "slot"]{
+        *[_type == "slotPageCards"]{
             ...,
             Cards[]->{
               ...
-            },
-            "category": categories[]->{_id,title},
+            }
+           
         }
       `
       const response = await client.fetch(query)
-      return response
+      return response[0]
     },
     keepPreviousData: true,
   })
@@ -27,4 +27,4 @@ const useGetAllSlot = () => {
   return { AllSlot, isLoading, isError }
 }
 
-export default useGetAllSlot
+export default useGetSlotCardsInSlotPage

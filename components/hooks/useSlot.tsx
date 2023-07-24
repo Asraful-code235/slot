@@ -10,6 +10,9 @@ const useSlot = () => {
           ...,
           position,
           rating,
+          Cards[]->{
+            ...
+          },
           "category": categories[0]->{_id,title},
         } 
       `

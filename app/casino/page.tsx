@@ -179,7 +179,6 @@ const CasinoPage = (props: Props) => {
           </button>
         </div>
       ) : null}
-      {isLoading && <div>Loading...</div>}
     </>
   )
 }
