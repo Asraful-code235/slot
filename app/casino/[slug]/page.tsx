@@ -4,6 +4,10 @@ import Image from "next/image"
 import Link from "next/link"
 import { useParams } from "next/navigation"
 import { urlForImage } from "@/sanity/lib/image"
+import {
+  ChevronRightIcon,
+  InformationCircleIcon,
+} from "@heroicons/react/24/outline"
 // @ts-ignore
 import BlockContent from "@sanity/block-content-to-react"
 // @ts-ignore
@@ -31,7 +35,29 @@ const CasinoDetailsPage = () => {
     return null
   }
 
-  console.log(newsDetails)
+  // @ts-ignore
+  const centerCards = newsDetails?.Cards?.filter(
+    // @ts-ignore
+
+    (card) => card.position === "center"
+  )
+
+  // Filter the cards with position "bcard"
+  // @ts-ignore
+
+  const belloCards = newsDetails?.Cards?.filter(
+    // @ts-ignore
+
+    (card) => card.position === "bcard"
+  )
+
+  // Filter the cards with position "rcard"
+  // @ts-ignore
+
+  const rightAlignedCards = newsDetails?.Cards?.filter(
+    // @ts-ignore
+    (card) => card.position === "rcard"
+  )
   return (
     <>
       <Helmet>
@@ -104,6 +130,36 @@ const CasinoDetailsPage = () => {
                 </p>
               </div>
             </article>
+            <div className=" mt-4 flex w-full flex-wrap  justify-center gap-4">
+              {belloCards?.slice(0, 3).map((card: any, key: number) => (
+                <article
+                  key={key}
+                  style={{
+                    backgroundColor: `${card.colors}`,
+                  }}
+                  className={`cardHoverEffect space-y-4 rounded-lg border border-gray-200  shadow-sm transition-transform duration-300 hover:scale-105`}
+                >
+                  <div className="leading-2 flex items-center justify-center gap-4 p-4 text-sm font-medium text-white">
+                    <Image
+                      width={64}
+                      height={64}
+                      src={urlForImage(card?.image?.asset).url()}
+                      alt="slot__cards"
+                      className="aspect-square w-16 rounded-full border border-transparent object-cover object-center"
+                    />
+                    <div className="flex items-center justify-center gap-1 text-xs font-normal text-white">
+                      <div className="flex flex-col gap-1 text-xs font-normal text-white">
+                        <h3>Senza Deposito</h3>
+                        <p>{card?.noDeposit}</p>
+                        <h3>Con Deposito</h3>
+                        <p>{card?.withDeposit}</p>
+                      </div>
+                      <ChevronRightIcon className="h-6 w-6 text-white" />
+                    </div>
+                  </div>
+                </article>
+              ))}
+            </div>
             <BlockContent
               blocks={newsDetails?.body}
               imageOptions={{ w: 320, h: 240, fit: "max" }}
@@ -112,6 +168,51 @@ const CasinoDetailsPage = () => {
             />
           </section>
 
+          <div className=" hidden w-full flex-wrap justify-center gap-4  md:flex">
+            {rightAlignedCards?.map((card: any, key: number) => (
+              <article
+                key={key}
+                style={{
+                  backgroundColor: `${card.colors}`,
+                }}
+                className={`cardHoverEffect space-y-4 rounded-lg border border-gray-200 bg-opacity-80  shadow-sm transition-transform duration-300 hover:scale-105`}
+              >
+                <div className="leading-2 flex flex-col items-center justify-center gap-2 p-4 text-sm font-medium text-white">
+                  <Image
+                    width={64}
+                    height={64}
+                    src={urlForImage(card?.image?.asset).url()}
+                    alt="slot__cards"
+                    className="aspect-square w-16 rounded-full border border-transparent object-cover object-center"
+                  />
+                  <h3>Senza Deposito</h3>
+                  <p>{card?.noDeposit}</p>
+                  <h3>Con Deposito</h3>
+                  <p>{card?.withDeposit}</p>
+                </div>
+                <div className="cardHoverEffectActive bg-white p-6 text-sm text-gray-500  transition-opacity duration-300 ">
+                  <ul className="flex flex-col gap-2">
+                    {card?.list?.map((list: any, key: number) => (
+                      <li key={key} className="flex flex-col gap-3">
+                        <div className="flex gap-3">
+                          <InformationCircleIcon className="h-5 w-5 shrink-0 text-orange-500" />
+                          <span>{list}</span>
+                        </div>
+                      </li>
+                    ))}
+                    <div className="mt-3 grid grid-cols-2 gap-3">
+                      <button className="rounded-lg bg-red-500 px-4 py-1.5 text-white hover:bg-red-700">
+                        VISITA IL SITO
+                      </button>
+                      <button className="rounded-lg bg-red-500 px-4 py-1.5 text-white hover:bg-red-700">
+                        LEGGI LA GUIDA
+                      </button>
+                    </div>
+                  </ul>
+                </div>
+              </article>
+            ))}
+          </div>
           {/* related */}
           {/* <section className="col-span-4 w-full md:col-span-1">
             <h2 className="my-4 text-lg font-semibold text-gray-600 md:mt-2 ">

@@ -25,6 +25,12 @@ export default defineType({
       type: "string",
     }),
     defineField({
+      name: "Cards",
+      title: "Cards",
+      type: "array",
+      of: [{ type: "reference", to: { type: "slotCard" } }],
+    }),
+    defineField({
       name: "badges",
       title: "Featured Post (Select Two)",
       type: "array",

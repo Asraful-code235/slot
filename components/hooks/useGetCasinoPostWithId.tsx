@@ -40,6 +40,9 @@ const useGetCasinoPostWithId = (slug: string): Casino | undefined => {
               _type
             }
           },
+          Cards[]->{
+            ...
+          },
           excerpt,
           publishedAt,
           "category": categories[0]->{_id,title},

@@ -102,6 +102,36 @@ const BlogAndNewsDetailsPage = () => {
             </li>
           </ol>
         </nav>
+        <div className=" mt-4 flex w-full flex-wrap  justify-center gap-4">
+          {belloCards?.slice(0, 3).map((card: any, key: number) => (
+            <article
+              key={key}
+              style={{
+                backgroundColor: `${card.colors}`,
+              }}
+              className={`cardHoverEffect space-y-4 rounded-lg border border-gray-200  shadow-sm transition-transform duration-300 hover:scale-105`}
+            >
+              <div className="leading-2 flex items-center justify-center gap-4 p-4 text-sm font-medium text-white">
+                <Image
+                  width={64}
+                  height={64}
+                  src={urlForImage(card?.image?.asset).url()}
+                  alt="slot__cards"
+                  className="aspect-square w-16 rounded-full border border-transparent object-cover object-center"
+                />
+                <div className="flex items-center justify-center gap-1 text-xs font-normal text-white">
+                  <div className="flex flex-col gap-1 text-xs font-normal text-white">
+                    <h3>Senza Deposito</h3>
+                    <p>{card?.noDeposit}</p>
+                    <h3>Con Deposito</h3>
+                    <p>{card?.withDeposit}</p>
+                  </div>
+                  <ChevronRightIcon className="h-6 w-6 text-white" />
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
         <article className="grid grid-cols-1 gap-4 md:grid-cols-4">
           <section className="col-span-4 flex flex-col gap-4 md:col-span-3 ">
             <article className="space-y-4 text-justify tracking-tight text-gray-600">

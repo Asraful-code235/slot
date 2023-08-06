@@ -8,11 +8,13 @@ import {
   ChatBubbleLeftIcon,
   ChevronLeftIcon,
   ChevronRightIcon,
+  InformationCircleIcon,
 } from "@heroicons/react/24/outline"
 import { Helmet } from "react-helmet"
 
 import useCasino from "@/components/hooks/useCasino"
 import useMetadata from "@/components/hooks/useGetMetaData"
+import useGetSlotCardsInSlotPage from "@/components/hooks/useGetSlotCardsInSlotPage"
 
 type Props = {}
 
@@ -51,6 +53,32 @@ const CasinoPage = (props: Props) => {
     }
     return pageNumbers
   }
+
+  const { AllSlot: ShowCards } = useGetSlotCardsInSlotPage()
+
+  // @ts-ignore
+  const centerCards = ShowCards?.Cards?.filter(
+    // @ts-ignore
+
+    (card) => card.position === "center"
+  )
+
+  // Filter the cards with position "bcard"
+  // @ts-ignore
+  const belloCards = ShowCards?.Cards?.filter(
+    // @ts-ignore
+
+    (card) => card.position === "bcard"
+  )
+
+  // Filter the cards with position "rcard"
+  // @ts-ignore
+  const rightAlignedCards = ShowCards?.Cards?.filter(
+    // @ts-ignore
+    // @ts-ignore
+    (card) => card.position === "rcard"
+  )
+
   return (
     <>
       <Helmet>
@@ -80,8 +108,38 @@ const CasinoPage = (props: Props) => {
             </ol>
           </nav>
         </section>
-        <section className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-4 gap-4">
-          <div className="col-span-1 md:col-span-4 ">
+        <div className=" mt-4 flex w-full flex-wrap  justify-center gap-4">
+          {belloCards?.slice(0, 3).map((card: any, key: number) => (
+            <article
+              key={key}
+              style={{
+                backgroundColor: `${card.colors}`,
+              }}
+              className={`cardHoverEffect space-y-4 rounded-lg border border-gray-200  shadow-sm transition-transform duration-300 hover:scale-105`}
+            >
+              <div className="leading-2 flex items-center justify-center gap-4 p-4 text-sm font-medium text-white">
+                <Image
+                  width={64}
+                  height={64}
+                  src={urlForImage(card?.image?.asset).url()}
+                  alt="slot__cards"
+                  className="aspect-square w-16 rounded-full border border-transparent object-cover object-center"
+                />
+                <div className="flex items-center justify-center gap-1 text-xs font-normal text-white">
+                  <div className="flex flex-col gap-1 text-xs font-normal text-white">
+                    <h3>Senza Deposito</h3>
+                    <p>{card?.noDeposit}</p>
+                    <h3>Con Deposito</h3>
+                    <p>{card?.withDeposit}</p>
+                  </div>
+                  <ChevronRightIcon className="h-6 w-6 text-white" />
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+        <section className=" grid grid-cols-1 gap-4 md:grid-cols-4 gap-4">
+          <div className="col-span-1 md:col-span-3 ">
             {posts?.slice(0, 1).map((guide, key) => (
               // @ts-ignore
 
@@ -145,7 +203,58 @@ const CasinoPage = (props: Props) => {
               ))}
             </div>
           </div>
-          <div className="col-span-1 "></div>
+          <section className="col-span-1 mt-6 space-y-4">
+            <h3 className="text-3xl font-extrabold text-red-500 ">
+              Comparazione offerte di siti legali:
+            </h3>
+            <div className=" hidden w-full flex-wrap flex-col justify-center gap-4  md:flex">
+              {rightAlignedCards?.map((card: any, key: number) => (
+                <article
+                  key={key}
+                  style={{
+                    backgroundColor: `${card.colors}`,
+                  }}
+                  className={`cardHoverEffect space-y-4 rounded-lg border border-gray-200 bg-opacity-80  shadow-sm transition-transform duration-300 hover:scale-105`}
+                >
+                  <div className="leading-2 flex flex-col items-center justify-center gap-2 p-4 text-sm font-medium text-white">
+                    <Image
+                      width={64}
+                      height={64}
+                      src={urlForImage(card?.image?.asset).url()}
+                      alt="slot__cards"
+                      className="aspect-square w-16 rounded-full border border-transparent object-cover object-center"
+                    />
+                    <h3>Senza Deposito</h3>
+                    <p>{card?.noDeposit}</p>
+                    <h3>Con Deposito</h3>
+                    <p>{card?.withDeposit}</p>
+                  </div>
+                  <div className="cardHoverEffectActive bg-white p-6 text-sm text-gray-500  transition-opacity duration-300 ">
+                    <ul className="flex flex-col gap-2">
+                      {card?.list?.map((list: any, key: number) => (
+                        <li key={key} className="flex flex-col gap-3">
+                          <div className="flex gap-3">
+                            <InformationCircleIcon className="h-5 w-5 shrink-0 text-orange-500" />
+                            <span className="text-sm text-gray-600">
+                              {list}
+                            </span>
+                          </div>
+                        </li>
+                      ))}
+                      <div className="mt-3 grid grid-cols-2 gap-3">
+                        <button className="rounded-lg bg-red-500 px-4 py-1.5 text-white hover:bg-red-700">
+                          VISITA IL SITO
+                        </button>
+                        <button className="rounded-lg bg-red-500 px-4 py-1.5 text-white hover:bg-red-700">
+                          LEGGI LA GUIDA
+                        </button>
+                      </div>
+                    </ul>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </section>
         </section>
       </article>
       {totalPages > 0 ? (
