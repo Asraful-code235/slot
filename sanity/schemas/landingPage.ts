@@ -13,6 +13,7 @@ export default defineType({
         list: [
           { title: "Home ", value: "/" },
           { title: "Slot", value: "/slot" },
+          { title: "Sport", value: "/sport" },
           { title: "Casino", value: "/casino" },
           { title: "Bonus Di Benvenuto", value: "/migliori-bonus-casino" },
           { title: "Poker", value: "/poker" },

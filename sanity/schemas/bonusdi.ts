@@ -29,6 +29,12 @@ export default defineType({
       type: "array",
       of: [{ type: "reference", to: { type: "slotCard" } }],
     }),
+    defineField({
+      name: "lists",
+      title: "I migliori bonus di benvenuto",
+      type: "array",
+      of: [{ type: "reference", to: { type: "lists" } }],
+    }),
 
     defineField({
       name: "body1",

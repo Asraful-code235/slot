@@ -89,6 +89,12 @@ export async function GET(request: Request) {
         // changefreq
         // priority
       },
+      {
+        loc: "https://slot-ndkk.vercel.app/sport",
+        lastmod: new Date().toISOString(),
+        // changefreq
+        // priority
+      },
       // {
       //   loc: "https://slot-ndkk.vercel.app/live-statistics",
       //   lastmod: new Date().toISOString(),

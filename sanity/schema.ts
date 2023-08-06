@@ -7,6 +7,7 @@ import casino from "./schemas/casino"
 import category from "./schemas/category"
 import guide from "./schemas/guide"
 import landingPage from "./schemas/landingPage"
+import listBonuses from "./schemas/listBonuses"
 import poker from "./schemas/poker"
 import post from "./schemas/post"
 import slot from "./schemas/slot"
@@ -31,5 +32,6 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     landingPage,
     slotPageCards,
     bonusdi,
+    listBonuses,
   ],
 }
