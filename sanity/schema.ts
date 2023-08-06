@@ -13,6 +13,7 @@ import slot from "./schemas/slot"
 import slotCard from "./schemas/slotCard"
 import slotPageCards from "./schemas/slotPageCards"
 import sorthomeSlots from "./schemas/sorthomeSlots"
+import sport from "./schemas/sport"
 
 export const schema: { types: SchemaTypeDefinition[] } = {
   types: [
@@ -21,6 +22,7 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     category,
     blockContent,
     slot,
+    sport,
     poker,
     guide,
     slotCard,
