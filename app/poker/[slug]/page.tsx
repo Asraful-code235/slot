@@ -118,7 +118,7 @@ const CasinoDetailsPage = () => {
                 width={700}
                 height={600}
                 className="aspect-[16/7] w-full rounded-md object-cover object-center"
-                alt={newsDetails?.mainImage?.alt || "blog-and-news-details"}
+                alt={newsDetails?.mainImage?.alt || "blog-e-notizie-post-img"}
               />
               <div className="mt-4 flex items-center gap-x-4 text-xs">
                 <time
@@ -149,7 +149,7 @@ const CasinoDetailsPage = () => {
                       width={64}
                       height={64}
                       src={urlForImage(card?.image?.asset).url()}
-                      alt="slot__cards"
+                      alt={card?.image?.alt || "slot__cards"}
                       className="aspect-square w-16 rounded-full border border-transparent object-cover object-center"
                     />
                     <div className="flex items-center justify-center gap-1 text-xs font-normal text-white">

@@ -182,7 +182,7 @@ const BlogAndNewsDetailsPage = () => {
                           width={64}
                           height={64}
                           src={urlForImage(card?.image?.asset).url()}
-                          alt="slot__cards"
+                          alt={card?.image?.alt || "slot__cards"}
                           className="aspect-square w-16 rounded-full border border-transparent object-cover object-center"
                         />
                         <div className="flex items-center justify-center gap-1 text-xs font-normal text-white">
@@ -274,7 +274,7 @@ const BlogAndNewsDetailsPage = () => {
                       width={64}
                       height={64}
                       src={urlForImage(card?.image?.asset).url()}
-                      alt="slot__cards"
+                      alt={card?.image?.alt || "slot__cards"}
                       className="aspect-square w-16 rounded-full border border-transparent object-cover object-center"
                     />
                     <h3>Senza Deposito</h3>

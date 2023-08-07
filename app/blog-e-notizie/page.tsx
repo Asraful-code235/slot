@@ -127,7 +127,7 @@ const BlogAndNewsPage = (props: Props) => {
                   width={64}
                   height={64}
                   src={urlForImage(card?.image?.asset).url()}
-                  alt="slot__cards"
+                  alt={card?.image?.alt || "slot__cards"}
                   className="aspect-square w-16 rounded-full border border-transparent object-cover object-center"
                 />
                 <div className="flex items-center justify-center gap-1 text-xs font-normal text-white">
@@ -160,7 +160,7 @@ const BlogAndNewsPage = (props: Props) => {
                   height={250}
                   // @ts-ignore
                   src={urlForImage(guide?.mainImage).url()}
-                  alt={guide.title}
+                  alt={guide?.mainImage?.alt || guide.title}
                   className="mb-4 aspect-[16/7] w-full rounded-md border border-transparent object-cover object-center hover:opacity-70 hover:transition-opacity hover:duration-300"
                 />
                 <p className=" text-xl font-bold text-red-500">{guide.title}</p>
@@ -189,7 +189,7 @@ const BlogAndNewsPage = (props: Props) => {
                     height={250}
                     // @ts-ignore
                     src={urlForImage(guide?.mainImage).url()}
-                    alt={guide.title}
+                    alt={guide?.mainImage?.alt || guide.title}
                     className="aspect-video w-full flex-1 rounded-md object-cover object-center hover:opacity-70 hover:transition-opacity hover:duration-300 md:h-[300px] md:w-[340px] md:max-w-[350px]"
                   />
                   <div className="flex flex-col gap-4">
@@ -228,7 +228,7 @@ const BlogAndNewsPage = (props: Props) => {
                       width={64}
                       height={64}
                       src={urlForImage(card?.image?.asset).url()}
-                      alt="slot__cards"
+                      alt={card?.image?.alt || "slot__cards"}
                       className="aspect-square w-16 rounded-full border border-transparent object-cover object-center"
                     />
                     <h3>Senza Deposito</h3>

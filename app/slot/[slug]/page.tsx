@@ -177,7 +177,7 @@ const BlogAndNewsDetailsPage = () => {
                   <div className="relative  !rounded-md">
                     <Image
                       src={urlForImage(slotDetails?.mainImage?.asset).url()}
-                      alt={slotDetails.title}
+                      alt={slotDetails?.mainImage?.alt || slotDetails.title}
                       width={300}
                       height={400}
                       className="aspect-video  w-full rounded-md object-cover  object-center"
@@ -246,7 +246,7 @@ const BlogAndNewsDetailsPage = () => {
                         width={64}
                         height={64}
                         src={urlForImage(card?.image?.asset).url()}
-                        alt="slot__cards"
+                        alt={card?.image?.alt || "slot__cards"}
                         className="aspect-square w-16 rounded-full border border-transparent object-cover object-center"
                       />
                       <div className="flex items-center justify-center gap-1 text-xs font-normal text-white">
@@ -257,8 +257,8 @@ const BlogAndNewsDetailsPage = () => {
                           <p>{card?.withDeposit}</p>
                         </div>
                         <a href={`${card.link}`}>
-                      <ChevronRightIcon className="h-6 w-6 text-white" />
-                    </a>
+                          <ChevronRightIcon className="h-6 w-6 text-white" />
+                        </a>
                       </div>
                     </div>
                   </article>
@@ -296,7 +296,7 @@ const BlogAndNewsDetailsPage = () => {
                       height={250}
                       className=" aspect-video rounded-md object-cover object-center "
                       alt={
-                        relatedPost?.mainImage.alt || "blog-and-news-details"
+                        relatedPost?.mainImage?.alt || "blog-and-news-details"
                       }
                     />
 
@@ -338,7 +338,7 @@ const BlogAndNewsDetailsPage = () => {
                       width={64}
                       height={64}
                       src={urlForImage(card?.image?.asset).url()}
-                      alt="slot__cards"
+                      alt={card?.image?.alt || "slot__cards"}
                       className="aspect-square w-16 rounded-full border border-transparent object-cover object-center"
                     />
                     <h3>Senza Deposito</h3>
@@ -358,7 +358,7 @@ const BlogAndNewsDetailsPage = () => {
                       ))}
                       <div className="mt-3 grid grid-cols-2 gap-3">
                         <button className="rounded-lg bg-red-500 px-4 py-1.5 text-white hover:bg-red-700">
-                        <a href={`${card.link}`}>VISITA IL SITO</a>
+                          <a href={`${card.link}`}>VISITA IL SITO</a>
                         </button>
                         <button className="rounded-lg bg-red-500 px-4 py-1.5 text-white hover:bg-red-700">
                           LEGGI LA GUIDA

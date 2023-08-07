@@ -120,7 +120,7 @@ export default function BonusPage() {
                     width={64}
                     height={64}
                     src={urlForImage(card?.image?.asset).url()}
-                    alt="slot__cards"
+                    alt={card?.image?.alt || "slot__cards"}
                     className="aspect-square w-16 rounded-full border border-transparent object-cover object-center"
                   />
                   <h3>Senza Deposito</h3>
@@ -189,7 +189,7 @@ export default function BonusPage() {
                               src={urlForImage(brand?.image?.asset).url()}
                               width={56}
                               height={56}
-                              alt=""
+                              alt={brand?.image?.alt || "bonus-img"}
                             />
                           ) : (
                             <img

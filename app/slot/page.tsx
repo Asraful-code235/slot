@@ -121,7 +121,7 @@ const SlotPage = (props: Props) => {
                     width={64}
                     height={64}
                     src={urlForImage(card?.image?.asset).url()}
-                    alt="slot__cards"
+                    alt={card?.image?.alt || "card__image"}
                     className="aspect-square w-16 rounded-full border border-transparent object-cover object-center"
                   />
                   <div className="flex items-center justify-center gap-1 text-xs font-normal text-white">
@@ -211,7 +211,7 @@ const SlotPage = (props: Props) => {
                       width={340}
                       height={250}
                       src={urlForImage(slot?.mainImage).url()}
-                      alt={slot.title}
+                      alt={slot?.mainImage?.alt || slot.title}
                       className="aspect-[10/7]  rounded-t-md object-cover object-center hover:opacity-70 hover:transition-opacity hover:duration-300"
                     />
                     <div className="px-4 py-2">
@@ -272,7 +272,7 @@ const SlotPage = (props: Props) => {
                         width={64}
                         height={64}
                         src={urlForImage(card?.image?.asset).url()}
-                        alt="slot__cards"
+                        alt={card?.image?.alt || card.title}
                         className="aspect-square w-16 rounded-full border border-transparent object-cover object-center"
                       />
                       <h3>Senza Deposito</h3>
