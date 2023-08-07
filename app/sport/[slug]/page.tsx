@@ -163,7 +163,9 @@ const SportsDetailsPage = () => {
                         <h3>Con Deposito</h3>
                         <p>{card?.withDeposit}</p>
                       </div>
-                      <ChevronRightIcon className="h-6 w-6 text-white" />
+                      <a href={`${card.link}`}>
+                        <ChevronRightIcon className="h-6 w-6 text-white" />
+                      </a>
                     </div>
                   </div>
                 </article>
@@ -259,7 +261,7 @@ const SportsDetailsPage = () => {
                       ))}
                       <div className="mt-3 grid grid-cols-2 gap-3">
                         <button className="rounded-lg bg-red-500 px-4 py-1.5 text-white hover:bg-red-700">
-                          VISITA IL SITO
+                          <a href={`${card.link}`}>VISITA IL SITO</a>
                         </button>
                         <button className="rounded-lg bg-red-500 px-4 py-1.5 text-white hover:bg-red-700">
                           LEGGI LA GUIDA

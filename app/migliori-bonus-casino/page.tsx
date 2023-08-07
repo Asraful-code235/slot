@@ -140,7 +140,7 @@ export default function BonusPage() {
                     ))}
                     <div className="mt-3 grid grid-cols-2 gap-3">
                       <button className="rounded-lg bg-red-500 px-4 py-1.5 text-white hover:bg-red-700">
-                        VISITA IL SITO
+                        <a href={`${card.link}`}>VISITA IL SITO</a>
                       </button>
                       <button className="rounded-lg bg-red-500 px-4 py-1.5 text-white hover:bg-red-700">
                         LEGGI LA GUIDA

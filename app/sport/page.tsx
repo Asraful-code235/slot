@@ -133,7 +133,10 @@ const SportPage = (props: Props) => {
                     <h3>Con Deposito</h3>
                     <p>{card?.withDeposit}</p>
                   </div>
-                  <ChevronRightIcon className="h-6 w-6 text-white" />
+
+                  <a href={`${card.link}`}>
+                    <ChevronRightIcon className="h-6 w-6 text-white" />
+                  </a>
                 </div>
               </div>
             </article>
@@ -154,7 +157,7 @@ const SportPage = (props: Props) => {
                   height={250}
                   // @ts-ignore
                   src={urlForImage(guide?.mainImage).url()}
-                  alt={guide.title}
+                  alt={guide?.mainImage?.alt || guide.title}
                   className="mb-4 w-full aspect-[16/7] border border-transparent rounded-md object-cover object-center hover:opacity-70 hover:transition-opacity hover:duration-300"
                 />
                 <p className=" text-xl font-bold text-red-500">{guide.title}</p>
@@ -183,7 +186,7 @@ const SportPage = (props: Props) => {
                     height={250}
                     // @ts-ignore
                     src={urlForImage(guide?.mainImage).url()}
-                    alt={guide.title}
+                    alt={guide?.mainImage?.alt || guide.title}
                     className="w-full aspect-video md:h-[300px] md:w-[340px] md:max-w-[350px] flex-1 rounded-md object-cover object-center hover:opacity-70 hover:transition-opacity hover:duration-300"
                   />
                   <div className="flex flex-col gap-4">
@@ -221,8 +224,8 @@ const SportPage = (props: Props) => {
                     <Image
                       width={64}
                       height={64}
+                      alt={card?.image?.alt || card.title}
                       src={urlForImage(card?.image?.asset).url()}
-                      alt="slot__cards"
                       className="aspect-square w-16 rounded-full border border-transparent object-cover object-center"
                     />
                     <h3>Senza Deposito</h3>
@@ -244,7 +247,7 @@ const SportPage = (props: Props) => {
                       ))}
                       <div className="mt-3 grid grid-cols-2 gap-3">
                         <button className="rounded-lg bg-red-500 px-4 py-1.5 text-white hover:bg-red-700">
-                          VISITA IL SITO
+                          <a href={`${card.link}`}>VISITA IL SITO</a>
                         </button>
                         <button className="rounded-lg bg-red-500 px-4 py-1.5 text-white hover:bg-red-700">
                           LEGGI LA GUIDA

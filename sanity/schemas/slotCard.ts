@@ -87,6 +87,11 @@ export default defineType({
       },
     }),
     defineField({
+      name: "link",
+      title: "Website Redirect Link",
+      type: "string",
+    }),
+    defineField({
       name: "list",
       title: "Description List",
       type: "array",

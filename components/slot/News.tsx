@@ -104,7 +104,7 @@ const News = () => {
               <Image
                 // @ts-ignore
                 src={urlForImage(post?.mainImage).url()}
-                alt={post.title}
+                alt={post?.mainImage?.alt || post.title}
                 width={640}
                 height={300}
                 className="aspect-video w-full rounded-t-md object-cover object-center hover:opacity-75 hover:transition-opacity hover:duration-300"

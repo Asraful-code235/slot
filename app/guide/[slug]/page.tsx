@@ -131,7 +131,7 @@ const GuideDetailsPage = () => {
               </div>
             </article>
             <article className="grid-cols-1 lg:col-span-3 ">
-              <div className="my-4">
+              {/* <div className="my-4">
                 <div className=" mt-4 flex w-full flex-wrap  justify-center gap-4">
                   {belloCards?.slice(0, 3).map((card: any, key: number) => (
                     <article
@@ -156,13 +156,15 @@ const GuideDetailsPage = () => {
                             <h3>Con Deposito</h3>
                             <p>{card?.withDeposit}</p>
                           </div>
-                          <ChevronRightIcon className="h-6 w-6 text-white" />
+                          <a href={`${card.link}`}>
+                            <ChevronRightIcon className="h-6 w-6 text-white" />
+                          </a>
                         </div>
                       </div>
                     </article>
                   ))}
                 </div>
-              </div>
+              </div> */}
               <div className=" mt-4 flex w-full flex-wrap  justify-center gap-4">
                 {belloCards?.slice(0, 3).map((card: any, key: number) => (
                   <article
@@ -187,7 +189,9 @@ const GuideDetailsPage = () => {
                           <h3>Con Deposito</h3>
                           <p>{card?.withDeposit}</p>
                         </div>
-                        <ChevronRightIcon className="h-6 w-6 text-white" />
+                        <a href={`${card.link}`}>
+                          <ChevronRightIcon className="h-6 w-6 text-white" />
+                        </a>
                       </div>
                     </div>
                   </article>
@@ -288,7 +292,7 @@ const GuideDetailsPage = () => {
                       ))}
                       <div className="mt-3 grid grid-cols-2 gap-3">
                         <button className="rounded-lg bg-red-500 px-4 py-1.5 text-white hover:bg-red-700">
-                          VISITA IL SITO
+                          <a href={`${card.link}`}>VISITA IL SITO</a>
                         </button>
                         <button className="rounded-lg bg-red-500 px-4 py-1.5 text-white hover:bg-red-700">
                           LEGGI LA GUIDA

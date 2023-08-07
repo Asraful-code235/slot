@@ -61,6 +61,8 @@ const NewSlotMachines = (props: Props) => {
 
   const sortedslots = useSortedSlots()
 
+  console.log(sortedslots)
+
   return (
     <div className="mx-auto  flex max-w-6xl flex-col items-center justify-center gap-8">
       <div className="space-y-2 text-center text-gray-600">
@@ -81,7 +83,7 @@ const NewSlotMachines = (props: Props) => {
                 width={288}
                 height={358}
                 src={urlForImage(slot?.mainImage).url()}
-                alt={slot.title}
+                alt={slot?.mainImage?.alt || "Slot__game_img"}
                 className="aspect-square h-[228px] w-full rounded-md object-center object-cover"
               />
               <div className="py-2 text-left text-lg font-medium text-gray-600 ">

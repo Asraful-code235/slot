@@ -117,7 +117,7 @@ const ThemeSection = (props: Props) => {
                   width={288}
                   height={358}
                   src={urlForImage(slotMachine?.mainImage).url()}
-                  alt={slotMachine.title}
+                  alt={slotMachine?.mainImage?.alt || slotMachine.title}
                   className="aspect-square h-[258px] w-full rounded-md object-center object-cover"
                 />
                 <div className="py-2 text-left text-lg font-medium text-gray-600 ">
